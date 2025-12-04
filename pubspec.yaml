@@ -1,0 +1,109 @@
+name: nexus_app
+description: "Nexus - Tasks & Second Brain. A unified productivity workspace combining powerful task management with networked note-taking."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Core
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # Database (Local-first)
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.4
+
+  # Navigation
+  go_router: ^14.2.7
+
+  # Storage
+  shared_preferences: ^2.3.2
+  flutter_secure_storage: ^9.2.2
+
+  # Data Classes
+  equatable: ^2.0.5
+
+  # UI Components
+  flutter_svg: ^2.0.10+1
+  shimmer: ^3.0.0
+
+  # Date & Time
+  intl: ^0.19.0
+
+  # Utilities
+  uuid: ^4.4.2
+  collection: ^1.18.0
+  
+  # Markdown Support (for notes)
+  flutter_markdown: ^0.7.3+1
+  markdown: ^7.2.2
+  
+  # File Handling
+  file_picker: ^8.1.2
+  share_plus: ^10.0.2
+  
+  # Notifications
+  flutter_local_notifications: ^17.2.3
+  timezone: ^0.9.4
+  
+  # Permissions
+  permission_handler: ^11.3.1
+
+  # URL Launcher
+  url_launcher: ^6.3.0
+
+  # Connectivity
+  connectivity_plus: ^6.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Linting
+  flutter_lints: ^4.0.0
+
+  # Code Generation
+  build_runner: ^2.4.9
+  isar_generator: ^3.1.0+1
+  riverpod_generator: ^2.3.11
+
+  # Testing
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/onboarding/
+    - assets/images/empty_states/
+    - assets/icons/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/JetBrainsMono-Medium.ttf
+          weight: 500
