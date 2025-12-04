@@ -41,8 +41,6 @@ class _HomeShellState extends ConsumerState<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final currentIndex = ref.watch(homeTabIndexProvider);
 
     // Listen for tab changes to animate page
@@ -92,19 +90,19 @@ class _BottomNavBar extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final bgColor = isDark ? AppColors.surfaceDark : AppColors.surface;
-    final borderColor = isDark ? AppColors.outlineDark : AppColors.outline;
+    final bgColor = isDark ? AppColors.surfaceDark : AppColors.surfaceLight;
+    final borderColor = isDark ? AppColors.borderDark : AppColors.borderLight;
 
     return Container(
       decoration: BoxDecoration(
         color: bgColor,
         border: Border(
-          top: BorderSide(color: borderColor.withOpacity(0.5), width: 0.5),
+          top: BorderSide(color: borderColor.withValues(alpha: 0.5), width: 0.5),
         ),
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
             vertical: AppSpacing.xs,
           ),
@@ -168,20 +166,20 @@ class _NavItem extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final selectedColor = AppColors.primary;
+    const selectedColor = AppColors.primary;
     final unselectedColor = isDark
-        ? AppColors.onSurfaceVariantDark
-        : AppColors.onSurfaceVariant;
+        ? AppColors.textSecondaryDark
+        : AppColors.textSecondaryLight;
 
     return Expanded(
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: AppRadius.allMd,
+          borderRadius: AppRadius.roundedMd,
           child: AnimatedContainer(
             duration: AppConstants.animMicro,
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -190,10 +188,10 @@ class _NavItem extends StatelessWidget {
                   duration: AppConstants.animMicro,
                   height: 3,
                   width: isSelected ? 24 : 0,
-                  margin: EdgeInsets.only(bottom: AppSpacing.xs),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(bottom: AppSpacing.xs),
+                  decoration: const BoxDecoration(
                     color: selectedColor,
-                    borderRadius: AppRadius.allFull,
+                    borderRadius: AppRadius.roundedFull,
                   ),
                 ),
                 // Icon
@@ -202,7 +200,7 @@ class _NavItem extends StatelessWidget {
                   size: 24,
                   color: isSelected ? selectedColor : unselectedColor,
                 ),
-                SizedBox(height: AppSpacing.xxs),
+                const SizedBox(height: AppSpacing.xxs),
                 // Label
                 Text(
                   label,
@@ -236,7 +234,7 @@ class _QuickCaptureFab extends ConsumerWidget {
         HapticFeedback.mediumImpact();
         QuickCaptureSheet.show(context, initialType: defaultType);
       },
-      elevation: AppShadows.elevationMd,
+      elevation: 4,
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
       child: const Icon(Icons.add),

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/theme.dart';
-import '../../../../shared/widgets/inputs/app_text_field.dart';
 import '../../../../shared/widgets/inputs/app_chip.dart';
 import '../../data/models/tag_model.dart';
 import '../providers/tag_providers.dart';
@@ -77,29 +76,29 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
-        borderRadius: AppRadius.bottomSheetRadius,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: AppRadius.bottomSheet,
       ),
       child: Column(
         children: [
           // Drag handle
           Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Container(
               width: 32,
               height: 4,
               decoration: BoxDecoration(
                 color: isDark
-                    ? AppColors.onSurfaceDisabledDark
-                    : AppColors.onSurfaceDisabled,
-                borderRadius: AppRadius.allFull,
+                    ? AppColors.textDisabledDark
+                    : AppColors.textDisabledLight,
+                borderRadius: AppRadius.roundedFull,
               ),
             ),
           ),
 
           // Header
           Padding(
-            padding: EdgeInsets.fromLTRB(
+            padding: const EdgeInsets.fromLTRB(
               AppSpacing.md,
               0,
               AppSpacing.sm,
@@ -111,8 +110,8 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                   'Tags',
                   style: AppTextStyles.titleLarge.copyWith(
                     color: isDark
-                        ? AppColors.onSurfaceDark
-                        : AppColors.onSurface,
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimaryLight,
                   ),
                 ),
                 const Spacer(),
@@ -121,7 +120,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                     widget.onTagsSelected(_selectedIds.toList());
                     Navigator.of(context).pop();
                   },
-                  child: Text(
+                  child: const Text(
                     'Done',
                     style: TextStyle(
                       color: AppColors.primary,
@@ -135,37 +134,37 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
 
           // Search/create field
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: TextField(
               controller: _searchController,
               onChanged: (value) {
                 setState(() => _searchQuery = value.toLowerCase().trim());
               },
               style: AppTextStyles.bodyLarge.copyWith(
-                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
               decoration: InputDecoration(
                 hintText: 'Search or create tag...',
                 hintStyle: AppTextStyles.bodyLarge.copyWith(
                   color: isDark
-                      ? AppColors.onSurfaceDisabledDark
-                      : AppColors.onSurfaceDisabled,
+                      ? AppColors.textDisabledDark
+                      : AppColors.textDisabledLight,
                 ),
                 prefixIcon: Icon(
                   Icons.search,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
                 filled: true,
                 fillColor: isDark
                     ? AppColors.surfaceVariantDark
-                    : AppColors.surfaceVariant,
-                border: OutlineInputBorder(
-                  borderRadius: AppRadius.allFull,
+                    : AppColors.surfaceVariantLight,
+                border: const OutlineInputBorder(
+                  borderRadius: AppRadius.roundedFull,
                   borderSide: BorderSide.none,
                 ),
-                contentPadding: EdgeInsets.symmetric(
+                contentPadding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.md,
                   vertical: AppSpacing.sm,
                 ),
@@ -178,7 +177,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
             ),
           ),
 
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
 
           // Selected tags
           if (_selectedIds.isNotEmpty) ...[
@@ -188,7 +187,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                 setState(() => _selectedIds.remove(id));
               },
             ),
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
           ],
 
           // Tag list
@@ -210,7 +209,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                 );
 
                 return ListView(
-                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                   children: [
                     // Create new tag option
                     if (_searchQuery.isNotEmpty &&
@@ -220,7 +219,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                         tagName: _searchQuery,
                         onTap: () => _createAndSelectTag(_searchQuery),
                       ),
-                      SizedBox(height: AppSpacing.sm),
+                      const SizedBox(height: AppSpacing.sm),
                     ],
 
                     // Existing tags
@@ -234,7 +233,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
 
                     if (filteredTags.isEmpty && _searchQuery.isEmpty)
                       Padding(
-                        padding: EdgeInsets.all(AppSpacing.lg),
+                        padding: const EdgeInsets.all(AppSpacing.lg),
                         child: Center(
                           child: Column(
                             children: [
@@ -242,24 +241,24 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                                 Icons.label_outline,
                                 size: 48,
                                 color: isDark
-                                    ? AppColors.onSurfaceVariantDark
-                                    : AppColors.onSurfaceVariant,
+                                    ? AppColors.textSecondaryDark
+                                    : AppColors.textSecondaryLight,
                               ),
-                              SizedBox(height: AppSpacing.sm),
+                              const SizedBox(height: AppSpacing.sm),
                               Text(
                                 'No tags yet',
                                 style: AppTextStyles.bodyMedium.copyWith(
                                   color: isDark
-                                      ? AppColors.onSurfaceVariantDark
-                                      : AppColors.onSurfaceVariant,
+                                      ? AppColors.textSecondaryDark
+                                      : AppColors.textSecondaryLight,
                                 ),
                               ),
                               Text(
                                 'Type to create one',
                                 style: AppTextStyles.bodySmall.copyWith(
                                   color: isDark
-                                      ? AppColors.onSurfaceDisabledDark
-                                      : AppColors.onSurfaceDisabled,
+                                      ? AppColors.textDisabledDark
+                                      : AppColors.textDisabledLight,
                                 ),
                               ),
                             ],
@@ -267,11 +266,11 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                         ),
                       ),
 
-                    SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.md),
                   ],
                 );
               },
-              loading: () => Center(
+              loading: () => const Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
               ),
               error: (e, _) => Center(
@@ -308,7 +307,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
           .read(tagActionsProvider.notifier)
           .getOrCreateTag(name);
 
-      if (mounted) {
+      if (mounted && tag != null) {
         setState(() {
           _selectedIds.add(tag.id);
           _searchController.clear();
@@ -318,7 +317,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Failed to create tag'),
             backgroundColor: AppColors.error,
           ),
@@ -339,7 +338,7 @@ class _SelectedTagsRow extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       child: Row(
         children: tagIds.map((id) {
           final tagAsync = ref.watch(tagByIdProvider(id));
@@ -348,7 +347,7 @@ class _SelectedTagsRow extends ConsumerWidget {
           if (tag == null) return const SizedBox.shrink();
 
           return Padding(
-            padding: EdgeInsets.only(right: AppSpacing.xs),
+            padding: const EdgeInsets.only(right: AppSpacing.xs),
             child: TagChip(
               tagName: tag.name,
               colorIndex: tag.colorIndex,
@@ -371,21 +370,18 @@ class _CreateTagOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return Material(
-      color: AppColors.primary.withOpacity(0.08),
-      borderRadius: AppRadius.allSm,
+      color: AppColors.primary.withValues(alpha: 0.08),
+      borderRadius: AppRadius.roundedSm,
       child: InkWell(
         onTap: onTap,
-        borderRadius: AppRadius.allSm,
+        borderRadius: AppRadius.roundedSm,
         child: Padding(
-          padding: EdgeInsets.all(AppSpacing.md),
+          padding: const EdgeInsets.all(AppSpacing.md),
           child: Row(
             children: [
-              Icon(Icons.add, size: 20, color: AppColors.primary),
-              SizedBox(width: AppSpacing.sm),
+              const Icon(Icons.add, size: 20, color: AppColors.primary),
+              const SizedBox(width: AppSpacing.sm),
               Text(
                 'Create ',
                 style: AppTextStyles.bodyMedium.copyWith(
@@ -420,13 +416,13 @@ class _TagOption extends StatelessWidget {
     final tagColor = AppColors.getProjectColor(tag.colorIndex);
 
     return Material(
-      color: isSelected ? tagColor.withOpacity(0.12) : Colors.transparent,
-      borderRadius: AppRadius.allSm,
+      color: isSelected ? tagColor.withValues(alpha: 0.12) : Colors.transparent,
+      borderRadius: AppRadius.roundedSm,
       child: InkWell(
         onTap: onTap,
-        borderRadius: AppRadius.allSm,
+        borderRadius: AppRadius.roundedSm,
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
             vertical: AppSpacing.md,
           ),
@@ -442,12 +438,12 @@ class _TagOption extends StatelessWidget {
                 '${tag.usageCount}',
                 style: AppTextStyles.bodySmall.copyWith(
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
               ),
 
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
 
               // Selected indicator
               if (isSelected) Icon(Icons.check, size: 20, color: tagColor),

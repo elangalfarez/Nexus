@@ -22,7 +22,7 @@ class TodayScreen extends ConsumerWidget {
     final todayAsync = ref.watch(todayTasksProvider);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: CustomScrollView(
         slivers: [
           // App Bar
@@ -30,7 +30,7 @@ class TodayScreen extends ConsumerWidget {
 
           // Content
           SliverPadding(
-            padding: EdgeInsets.only(bottom: AppSpacing.huge),
+            padding: const EdgeInsets.only(bottom: AppSpacing.xxxl),
             sliver: SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +59,7 @@ class TodayScreen extends ConsumerWidget {
                       if (todayTasks.isEmpty &&
                           overdueAsync.valueOrNull?.isEmpty == true) {
                         return Padding(
-                          padding: EdgeInsets.only(top: AppSpacing.xl),
+                          padding: const EdgeInsets.only(top: AppSpacing.xl),
                           child: EmptyState(
                             type: EmptyStateType.today,
                             actionLabel: 'Add task',
@@ -102,12 +102,12 @@ class _TodayAppBar extends ConsumerWidget {
 
     return SliverAppBar(
       floating: true,
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       surfaceTintColor: Colors.transparent,
       title: Text(
         greeting,
         style: AppTextStyles.headlineMedium.copyWith(
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       actions: [
@@ -118,8 +118,8 @@ class _TodayAppBar extends ConsumerWidget {
           icon: Icon(
             Icons.search,
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
         ),
         IconButton(
@@ -129,11 +129,11 @@ class _TodayAppBar extends ConsumerWidget {
           icon: Icon(
             Icons.settings_outlined,
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
         ),
-        SizedBox(width: AppSpacing.xs),
+        const SizedBox(width: AppSpacing.xs),
       ],
     );
   }
@@ -183,7 +183,7 @@ class _DateHeader extends StatelessWidget {
     final dateString = '$dayName, $monthName ${now.day}';
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(
+      padding: const EdgeInsets.fromLTRB(
         AppSpacing.md,
         AppSpacing.sm,
         AppSpacing.md,
@@ -193,8 +193,8 @@ class _DateHeader extends StatelessWidget {
         dateString,
         style: AppTextStyles.bodyMedium.copyWith(
           color: isDark
-              ? AppColors.onSurfaceVariantDark
-              : AppColors.onSurfaceVariant,
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
         ),
       ),
     );
@@ -221,14 +221,14 @@ class _TaskSection extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final effectiveTitleColor =
-        titleColor ?? (isDark ? AppColors.onSurfaceDark : AppColors.onSurface);
+        titleColor ?? (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Section header
         Padding(
-          padding: EdgeInsets.fromLTRB(
+          padding: const EdgeInsets.fromLTRB(
             AppSpacing.md,
             AppSpacing.md,
             AppSpacing.md,
@@ -238,7 +238,7 @@ class _TaskSection extends ConsumerWidget {
             children: [
               if (icon != null) ...[
                 Icon(icon, size: 18, color: effectiveTitleColor),
-                SizedBox(width: AppSpacing.xs),
+                const SizedBox(width: AppSpacing.xs),
               ],
               Text(
                 title,
@@ -246,15 +246,15 @@ class _TaskSection extends ConsumerWidget {
                   color: effectiveTitleColor,
                 ),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Container(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.sm,
                   vertical: AppSpacing.xxs,
                 ),
                 decoration: BoxDecoration(
-                  color: effectiveTitleColor.withOpacity(0.12),
-                  borderRadius: AppRadius.allFull,
+                  color: effectiveTitleColor.withValues(alpha: 0.12),
+                  borderRadius: AppRadius.roundedFull,
                 ),
                 child: Text(
                   '${tasks.length}',
@@ -294,28 +294,28 @@ class _EmptyTodaySection extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         children: [
           Icon(
             Icons.check_circle_outline,
             size: 48,
-            color: AppColors.success.withOpacity(0.6),
+            color: AppColors.success.withValues(alpha: 0.6),
           ),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           Text(
             'All caught up for today!',
             style: AppTextStyles.titleSmall.copyWith(
-              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             'No tasks scheduled for today',
             style: AppTextStyles.bodySmall.copyWith(
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
           ),
         ],
@@ -328,7 +328,7 @@ class _EmptyTodaySection extends StatelessWidget {
 class _LoadingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.all(AppSpacing.lg),
       child: Center(
         child: CircularProgressIndicator(
@@ -349,7 +349,7 @@ class _ErrorSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       child: Center(
         child: Text(
           'Error: $message',

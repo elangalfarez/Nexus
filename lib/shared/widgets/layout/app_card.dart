@@ -205,8 +205,8 @@ class SectionCard extends StatelessWidget {
           InkWell(
             onTap: onHeaderTap,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(AppRadius.card),
-              topRight: Radius.circular(AppRadius.card),
+              topLeft: Radius.circular(AppRadius.lg),
+              topRight: Radius.circular(AppRadius.lg),
             ),
             child: Padding(
               padding: EdgeInsets.all(AppSpacing.md),

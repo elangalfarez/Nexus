@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/theme.dart';
 import '../../../../shared/widgets/feedback/empty_state.dart';
+import '../../../../shared/widgets/inputs/app_checkbox.dart';
 import '../../../../shared/widgets/layout/app_bottom_sheet.dart';
 import '../../data/models/task_model.dart';
 import '../providers/task_providers.dart';
@@ -39,7 +40,7 @@ class TaskDetailScreen extends ConsumerWidget {
         return Scaffold(
           backgroundColor: isDark
               ? AppColors.backgroundDark
-              : AppColors.background,
+              : AppColors.backgroundLight,
           appBar: _TaskAppBar(task: task),
           body: _TaskDetailBody(task: task),
           bottomNavigationBar: _TaskBottomBar(task: task),
@@ -77,13 +78,13 @@ class _TaskAppBar extends ConsumerWidget implements PreferredSizeWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return AppBar(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       surfaceTintColor: Colors.transparent,
       leading: IconButton(
         onPressed: () => Navigator.of(context).pop(),
         icon: Icon(
           Icons.close,
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       actions: [
@@ -95,8 +96,8 @@ class _TaskAppBar extends ConsumerWidget implements PreferredSizeWidget {
           icon: Icon(
             Icons.edit_outlined,
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
           tooltip: 'Edit',
         ),
@@ -106,8 +107,8 @@ class _TaskAppBar extends ConsumerWidget implements PreferredSizeWidget {
           icon: Icon(
             Icons.more_vert,
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
         ),
         SizedBox(width: AppSpacing.xs),
@@ -207,8 +208,10 @@ class _TaskDetailBody extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     // Get project info
-    final projectAsync = ref.watch(projectByIdProvider(task.projectId));
-    final project = projectAsync.valueOrNull;
+    final projectAsync = task.projectId != null
+        ? ref.watch(projectByIdProvider(task.projectId!))
+        : null;
+    final project = projectAsync?.valueOrNull;
 
     // Get subtasks
     final subtasksAsync = ref.watch(subtasksProvider(task.id));
@@ -241,11 +244,11 @@ class _TaskDetailBody extends ConsumerWidget {
                   style: AppTextStyles.headlineSmall.copyWith(
                     color: task.isCompleted
                         ? (isDark
-                              ? AppColors.onSurfaceDisabledDark
-                              : AppColors.onSurfaceDisabled)
+                              ? AppColors.textDisabledDark
+                              : AppColors.textDisabledLight)
                         : (isDark
-                              ? AppColors.onSurfaceDark
-                              : AppColors.onSurface),
+                              ? AppColors.textPrimaryDark
+                              : AppColors.textPrimaryLight),
                     decoration: task.isCompleted
                         ? TextDecoration.lineThrough
                         : null,
@@ -265,8 +268,8 @@ class _TaskDetailBody extends ConsumerWidget {
                 task.description!,
                 style: AppTextStyles.bodyLarge.copyWith(
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                   height: 1.5,
                 ),
               ),
@@ -338,7 +341,7 @@ class _TaskDetailBody extends ConsumerWidget {
           // Timestamps
           _TimestampsSection(task: task),
 
-          SizedBox(height: AppSpacing.huge),
+          const SizedBox(height: AppSpacing.xxxl),
         ],
       ),
     );
@@ -444,8 +447,8 @@ class _DetailSection extends StatelessWidget {
           icon,
           size: 20,
           color: isDark
-              ? AppColors.onSurfaceVariantDark
-              : AppColors.onSurfaceVariant,
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
         ),
         SizedBox(width: AppSpacing.sm),
         Expanded(child: child),
@@ -477,7 +480,7 @@ class _MetadataRow extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: AppRadius.allSm,
+      borderRadius: AppRadius.roundedSm,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
         child: Row(
@@ -486,8 +489,8 @@ class _MetadataRow extends StatelessWidget {
               icon,
               size: 20,
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
             SizedBox(width: AppSpacing.sm),
             Expanded(
@@ -495,8 +498,8 @@ class _MetadataRow extends StatelessWidget {
                 label,
                 style: AppTextStyles.bodyMedium.copyWith(
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
               ),
             ),
@@ -505,7 +508,7 @@ class _MetadataRow extends StatelessWidget {
               style: AppTextStyles.bodyMedium.copyWith(
                 color:
                     valueColor ??
-                    (isDark ? AppColors.onSurfaceDark : AppColors.onSurface),
+                    (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight),
               ),
             ),
             SizedBox(width: AppSpacing.xs),
@@ -513,8 +516,8 @@ class _MetadataRow extends StatelessWidget {
               Icons.chevron_right,
               size: 20,
               color: isDark
-                  ? AppColors.onSurfaceDisabledDark
-                  : AppColors.onSurfaceDisabled,
+                  ? AppColors.textDisabledDark
+                  : AppColors.textDisabledLight,
             ),
           ],
         ),
@@ -546,14 +549,14 @@ class _SubtasksSection extends ConsumerWidget {
               Icons.checklist,
               size: 20,
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
             SizedBox(width: AppSpacing.sm),
             Text(
               'Subtasks',
               style: AppTextStyles.titleSmall.copyWith(
-                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
             SizedBox(width: AppSpacing.sm),
@@ -561,8 +564,8 @@ class _SubtasksSection extends ConsumerWidget {
               '$completed/${subtasks.length}',
               style: AppTextStyles.bodySmall.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ),
           ],
@@ -593,14 +596,11 @@ class _AddSubtaskButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return InkWell(
       onTap: () {
         // TODO: Show add subtask dialog
       },
-      borderRadius: AppRadius.allSm,
+      borderRadius: AppRadius.roundedSm,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
         child: Row(
@@ -640,14 +640,14 @@ class _LinkedNotesSection extends StatelessWidget {
               Icons.link,
               size: 20,
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
             SizedBox(width: AppSpacing.sm),
             Text(
               'Linked notes',
               style: AppTextStyles.titleSmall.copyWith(
-                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
             SizedBox(width: AppSpacing.sm),
@@ -655,8 +655,8 @@ class _LinkedNotesSection extends StatelessWidget {
               '${noteIds.length}',
               style: AppTextStyles.bodySmall.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ),
           ],
@@ -667,8 +667,8 @@ class _LinkedNotesSection extends StatelessWidget {
           'Note IDs: ${noteIds.join(", ")}',
           style: AppTextStyles.bodySmall.copyWith(
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
         ),
       ],
@@ -690,14 +690,14 @@ class _TimestampsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(color: isDark ? AppColors.outlineDark : AppColors.outline),
+        Divider(color: isDark ? AppColors.borderDark : AppColors.borderLight),
         SizedBox(height: AppSpacing.sm),
         Text(
           'Created ${_formatTimestamp(task.createdAt)}',
           style: AppTextStyles.bodySmall.copyWith(
             color: isDark
-                ? AppColors.onSurfaceDisabledDark
-                : AppColors.onSurfaceDisabled,
+                ? AppColors.textDisabledDark
+                : AppColors.textDisabledLight,
           ),
         ),
         if (task.updatedAt != task.createdAt) ...[
@@ -706,8 +706,8 @@ class _TimestampsSection extends StatelessWidget {
             'Updated ${_formatTimestamp(task.updatedAt)}',
             style: AppTextStyles.bodySmall.copyWith(
               color: isDark
-                  ? AppColors.onSurfaceDisabledDark
-                  : AppColors.onSurfaceDisabled,
+                  ? AppColors.textDisabledDark
+                  : AppColors.textDisabledLight,
             ),
           ),
         ],
@@ -750,10 +750,10 @@ class _TaskBottomBar extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
         border: Border(
           top: BorderSide(
-            color: isDark ? AppColors.outlineDark : AppColors.outline,
+            color: isDark ? AppColors.borderDark : AppColors.borderLight,
             width: 0.5,
           ),
         ),
@@ -786,12 +786,12 @@ class _TaskBottomBar extends ConsumerWidget {
                     backgroundColor: task.isCompleted
                         ? (isDark
                               ? AppColors.surfaceVariantDark
-                              : AppColors.surfaceVariant)
+                              : AppColors.surfaceVariantLight)
                         : AppColors.success,
                     foregroundColor: task.isCompleted
                         ? (isDark
-                              ? AppColors.onSurfaceDark
-                              : AppColors.onSurface)
+                              ? AppColors.textPrimaryDark
+                              : AppColors.textPrimaryLight)
                         : Colors.white,
                     minimumSize: Size(0, 48),
                   ),

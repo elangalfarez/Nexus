@@ -185,7 +185,6 @@ class TaskActionsNotifier extends StateNotifier<AsyncValue<void>> {
           sectionId: sectionId,
           recurrenceRule: recurrenceRule,
           tagIds: tagIds?.join(','),
-          updatedAt: DateTime.now(),
         ),
       );
       state = const AsyncValue.data(null);

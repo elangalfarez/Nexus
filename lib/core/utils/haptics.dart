@@ -2,6 +2,7 @@
 // Haptic feedback utilities and patterns
 
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 /// Haptic feedback utility class
 class Haptics {

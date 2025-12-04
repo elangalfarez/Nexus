@@ -154,6 +154,26 @@ class NoteRepository {
         .watch(fireImmediately: true);
   }
 
+  /// Count notes by folder
+  Future<int> countByFolder(int folderId) {
+    return _db.notes
+        .filter()
+        .folderIdEqualTo(folderId)
+        .isDeletedEqualTo(false)
+        .isTemplateEqualTo(false)
+        .count();
+  }
+
+  /// Count root notes (no folder)
+  Future<int> countRootNotes() {
+    return _db.notes
+        .filter()
+        .folderIdIsNull()
+        .isDeletedEqualTo(false)
+        .isTemplateEqualTo(false)
+        .count();
+  }
+
   // ============================================
   // QUERIES - PINNED & FAVORITES
   // ============================================
@@ -189,6 +209,17 @@ class NoteRepository {
         .isTemplateEqualTo(false)
         .sortByUpdatedAtDesc()
         .findAll();
+  }
+
+  /// Watch favorite notes
+  Stream<List<Note>> watchFavorites() {
+    return _db.notes
+        .filter()
+        .isFavoriteEqualTo(true)
+        .isDeletedEqualTo(false)
+        .isTemplateEqualTo(false)
+        .sortByUpdatedAtDesc()
+        .watch(fireImmediately: true);
   }
 
   // ============================================

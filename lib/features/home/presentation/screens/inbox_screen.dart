@@ -20,7 +20,7 @@ class InboxScreen extends ConsumerWidget {
     final inboxAsync = ref.watch(inboxTasksProvider);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: CustomScrollView(
         slivers: [
           // App Bar
@@ -28,25 +28,25 @@ class InboxScreen extends ConsumerWidget {
             floating: true,
             backgroundColor: isDark
                 ? AppColors.backgroundDark
-                : AppColors.background,
+                : AppColors.backgroundLight,
             surfaceTintColor: Colors.transparent,
             title: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.all(AppSpacing.sm),
+                  padding: const EdgeInsets.all(AppSpacing.sm),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.12),
-                    borderRadius: AppRadius.allSm,
+                    color: AppColors.primary.withValues(alpha: 0.12),
+                    borderRadius: AppRadius.roundedSm,
                   ),
-                  child: Icon(Icons.inbox, size: 20, color: AppColors.primary),
+                  child: const Icon(Icons.inbox, size: 20, color: AppColors.primary),
                 ),
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 Text(
                   'Inbox',
                   style: AppTextStyles.headlineMedium.copyWith(
                     color: isDark
-                        ? AppColors.onSurfaceDark
-                        : AppColors.onSurface,
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimaryLight,
                   ),
                 ),
               ],
@@ -60,8 +60,8 @@ class InboxScreen extends ConsumerWidget {
                 icon: Icon(
                   Icons.sort,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
                 tooltip: 'Sort',
               ),
@@ -73,11 +73,11 @@ class InboxScreen extends ConsumerWidget {
                 icon: Icon(
                   Icons.more_vert,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
               ),
-              SizedBox(width: AppSpacing.xs),
+              const SizedBox(width: AppSpacing.xs),
             ],
           ),
 
@@ -145,11 +145,11 @@ class InboxScreen extends ConsumerWidget {
                   ],
 
                   // Bottom padding
-                  SizedBox(height: AppSpacing.huge),
+                  const SizedBox(height: AppSpacing.xxxl),
                 ]),
               );
             },
-            loading: () => SliverFillRemaining(
+            loading: () => const SliverFillRemaining(
               child: Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
               ),
@@ -176,13 +176,10 @@ class _InboxStatsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     final pending = total - completed;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(
+      padding: const EdgeInsets.fromLTRB(
         AppSpacing.md,
         AppSpacing.sm,
         AppSpacing.md,
@@ -195,7 +192,7 @@ class _InboxStatsBar extends StatelessWidget {
             value: pending,
             color: AppColors.primary,
           ),
-          SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.sm),
           _StatBadge(label: 'Done', value: completed, color: AppColors.success),
         ],
       ),
@@ -217,17 +214,14 @@ class _StatBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.sm,
         vertical: AppSpacing.xs,
       ),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.12),
-        borderRadius: AppRadius.allSm,
+        color: color.withValues(alpha: 0.12),
+        borderRadius: AppRadius.roundedSm,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -239,7 +233,7 @@ class _StatBadge extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(width: AppSpacing.xs),
+          const SizedBox(width: AppSpacing.xs),
           Text(label, style: AppTextStyles.labelSmall.copyWith(color: color)),
         ],
       ),
@@ -268,7 +262,7 @@ class _CompletedHeaderState extends State<_CompletedHeader> {
     return InkWell(
       onTap: () => setState(() => _isExpanded = !_isExpanded),
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         ),
@@ -281,28 +275,28 @@ class _CompletedHeaderState extends State<_CompletedHeader> {
                 Icons.keyboard_arrow_down,
                 size: 20,
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ),
-            SizedBox(width: AppSpacing.xs),
+            const SizedBox(width: AppSpacing.xs),
             Text(
               'Completed',
               style: AppTextStyles.labelLarge.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.xxs,
               ),
               decoration: BoxDecoration(
-                color: AppColors.success.withOpacity(0.12),
-                borderRadius: AppRadius.allFull,
+                color: AppColors.success.withValues(alpha: 0.12),
+                borderRadius: AppRadius.roundedFull,
               ),
               child: Text(
                 '${widget.count}',

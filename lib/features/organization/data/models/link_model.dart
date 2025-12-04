@@ -190,7 +190,7 @@ class Link {
 
   @override
   String toString() =>
-      'Link(${sourceType}#$sourceId -> ${targetType}#$targetId)';
+      'Link($sourceType#$sourceId -> $targetType#$targetId)';
 
   @override
   bool operator ==(Object other) {
@@ -215,11 +215,3 @@ String _generateUid() {
   final random = now.microsecondsSinceEpoch.toRadixString(36);
   return 'link_$random';
 }
-
-/// Composite index for finding links by source
-@Name('LinkBySource')
-@Index([IndexField('sourceType'), IndexField('sourceId')])
-/// Composite index for finding links by target (backlinks)
-@Name('LinkByTarget')
-@Index([IndexField('targetType'), IndexField('targetId')])
-extension LinkIndexes on Link {}

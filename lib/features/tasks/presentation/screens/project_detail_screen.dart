@@ -38,9 +38,8 @@ class ProjectDetailScreen extends ConsumerWidget {
         }
 
         return Scaffold(
-          backgroundColor: isDark
-              ? AppColors.backgroundDark
-              : AppColors.background,
+          backgroundColor:
+              isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
           body: CustomScrollView(
             slivers: [
               // App bar
@@ -73,7 +72,7 @@ class ProjectDetailScreen extends ConsumerWidget {
       },
       loading: () => Scaffold(
         appBar: AppBar(),
-        body: Center(
+        body: const Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
       ),
@@ -104,10 +103,11 @@ class _ProjectAppBar extends ConsumerWidget {
       floating: true,
       pinned: true,
       expandedHeight: 120,
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor:
+          isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       surfaceTintColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
-        titlePadding: EdgeInsets.only(
+        titlePadding: const EdgeInsets.only(
           left: AppSpacing.md,
           bottom: AppSpacing.md,
         ),
@@ -115,10 +115,10 @@ class _ProjectAppBar extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: EdgeInsets.all(AppSpacing.xs),
+              padding: const EdgeInsets.all(AppSpacing.xs),
               decoration: BoxDecoration(
-                color: projectColor.withOpacity(0.15),
-                borderRadius: AppRadius.allXs,
+                color: projectColor.withValues(alpha: 0.15),
+                borderRadius: AppRadius.roundedXs,
               ),
               child: Icon(
                 project.isInbox ? Icons.inbox : Icons.folder,
@@ -126,12 +126,14 @@ class _ProjectAppBar extends ConsumerWidget {
                 color: projectColor,
               ),
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Flexible(
               child: Text(
                 project.name,
                 style: AppTextStyles.titleLarge.copyWith(
-                  color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                  color: isDark
+                      ? AppColors.textPrimaryDark
+                      : AppColors.textPrimaryLight,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -152,8 +154,8 @@ class _ProjectAppBar extends ConsumerWidget {
               color: project.isFavorite
                   ? AppColors.tertiary
                   : (isDark
-                        ? AppColors.onSurfaceVariantDark
-                        : AppColors.onSurfaceVariant),
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight),
             ),
             tooltip: project.isFavorite
                 ? 'Remove from favorites'
@@ -167,11 +169,11 @@ class _ProjectAppBar extends ConsumerWidget {
           icon: Icon(
             Icons.more_vert,
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
         ),
-        SizedBox(width: AppSpacing.xs),
+        const SizedBox(width: AppSpacing.xs),
       ],
     );
   }
@@ -194,7 +196,7 @@ class _ProjectStats extends StatelessWidget {
     final progress = total > 0 ? completed / total : 0.0;
 
     return Padding(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       child: Row(
         children: [
           // Progress indicator
@@ -208,31 +210,31 @@ class _ProjectStats extends StatelessWidget {
                       '$completed/$total',
                       style: AppTextStyles.titleMedium.copyWith(
                         color: isDark
-                            ? AppColors.onSurfaceDark
-                            : AppColors.onSurface,
+                            ? AppColors.textPrimaryDark
+                            : AppColors.textPrimaryLight,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: AppSpacing.xs),
+                    const SizedBox(width: AppSpacing.xs),
                     Text(
                       'completed',
                       style: AppTextStyles.bodySmall.copyWith(
                         color: isDark
-                            ? AppColors.onSurfaceVariantDark
-                            : AppColors.onSurfaceVariant,
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: AppSpacing.sm),
+                const SizedBox(height: AppSpacing.sm),
                 ClipRRect(
-                  borderRadius: AppRadius.allFull,
+                  borderRadius: AppRadius.roundedFull,
                   child: LinearProgressIndicator(
                     value: progress,
                     backgroundColor: isDark
                         ? AppColors.surfaceVariantDark
-                        : AppColors.surfaceVariant,
-                    valueColor: AlwaysStoppedAnimation(AppColors.success),
+                        : AppColors.surfaceVariantLight,
+                    valueColor: const AlwaysStoppedAnimation(AppColors.success),
                     minHeight: 6,
                   ),
                 ),
@@ -240,24 +242,25 @@ class _ProjectStats extends StatelessWidget {
             ),
           ),
 
-          SizedBox(width: AppSpacing.lg),
+          const SizedBox(width: AppSpacing.lg),
 
           // Overdue badge
           if (overdue > 0)
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.xs,
               ),
               decoration: BoxDecoration(
-                color: AppColors.error.withOpacity(0.12),
-                borderRadius: AppRadius.allSm,
+                color: AppColors.error.withValues(alpha: 0.12),
+                borderRadius: AppRadius.roundedSm,
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.warning_amber, size: 16, color: AppColors.error),
-                  SizedBox(width: AppSpacing.xs),
+                  const Icon(Icons.warning_amber,
+                      size: 16, color: AppColors.error),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(
                     '$overdue overdue',
                     style: AppTextStyles.labelMedium.copyWith(
@@ -312,9 +315,8 @@ class _ProjectContent extends ConsumerWidget {
         }
 
         // Group tasks by section
-        final unsectionedTasks = incompleteTasks
-            .where((t) => t.sectionId == null)
-            .toList();
+        final unsectionedTasks =
+            incompleteTasks.where((t) => t.sectionId == null).toList();
 
         return SliverList(
           delegate: SliverChildListDelegate([
@@ -350,11 +352,11 @@ class _ProjectContent extends ConsumerWidget {
               _CompletedSection(tasks: completedTasks),
 
             // Bottom padding
-            SizedBox(height: AppSpacing.huge + 56),
+            const SizedBox(height: AppSpacing.xxxl + 56),
           ]),
         );
       },
-      loading: () => SliverFillRemaining(
+      loading: () => const SliverFillRemaining(
         child: Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
@@ -408,7 +410,6 @@ class _SectionWidgetState extends ConsumerState<_SectionWidget> {
             );
           },
         ),
-
         if (!_isCollapsed)
           ...widget.tasks.map(
             (task) => TaskListItem(
@@ -451,7 +452,7 @@ class _CompletedSectionState extends ConsumerState<_CompletedSection> {
         InkWell(
           onTap: () => setState(() => _isExpanded = !_isExpanded),
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.md,
               vertical: AppSpacing.sm,
             ),
@@ -464,28 +465,28 @@ class _CompletedSectionState extends ConsumerState<_CompletedSection> {
                     Icons.keyboard_arrow_down,
                     size: 20,
                     color: isDark
-                        ? AppColors.onSurfaceVariantDark
-                        : AppColors.onSurfaceVariant,
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondaryLight,
                   ),
                 ),
-                SizedBox(width: AppSpacing.xs),
+                const SizedBox(width: AppSpacing.xs),
                 Text(
                   'Completed',
                   style: AppTextStyles.labelLarge.copyWith(
                     color: isDark
-                        ? AppColors.onSurfaceVariantDark
-                        : AppColors.onSurfaceVariant,
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondaryLight,
                   ),
                 ),
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.sm,
                     vertical: AppSpacing.xxs,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.success.withOpacity(0.12),
-                    borderRadius: AppRadius.allFull,
+                    color: AppColors.success.withValues(alpha: 0.12),
+                    borderRadius: AppRadius.roundedFull,
                   ),
                   child: Text(
                     '${widget.tasks.length}',
@@ -498,7 +499,6 @@ class _CompletedSectionState extends ConsumerState<_CompletedSection> {
             ),
           ),
         ),
-
         if (_isExpanded)
           ...widget.tasks.map(
             (task) => TaskListItem(

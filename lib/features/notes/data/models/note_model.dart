@@ -154,6 +154,7 @@ class Note {
     String content = '',
     int? folderId,
     bool isPinned = false,
+    bool isFavorite = false,
     List<int>? tagIds,
     bool isTemplate = false,
   }) {
@@ -164,6 +165,7 @@ class Note {
       ..content = content
       ..folderId = folderId
       ..isPinned = isPinned
+      ..isFavorite = isFavorite
       ..tagIds = tagIds?.join(',') ?? ''
       ..isTemplate = isTemplate
       ..createdAt = now
@@ -335,6 +337,14 @@ class Note {
     return this
       ..isDeleted = true
       ..deletedAt = DateTime.now()
+      ..updatedAt = DateTime.now();
+  }
+
+  /// Restore from soft delete
+  Note restore() {
+    return this
+      ..isDeleted = false
+      ..deletedAt = null
       ..updatedAt = DateTime.now();
   }
 

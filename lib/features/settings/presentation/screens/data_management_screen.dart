@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/theme.dart';
-import '../../../../shared/widgets/buttons/app_button.dart';
-import '../../../../shared/widgets/layout/app_card.dart';
 import '../providers/settings_providers.dart';
 
 class DataManagementScreen extends ConsumerStatefulWidget {
@@ -30,16 +28,16 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
     final statsAsync = ref.watch(appStatsProvider);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: AppBar(
         backgroundColor: isDark
             ? AppColors.backgroundDark
-            : AppColors.background,
+            : AppColors.backgroundLight,
         surfaceTintColor: Colors.transparent,
         title: Text(
           'Data Management',
           style: AppTextStyles.titleLarge.copyWith(
-            color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+            color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
           ),
         ),
       ),
@@ -124,8 +122,8 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
                 vertical: AppSpacing.xxs,
               ),
               decoration: BoxDecoration(
-                color: AppColors.tertiary.withOpacity(0.15),
-                borderRadius: AppRadius.allFull,
+                color: AppColors.tertiary.withValues(alpha:0.15),
+                borderRadius: AppRadius.roundedFull,
               ),
               child: Text(
                 'Pro',
@@ -151,7 +149,7 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
             onTap: _confirmDeleteAll,
           ),
 
-          SizedBox(height: AppSpacing.huge),
+          SizedBox(height: AppSpacing.xxxl),
         ],
       ),
     );
@@ -223,7 +221,7 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
               maxLines: 5,
               decoration: InputDecoration(
                 hintText: '{"tasks": [...], "notes": [...]}',
-                border: OutlineInputBorder(borderRadius: AppRadius.allSm),
+                border: OutlineInputBorder(borderRadius: AppRadius.roundedSm),
               ),
             ),
           ],
@@ -370,8 +368,8 @@ class _SectionHeader extends StatelessWidget {
         title,
         style: AppTextStyles.labelLarge.copyWith(
           color: isDark
-              ? AppColors.onSurfaceVariantDark
-              : AppColors.onSurfaceVariant,
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
         ),
       ),
     );
@@ -401,17 +399,17 @@ class _DataCard extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Material(
-      color: isDark ? AppColors.surfaceDark : AppColors.surface,
-      borderRadius: AppRadius.allMd,
+      color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+      borderRadius: AppRadius.roundedMd,
       child: InkWell(
         onTap: onTap,
-        borderRadius: AppRadius.allMd,
+        borderRadius: AppRadius.roundedMd,
         child: Container(
           padding: EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
-            borderRadius: AppRadius.allMd,
+            borderRadius: AppRadius.roundedMd,
             border: Border.all(
-              color: isDark ? AppColors.outlineDark : AppColors.outline,
+              color: isDark ? AppColors.borderDark : AppColors.borderLight,
               width: 0.5,
             ),
           ),
@@ -421,8 +419,8 @@ class _DataCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: (iconColor ?? AppColors.primary).withOpacity(0.12),
-                  borderRadius: AppRadius.allSm,
+                  color: (iconColor ?? AppColors.primary).withValues(alpha:0.12),
+                  borderRadius: AppRadius.roundedSm,
                 ),
                 child: Icon(icon, color: iconColor ?? AppColors.primary),
               ),
@@ -435,8 +433,8 @@ class _DataCard extends StatelessWidget {
                       title,
                       style: AppTextStyles.titleSmall.copyWith(
                         color: isDark
-                            ? AppColors.onSurfaceDark
-                            : AppColors.onSurface,
+                            ? AppColors.textPrimaryDark
+                            : AppColors.textPrimaryLight,
                       ),
                     ),
                     SizedBox(height: AppSpacing.xxs),
@@ -444,8 +442,8 @@ class _DataCard extends StatelessWidget {
                       description,
                       style: AppTextStyles.bodySmall.copyWith(
                         color: isDark
-                            ? AppColors.onSurfaceVariantDark
-                            : AppColors.onSurfaceVariant,
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight,
                       ),
                     ),
                   ],
@@ -476,10 +474,10 @@ class _StatsCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
-        borderRadius: AppRadius.allMd,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: AppRadius.roundedMd,
         border: Border.all(
-          color: isDark ? AppColors.outlineDark : AppColors.outline,
+          color: isDark ? AppColors.borderDark : AppColors.borderLight,
           width: 0.5,
         ),
       ),
@@ -562,14 +560,14 @@ class _StatItem extends StatelessWidget {
             icon,
             size: 20,
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
           SizedBox(height: AppSpacing.xs),
           Text(
             value,
             style: AppTextStyles.titleMedium.copyWith(
-              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -577,8 +575,8 @@ class _StatItem extends StatelessWidget {
             label,
             style: AppTextStyles.labelSmall.copyWith(
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
           ),
         ],
@@ -595,8 +593,8 @@ class _LoadingCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? AppColors.surfaceDark
-            : AppColors.surface,
-        borderRadius: AppRadius.allMd,
+            : AppColors.surfaceLight,
+        borderRadius: AppRadius.roundedMd,
       ),
       child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
     );
@@ -613,9 +611,9 @@ class _ErrorCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: AppColors.error.withOpacity(0.1),
-        borderRadius: AppRadius.allMd,
-        border: Border.all(color: AppColors.error.withOpacity(0.3)),
+        color: AppColors.error.withValues(alpha:0.1),
+        borderRadius: AppRadius.roundedMd,
+        border: Border.all(color: AppColors.error.withValues(alpha:0.3)),
       ),
       child: Row(
         children: [

@@ -19,7 +19,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
-  bool _isInitialized = false;
 
   @override
   void initState() {
@@ -51,7 +50,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   Future<void> _initializeApp() async {
     try {
       // Initialize database
-      await DatabaseService.instance.initialize();
+      await DatabaseService.initialize();
 
       // Small delay for splash animation
       await Future.delayed(const Duration(milliseconds: 1800));
@@ -59,8 +58,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       if (!mounted) return;
 
       // Check onboarding status
-      final hasCompletedOnboarding = await StorageService.instance
-          .isOnboardingCompleted();
+      final hasCompletedOnboarding = StorageService.isOnboardingCompleted();
 
       if (!mounted) return;
 
@@ -72,7 +70,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       }
     } catch (e) {
       if (mounted) {
-        setState(() => _isInitialized = false);
         _showError(e.toString());
       }
     }
@@ -104,7 +101,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
@@ -130,13 +127,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     end: Alignment.bottomRight,
                     colors: [
                       AppColors.primary,
-                      AppColors.primary.withOpacity(0.8),
+                      AppColors.primary.withValues(alpha: 0.8),
                     ],
                   ),
-                  borderRadius: AppRadius.allLg,
+                  borderRadius: AppRadius.roundedLg,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -145,38 +142,38 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 child: const Icon(Icons.hub, size: 56, color: Colors.white),
               ),
 
-              SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.lg),
 
               // App name
               Text(
                 'Nexus',
                 style: AppTextStyles.displaySmall.copyWith(
-                  color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   fontWeight: FontWeight.bold,
                 ),
               ),
 
-              SizedBox(height: AppSpacing.xs),
+              const SizedBox(height: AppSpacing.xs),
 
               // Tagline
               Text(
                 'Tasks & Second Brain',
                 style: AppTextStyles.bodyLarge.copyWith(
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
               ),
 
-              SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.xl),
 
               // Loading indicator
-              SizedBox(
+              const SizedBox(
                 width: 24,
                 height: 24,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation(AppColors.primary),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                 ),
               ),
             ],
@@ -199,22 +196,22 @@ class LoadingOverlay extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      color: (isDark ? Colors.black : Colors.white).withOpacity(0.8),
+      color: (isDark ? Colors.black : Colors.white).withValues(alpha: 0.8),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(AppColors.primary),
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
             ),
             if (message != null) ...[
-              SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.md),
               Text(
                 message!,
                 style: AppTextStyles.bodyMedium.copyWith(
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
               ),
             ],

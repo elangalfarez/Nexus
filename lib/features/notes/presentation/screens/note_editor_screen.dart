@@ -129,9 +129,11 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
         }
       } else {
         // Update existing note
-        await ref
-            .read(noteActionsProvider.notifier)
-            .updateContent(_note!.id, title: title, content: content);
+        final updatedNote = _note!.copyWith(
+          title: title.isEmpty ? 'Untitled' : title,
+          content: content,
+        );
+        await ref.read(noteActionsProvider.notifier).updateNote(updatedNote);
         if (mounted) {
           setState(() => _hasUnsavedChanges = false);
         }
@@ -166,7 +168,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
       child: Scaffold(
         backgroundColor: isDark
             ? AppColors.backgroundDark
-            : AppColors.background,
+            : AppColors.backgroundLight,
         appBar: _EditorAppBar(
           note: _note,
           hasUnsavedChanges: _hasUnsavedChanges,
@@ -189,16 +191,16 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
                       focusNode: _titleFocusNode,
                       style: AppTextStyles.headlineMedium.copyWith(
                         color: isDark
-                            ? AppColors.onSurfaceDark
-                            : AppColors.onSurface,
+                            ? AppColors.textPrimaryDark
+                            : AppColors.textPrimaryLight,
                         fontWeight: FontWeight.bold,
                       ),
                       decoration: InputDecoration(
                         hintText: 'Title',
                         hintStyle: AppTextStyles.headlineMedium.copyWith(
                           color: isDark
-                              ? AppColors.onSurfaceDisabledDark
-                              : AppColors.onSurfaceDisabled,
+                              ? AppColors.textTertiaryDark
+                              : AppColors.textTertiaryLight,
                           fontWeight: FontWeight.bold,
                         ),
                         border: InputBorder.none,
@@ -218,16 +220,16 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
                         focusNode: _contentFocusNode,
                         style: AppTextStyles.bodyLarge.copyWith(
                           color: isDark
-                              ? AppColors.onSurfaceDark
-                              : AppColors.onSurface,
+                              ? AppColors.textPrimaryDark
+                              : AppColors.textPrimaryLight,
                           height: 1.6,
                         ),
                         decoration: InputDecoration(
                           hintText: 'Start writing...',
                           hintStyle: AppTextStyles.bodyLarge.copyWith(
                             color: isDark
-                                ? AppColors.onSurfaceDisabledDark
-                                : AppColors.onSurfaceDisabled,
+                                ? AppColors.textTertiaryDark
+                                : AppColors.textTertiaryLight,
                           ),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.only(
@@ -276,13 +278,13 @@ class _EditorAppBar extends ConsumerWidget implements PreferredSizeWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return AppBar(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       surfaceTintColor: Colors.transparent,
       leading: IconButton(
         onPressed: () => Navigator.of(context).pop(),
         icon: Icon(
           Icons.arrow_back,
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       title: hasUnsavedChanges
@@ -290,8 +292,8 @@ class _EditorAppBar extends ConsumerWidget implements PreferredSizeWidget {
               'Unsaved changes',
               style: AppTextStyles.labelMedium.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             )
           : null,
@@ -307,8 +309,8 @@ class _EditorAppBar extends ConsumerWidget implements PreferredSizeWidget {
               color: note!.isPinned
                   ? AppColors.primary
                   : (isDark
-                        ? AppColors.onSurfaceVariantDark
-                        : AppColors.onSurfaceVariant),
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondaryLight),
             ),
             tooltip: note!.isPinned ? 'Unpin' : 'Pin',
           ),
@@ -321,8 +323,8 @@ class _EditorAppBar extends ConsumerWidget implements PreferredSizeWidget {
           icon: Icon(
             Icons.more_vert,
             color: isDark
-                ? AppColors.onSurfaceVariantDark
-                : AppColors.onSurfaceVariant,
+                ? AppColors.textSecondaryDark
+                : AppColors.textSecondaryLight,
           ),
         ),
         SizedBox(width: AppSpacing.xs),
@@ -348,10 +350,10 @@ class _FormattingToolbar extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
         border: Border(
           top: BorderSide(
-            color: isDark ? AppColors.outlineDark : AppColors.outline,
+            color: isDark ? AppColors.borderDark : AppColors.borderLight,
             width: 0.5,
           ),
         ),
@@ -506,15 +508,15 @@ class _ToolbarButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: AppRadius.allSm,
+          borderRadius: AppRadius.roundedSm,
           child: Padding(
             padding: EdgeInsets.all(AppSpacing.sm),
             child: Icon(
               icon,
               size: 20,
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
           ),
         ),
@@ -534,7 +536,7 @@ class _ToolbarDivider extends StatelessWidget {
       width: 1,
       height: 20,
       margin: EdgeInsets.symmetric(horizontal: AppSpacing.xs),
-      color: isDark ? AppColors.outlineDark : AppColors.outline,
+      color: isDark ? AppColors.borderDark : AppColors.borderLight,
     );
   }
 }

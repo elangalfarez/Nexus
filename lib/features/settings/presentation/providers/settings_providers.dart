@@ -141,23 +141,14 @@ class AppStats {
 final appStatsProvider = FutureProvider<AppStats>((ref) async {
   final stats = await DatabaseService.getStats();
 
-  // Get word count from notes
-  final noteRepo = ref.read(noteRepositoryProvider);
-  final noteStats = await noteRepo.getStats();
-
   return AppStats(
     totalTasks: stats['tasks'] ?? 0,
     completedTasks: 0, // Would need separate query
     totalNotes: stats['notes'] ?? 0,
     totalProjects: stats['projects'] ?? 0,
     totalTags: stats['tags'] ?? 0,
-    totalWords: noteStats.totalWords,
+    totalWords: 0, // TODO: Implement word count from notes
   );
-});
-
-// Note repository provider import placeholder
-final noteRepositoryProvider = Provider((ref) {
-  throw UnimplementedError('Import from note_providers.dart');
 });
 
 // ============================================
@@ -172,7 +163,7 @@ class DataManagementNotifier extends StateNotifier<AsyncValue<void>> {
   Future<Map<String, dynamic>?> exportData() async {
     state = const AsyncValue.loading();
     try {
-      final data = await DatabaseService.exportAll();
+      final data = await DatabaseService.exportData();
       state = const AsyncValue.data(null);
       return data;
     } catch (e, stack) {
@@ -185,7 +176,7 @@ class DataManagementNotifier extends StateNotifier<AsyncValue<void>> {
   Future<bool> importData(Map<String, dynamic> data) async {
     state = const AsyncValue.loading();
     try {
-      await DatabaseService.importAll(data);
+      await DatabaseService.importData(data);
       state = const AsyncValue.data(null);
       return true;
     } catch (e, stack) {
@@ -213,20 +204,6 @@ final dataManagementProvider =
     StateNotifierProvider<DataManagementNotifier, AsyncValue<void>>((ref) {
       return DataManagementNotifier();
     });
-
-// ============================================
-// FLUTTER THEME MODE (Direct StateProvider)
-// ============================================
-
-/// Direct ThemeMode provider for simpler state management
-final themeModeProvider = StateProvider<ThemeMode>((ref) {
-  final appMode = StorageService.getThemeMode();
-  return switch (appMode) {
-    AppThemeMode.light => ThemeMode.light,
-    AppThemeMode.dark => ThemeMode.dark,
-    AppThemeMode.system => ThemeMode.system,
-  };
-});
 
 /// Accent color index provider
 final accentColorIndexProvider = StateProvider<int>((ref) => 0);

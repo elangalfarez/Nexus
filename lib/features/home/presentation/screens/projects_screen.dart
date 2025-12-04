@@ -28,7 +28,7 @@ class ProjectsScreen extends ConsumerWidget {
     final viewMode = ref.watch(projectsViewModeProvider);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: CustomScrollView(
         slivers: [
           // App Bar
@@ -36,12 +36,12 @@ class ProjectsScreen extends ConsumerWidget {
             floating: true,
             backgroundColor: isDark
                 ? AppColors.backgroundDark
-                : AppColors.background,
+                : AppColors.backgroundLight,
             surfaceTintColor: Colors.transparent,
             title: Text(
               'Projects',
               style: AppTextStyles.headlineMedium.copyWith(
-                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
             actions: [
@@ -55,8 +55,8 @@ class ProjectsScreen extends ConsumerWidget {
                 icon: Icon(
                   viewMode == ViewMode.list ? Icons.grid_view : Icons.view_list,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
                 tooltip: viewMode == ViewMode.list ? 'Grid view' : 'List view',
               ),
@@ -68,12 +68,12 @@ class ProjectsScreen extends ConsumerWidget {
                 icon: Icon(
                   Icons.add,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
                 tooltip: 'New project',
               ),
-              SizedBox(width: AppSpacing.xs),
+              const SizedBox(width: AppSpacing.xs),
             ],
           ),
 
@@ -113,7 +113,7 @@ class ProjectsScreen extends ConsumerWidget {
                 regular: regular,
               );
             },
-            loading: () => SliverFillRemaining(
+            loading: () => const SliverFillRemaining(
               child: Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
               ),
@@ -141,33 +141,30 @@ class _ListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return SliverList(
       delegate: SliverChildListDelegate([
         // Inbox
         if (inbox != null) ...[
-          _SectionTitle(title: 'Inbox'),
+          const _SectionTitle(title: 'Inbox'),
           _ProjectListItemWithStats(project: inbox!),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
         ],
 
         // Favorites
         if (favorites.isNotEmpty) ...[
-          _SectionTitle(title: 'Favorites', icon: Icons.star),
+          const _SectionTitle(title: 'Favorites', icon: Icons.star),
           ...favorites.map((p) => _ProjectListItemWithStats(project: p)),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
         ],
 
         // Regular projects
         if (regular.isNotEmpty) ...[
-          _SectionTitle(title: 'Projects'),
+          const _SectionTitle(title: 'Projects'),
           ...regular.map((p) => _ProjectListItemWithStats(project: p)),
         ],
 
         // Bottom padding
-        SizedBox(height: AppSpacing.huge),
+        const SizedBox(height: AppSpacing.xxxl),
       ]),
     );
   }
@@ -186,9 +183,9 @@ class _GridView extends ConsumerWidget {
     final allProjects = [if (inbox != null) inbox!, ...favorites, ...regular];
 
     return SliverPadding(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       sliver: SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: AppSpacing.md,
           crossAxisSpacing: AppSpacing.md,
@@ -216,7 +213,7 @@ class _SectionTitle extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(
+      padding: const EdgeInsets.fromLTRB(
         AppSpacing.md,
         AppSpacing.md,
         AppSpacing.md,
@@ -226,14 +223,14 @@ class _SectionTitle extends StatelessWidget {
         children: [
           if (icon != null) ...[
             Icon(icon, size: 16, color: AppColors.tertiary),
-            SizedBox(width: AppSpacing.xs),
+            const SizedBox(width: AppSpacing.xs),
           ],
           Text(
             title,
             style: AppTextStyles.labelLarge.copyWith(
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
           ),
         ],

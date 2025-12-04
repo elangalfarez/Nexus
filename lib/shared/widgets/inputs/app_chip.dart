@@ -172,9 +172,6 @@ class PriorityChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     final color = AppColors.getPriorityColor(priority);
     final label = _getPriorityLabel(priority);
     final icon = _getPriorityIcon(priority);

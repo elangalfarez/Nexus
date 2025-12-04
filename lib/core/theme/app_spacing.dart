@@ -45,6 +45,9 @@ abstract final class AppSpacing {
   /// 64px - Extra large spacing
   static const double xxxl = 64.0;
 
+  /// Alias for xxxl (64px)
+  static const double huge = xxxl;
+
   // ═══════════════════════════════════════════════════════════════════════════
   // EDGE INSETS - Symmetric
   // ═══════════════════════════════════════════════════════════════════════════
@@ -243,4 +246,17 @@ abstract final class AppSpacing {
   /// Sliver gap - xl (32px)
   static SliverToBoxAdapter get sliverGapXl =>
       const SliverToBoxAdapter(child: gapXl);
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ALIASES FOR CONVENIENCE
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /// Alias for cardPadding
+  static const EdgeInsets card = cardPadding;
+
+  /// Alias for chipPadding
+  static const EdgeInsets chip = chipPadding;
+
+  /// Alias for inputPadding
+  static const EdgeInsets input = inputPadding;
 }

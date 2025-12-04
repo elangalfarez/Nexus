@@ -3,7 +3,6 @@
 
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import '../theme/app_text_styles.dart';
 
 /// Context extensions for easy access to theme and media query
 extension BuildContextExtensions on BuildContext {

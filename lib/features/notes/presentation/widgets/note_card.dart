@@ -31,12 +31,12 @@ class NoteListCard extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final titleColor = isDark ? AppColors.onSurfaceDark : AppColors.onSurface;
+    final titleColor = isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight;
     final subtitleColor = isDark
-        ? AppColors.onSurfaceVariantDark
-        : AppColors.onSurfaceVariant;
+        ? AppColors.textSecondaryDark
+        : AppColors.textSecondaryLight;
     final bgColor = selected
-        ? AppColors.primary.withOpacity(0.08)
+        ? AppColors.primary.withValues(alpha: 0.08)
         : Colors.transparent;
 
     return Material(
@@ -209,29 +209,29 @@ class NoteGridCard extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final titleColor = isDark ? AppColors.onSurfaceDark : AppColors.onSurface;
+    final titleColor = isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight;
     final subtitleColor = isDark
-        ? AppColors.onSurfaceVariantDark
-        : AppColors.onSurfaceVariant;
-    final bgColor = isDark ? AppColors.surfaceDark : AppColors.surface;
+        ? AppColors.textSecondaryDark
+        : AppColors.textSecondaryLight;
+    final bgColor = isDark ? AppColors.surfaceDark : AppColors.surfaceLight;
     final borderColor = selected
         ? AppColors.primary
-        : (isDark ? AppColors.outlineDark : AppColors.outline);
+        : (isDark ? AppColors.borderDark : AppColors.borderLight);
 
     return Material(
       color: bgColor,
-      borderRadius: AppRadius.cardRadius,
+      borderRadius: AppRadius.card,
       child: InkWell(
         onTap: onTap,
         onLongPress: () {
           HapticFeedback.mediumImpact();
           onLongPress?.call();
         },
-        borderRadius: AppRadius.cardRadius,
+        borderRadius: AppRadius.card,
         child: Container(
-          padding: AppSpacing.card,
+          padding: AppSpacing.cardPadding,
           decoration: BoxDecoration(
-            borderRadius: AppRadius.cardRadius,
+            borderRadius: AppRadius.card,
             border: Border.all(color: borderColor, width: selected ? 2 : 1),
           ),
           child: Column(
@@ -338,17 +338,17 @@ class NoteCardSkeleton extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final shimmerBase = isDark
-        ? AppColors.shimmerBaseDark
-        : AppColors.shimmerBase;
+        ? AppColors.surfaceVariantDark
+        : AppColors.surfaceVariantLight;
 
     if (isGrid) {
       return Container(
-        padding: AppSpacing.card,
+        padding: AppSpacing.cardPadding,
         decoration: BoxDecoration(
-          color: isDark ? AppColors.surfaceDark : AppColors.surface,
-          borderRadius: AppRadius.cardRadius,
+          color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+          borderRadius: AppRadius.card,
           border: Border.all(
-            color: isDark ? AppColors.outlineDark : AppColors.outline,
+            color: isDark ? AppColors.borderDark : AppColors.borderLight,
           ),
         ),
         child: Column(
@@ -359,7 +359,7 @@ class NoteCardSkeleton extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: shimmerBase,
-                borderRadius: AppRadius.allXs,
+                borderRadius: AppRadius.roundedXs,
               ),
             ),
             SizedBox(height: AppSpacing.sm),
@@ -368,7 +368,7 @@ class NoteCardSkeleton extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: shimmerBase,
-                borderRadius: AppRadius.allXs,
+                borderRadius: AppRadius.roundedXs,
               ),
             ),
             SizedBox(height: AppSpacing.xs),
@@ -377,7 +377,7 @@ class NoteCardSkeleton extends StatelessWidget {
               width: 100,
               decoration: BoxDecoration(
                 color: shimmerBase,
-                borderRadius: AppRadius.allXs,
+                borderRadius: AppRadius.roundedXs,
               ),
             ),
           ],
@@ -398,7 +398,7 @@ class NoteCardSkeleton extends StatelessWidget {
             width: 200,
             decoration: BoxDecoration(
               color: shimmerBase,
-              borderRadius: AppRadius.allXs,
+              borderRadius: AppRadius.roundedXs,
             ),
           ),
           SizedBox(height: AppSpacing.xs),
@@ -407,7 +407,7 @@ class NoteCardSkeleton extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               color: shimmerBase,
-              borderRadius: AppRadius.allXs,
+              borderRadius: AppRadius.roundedXs,
             ),
           ),
           SizedBox(height: AppSpacing.xs),
@@ -416,7 +416,7 @@ class NoteCardSkeleton extends StatelessWidget {
             width: 150,
             decoration: BoxDecoration(
               color: shimmerBase,
-              borderRadius: AppRadius.allXs,
+              borderRadius: AppRadius.roundedXs,
             ),
           ),
         ],

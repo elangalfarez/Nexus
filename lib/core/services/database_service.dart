@@ -2,7 +2,8 @@
 // Isar database initialization and management
 
 import 'package:flutter/foundation.dart';
-import 'package:isar/isar.dart';
+import 'package:isar/isar.dart'
+    hide LinkSchema; // Hide Isar's LinkSchema to avoid conflict
 import 'package:path_provider/path_provider.dart';
 
 import '../../features/tasks/data/models/task_model.dart';
@@ -66,9 +67,8 @@ class DatabaseService {
 
       if (kDebugMode) {
         debugPrint('Database initialized at: ${dir.path}');
-        debugPrint(
-          'Collections: ${_instance!.schemas.map((s) => s.name).join(', ')}',
-        );
+        // Note: schemas property doesn't exist in Isar 3.x, removed this debug line
+        debugPrint('Database ready with 7 collections');
       }
 
       return _instance!;
@@ -83,16 +83,15 @@ class DatabaseService {
   static Future<void> _ensureInboxExists() async {
     final db = _instance!;
 
-    final existingInbox = await db.projects
-        .filter()
-        .isInboxEqualTo(true)
-        .findFirst();
+    final existing =
+        await db.projects.filter().isInboxEqualTo(true).findFirst();
 
-    if (existingInbox == null) {
+    if (existing == null) {
       final inbox = Project.createInbox();
       await db.writeTxn(() async {
         await db.projects.put(inbox);
       });
+
       if (kDebugMode) {
         debugPrint('Created default Inbox project');
       }
@@ -105,56 +104,54 @@ class DatabaseService {
       await _instance!.close();
       _instance = null;
       _isInitialized = false;
+
       if (kDebugMode) {
         debugPrint('Database closed');
       }
     }
   }
 
-  /// Clear all data (for testing or reset)
+  /// Clear all data (use with caution!)
   static Future<void> clearAll() async {
-    final db = _instance;
-    if (db == null) return;
+    final db = _instance!;
 
     await db.writeTxn(() async {
-      await db.clear();
+      await db.tasks.clear();
+      await db.projects.clear();
+      await db.sections.clear();
+      await db.notes.clear();
+      await db.folders.clear();
+      await db.tags.clear();
+      await db.links.clear();
     });
 
     // Recreate inbox
     await _ensureInboxExists();
 
     if (kDebugMode) {
-      debugPrint('Database cleared');
+      debugPrint('All data cleared');
     }
   }
 
   /// Export all data to JSON
-  static Future<Map<String, dynamic>> exportAll() async {
+  static Future<Map<String, dynamic>> exportData() async {
     final db = _instance!;
 
-    final tasks = await db.tasks.where().findAll();
-    final projects = await db.projects.where().findAll();
-    final sections = await db.sections.where().findAll();
-    final notes = await db.notes.where().findAll();
-    final folders = await db.folders.where().findAll();
-    final tags = await db.tags.where().findAll();
-    final links = await db.links.where().findAll();
-
     return {
+      'version': 1,
       'exportedAt': DateTime.now().toIso8601String(),
-      'version': AppConstants.databaseVersion,
-      'tasks': tasks.map((t) => t.toJson()).toList(),
-      'projects': projects.map((p) => p.toJson()).toList(),
-      'sections': sections.map((s) => s.toJson()).toList(),
-      'notes': notes.map((n) => n.toJson()).toList(),
-      'folders': folders.map((f) => f.toJson()).toList(),
-      'tags': tags.map((t) => t.toJson()).toList(),
-      'links': links.map((l) => l.toJson()).toList(),
+      'tasks': await db.tasks.where().exportJson(),
+      'projects': await db.projects.where().exportJson(),
+      'sections': await db.sections.where().exportJson(),
+      'notes': await db.notes.where().exportJson(),
+      'folders': await db.folders.where().exportJson(),
+      'tags': await db.tags.where().exportJson(),
+      'links': await db.links.where().exportJson(),
     };
   }
 
   /// Import data from JSON
-  static Future<void> importAll(Map<String, dynamic> data) async {
+  static Future<void> importData(Map<String, dynamic> data) async {
     final db = _instance!;
 
     await db.writeTxn(() async {

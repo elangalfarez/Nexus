@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/theme.dart';
-import '../../../../shared/widgets/inputs/app_text_field.dart';
-import '../../../../shared/widgets/buttons/app_button.dart';
-import '../../../../shared/widgets/inputs/app_chip.dart';
 import '../../../tasks/presentation/providers/task_providers.dart';
 import '../../../notes/presentation/providers/note_providers.dart';
 
@@ -81,8 +78,8 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
-        borderRadius: AppRadius.bottomSheetRadius,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: AppRadius.bottomSheet,
       ),
       padding: EdgeInsets.only(bottom: bottomPadding),
       child: Column(
@@ -90,22 +87,22 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
         children: [
           // Drag handle
           Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Container(
               width: 32,
               height: 4,
               decoration: BoxDecoration(
                 color: isDark
-                    ? AppColors.onSurfaceDisabledDark
-                    : AppColors.onSurfaceDisabled,
-                borderRadius: AppRadius.allFull,
+                    ? AppColors.textDisabledDark
+                    : AppColors.textDisabledLight,
+                borderRadius: AppRadius.roundedFull,
               ),
             ),
           ),
 
           // Type selector
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: Row(
               children: [
                 _TypeChip(
@@ -114,7 +111,7 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                   isSelected: _type == CaptureType.task,
                   onTap: () => setState(() => _type = CaptureType.task),
                 ),
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 _TypeChip(
                   label: 'Note',
                   icon: Icons.note_outlined,
@@ -125,11 +122,11 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
             ),
           ),
 
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
 
           // Input field
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: Row(
               children: [
                 Expanded(
@@ -139,8 +136,8 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                     textCapitalization: TextCapitalization.sentences,
                     style: AppTextStyles.bodyLarge.copyWith(
                       color: isDark
-                          ? AppColors.onSurfaceDark
-                          : AppColors.onSurface,
+                          ? AppColors.textPrimaryDark
+                          : AppColors.textPrimaryLight,
                     ),
                     decoration: InputDecoration(
                       hintText: _type == CaptureType.task
@@ -148,8 +145,8 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                           : 'Note title...',
                       hintStyle: AppTextStyles.bodyLarge.copyWith(
                         color: isDark
-                            ? AppColors.onSurfaceDisabledDark
-                            : AppColors.onSurfaceDisabled,
+                            ? AppColors.textDisabledDark
+                            : AppColors.textDisabledLight,
                       ),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
@@ -158,11 +155,11 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                   ),
                 ),
 
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
 
                 // Save button
                 _isLoading
-                    ? SizedBox(
+                    ? const SizedBox(
                         width: 24,
                         height: 24,
                         child: CircularProgressIndicator(
@@ -178,8 +175,8 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                           Icons.send,
                           color: _titleController.text.isEmpty
                               ? (isDark
-                                    ? AppColors.onSurfaceDisabledDark
-                                    : AppColors.onSurfaceDisabled)
+                                    ? AppColors.textDisabledDark
+                                    : AppColors.textDisabledLight)
                               : AppColors.primary,
                         ),
                       ),
@@ -189,7 +186,7 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
 
           // Quick actions row
           Padding(
-            padding: EdgeInsets.all(AppSpacing.md),
+            padding: const EdgeInsets.all(AppSpacing.md),
             child: Row(
               children: [
                 if (_type == CaptureType.task) ...[
@@ -201,7 +198,7 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                       HapticFeedback.lightImpact();
                     },
                   ),
-                  SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: AppSpacing.sm),
                   _QuickActionButton(
                     icon: Icons.flag_outlined,
                     tooltip: 'Priority',
@@ -210,7 +207,7 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                       HapticFeedback.lightImpact();
                     },
                   ),
-                  SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: AppSpacing.sm),
                   _QuickActionButton(
                     icon: Icons.folder_outlined,
                     tooltip: 'Project',
@@ -228,7 +225,7 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                       HapticFeedback.lightImpact();
                     },
                   ),
-                  SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: AppSpacing.sm),
                   _QuickActionButton(
                     icon: Icons.push_pin_outlined,
                     tooltip: 'Pin',
@@ -239,7 +236,7 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                   ),
                 ],
 
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 _QuickActionButton(
                   icon: Icons.label_outline,
                   tooltip: 'Tags',
@@ -257,12 +254,12 @@ class _QuickCaptureSheetState extends ConsumerState<QuickCaptureSheet> {
                     // TODO: Navigate to full editor
                     Navigator.of(context).pop();
                   },
-                  icon: Icon(Icons.open_in_full, size: 18),
-                  label: Text('Expand'),
+                  icon: const Icon(Icons.open_in_full, size: 18),
+                  label: const Text('Expand'),
                   style: TextButton.styleFrom(
                     foregroundColor: isDark
-                        ? AppColors.onSurfaceVariantDark
-                        : AppColors.onSurfaceVariant,
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondaryLight,
                   ),
                 ),
               ],
@@ -344,26 +341,26 @@ class _TypeChip extends StatelessWidget {
 
     return Material(
       color: isSelected
-          ? AppColors.primary.withOpacity(0.12)
+          ? AppColors.primary.withValues(alpha: 0.12)
           : Colors.transparent,
-      borderRadius: AppRadius.allFull,
+      borderRadius: AppRadius.roundedFull,
       child: InkWell(
         onTap: () {
           HapticFeedback.lightImpact();
           onTap();
         },
-        borderRadius: AppRadius.allFull,
+        borderRadius: AppRadius.roundedFull,
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
           ),
           decoration: BoxDecoration(
-            borderRadius: AppRadius.allFull,
+            borderRadius: AppRadius.roundedFull,
             border: Border.all(
               color: isSelected
                   ? AppColors.primary
-                  : (isDark ? AppColors.outlineDark : AppColors.outline),
+                  : (isDark ? AppColors.borderDark : AppColors.borderLight),
             ),
           ),
           child: Row(
@@ -375,18 +372,18 @@ class _TypeChip extends StatelessWidget {
                 color: isSelected
                     ? AppColors.primary
                     : (isDark
-                          ? AppColors.onSurfaceVariantDark
-                          : AppColors.onSurfaceVariant),
+                          ? AppColors.textSecondaryDark
+                          : AppColors.textSecondaryLight),
               ),
-              SizedBox(width: AppSpacing.xs),
+              const SizedBox(width: AppSpacing.xs),
               Text(
                 label,
                 style: AppTextStyles.labelMedium.copyWith(
                   color: isSelected
                       ? AppColors.primary
                       : (isDark
-                            ? AppColors.onSurfaceDark
-                            : AppColors.onSurface),
+                            ? AppColors.textPrimaryDark
+                            : AppColors.textPrimaryLight),
                 ),
               ),
             ],
@@ -402,13 +399,11 @@ class _QuickActionButton extends StatelessWidget {
   final IconData icon;
   final String tooltip;
   final VoidCallback onTap;
-  final bool isActive;
 
   const _QuickActionButton({
     required this.icon,
     required this.tooltip,
     required this.onTap,
-    this.isActive = false,
   });
 
   @override
@@ -419,23 +414,19 @@ class _QuickActionButton extends StatelessWidget {
     return Tooltip(
       message: tooltip,
       child: Material(
-        color: isActive
-            ? AppColors.primary.withOpacity(0.12)
-            : Colors.transparent,
-        borderRadius: AppRadius.allSm,
+        color: Colors.transparent,
+        borderRadius: AppRadius.roundedSm,
         child: InkWell(
           onTap: onTap,
-          borderRadius: AppRadius.allSm,
+          borderRadius: AppRadius.roundedSm,
           child: Padding(
-            padding: EdgeInsets.all(AppSpacing.sm),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             child: Icon(
               icon,
               size: 20,
-              color: isActive
-                  ? AppColors.primary
-                  : (isDark
-                        ? AppColors.onSurfaceVariantDark
-                        : AppColors.onSurfaceVariant),
+              color: isDark
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
           ),
         ),

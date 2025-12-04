@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../services/storage_service.dart';
 import '../../features/home/presentation/screens/home_shell.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
-import '../../features/onboarding/presentation/screens/splash_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/settings/presentation/screens/data_management_screen.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
@@ -70,10 +69,9 @@ final routerProvider = Provider<GoRouter>((ref) {
     debugLogDiagnostics: true,
 
     // Redirect logic
-    redirect: (context, state) async {
+    redirect: (context, state) {
       // Check onboarding status
-      final storage = StorageService.instance;
-      final hasCompletedOnboarding = await storage.isOnboardingCompleted();
+      final hasCompletedOnboarding = StorageService.isOnboardingCompleted();
 
       final isOnboarding = state.matchedLocation == AppPaths.onboarding;
 
@@ -287,7 +285,7 @@ class _PlaceholderScreen extends StatelessWidget {
             Icon(
               icon,
               size: 64,
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
             const SizedBox(height: 16),
             Text(title, style: theme.textTheme.headlineSmall),

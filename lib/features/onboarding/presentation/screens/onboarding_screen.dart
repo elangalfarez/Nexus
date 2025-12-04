@@ -80,7 +80,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _completeOnboarding() async {
-    await StorageService.instance.completeOnboarding();
+    await StorageService.completeOnboarding();
     if (mounted) {
       Navigator.of(context).pushReplacementNamed('/');
     }
@@ -92,7 +92,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -109,8 +109,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         'Skip',
                         style: AppTextStyles.labelLarge.copyWith(
                           color: isDark
-                              ? AppColors.onSurfaceVariantDark
-                              : AppColors.onSurfaceVariant,
+                              ? AppColors.textSecondaryDark
+                              : AppColors.textSecondaryLight,
                         ),
                       ),
                     ),
@@ -149,8 +149,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           ? _pages[_currentPage].color
                           : (isDark
                                 ? AppColors.surfaceVariantDark
-                                : AppColors.surfaceVariant),
-                      borderRadius: AppRadius.allFull,
+                                : AppColors.surfaceVariantLight),
+                      borderRadius: AppRadius.roundedFull,
                     ),
                   );
                 }),
@@ -216,7 +216,7 @@ class _OnboardingPage extends StatelessWidget {
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              color: data.color.withOpacity(0.15),
+              color: data.color.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
             child: Icon(data.icon, size: 64, color: data.color),
@@ -228,7 +228,7 @@ class _OnboardingPage extends StatelessWidget {
           Text(
             data.title,
             style: AppTextStyles.headlineMedium.copyWith(
-              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
@@ -241,8 +241,8 @@ class _OnboardingPage extends StatelessWidget {
             data.subtitle,
             style: AppTextStyles.bodyLarge.copyWith(
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -286,7 +286,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -294,7 +294,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
           onPressed: () => Navigator.pop(context),
           icon: Icon(
             Icons.arrow_back,
-            color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+            color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
           ),
         ),
       ),
@@ -307,7 +307,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
               Text(
                 'How will you use Nexus?',
                 style: AppTextStyles.headlineMedium.copyWith(
-                  color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -318,8 +318,8 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
                 'We\'ll customize your experience based on your needs.',
                 style: AppTextStyles.bodyLarge.copyWith(
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
               ),
 
@@ -366,8 +366,8 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
                     'Skip for now',
                     style: AppTextStyles.labelLarge.copyWith(
                       color: isDark
-                          ? AppColors.onSurfaceVariantDark
-                          : AppColors.onSurfaceVariant,
+                          ? AppColors.textSecondaryDark
+                          : AppColors.textSecondaryLight,
                     ),
                   ),
                 ),
@@ -407,20 +407,20 @@ class _UseCaseOption extends StatelessWidget {
       padding: EdgeInsets.only(bottom: AppSpacing.sm),
       child: Material(
         color: isSelected
-            ? AppColors.primary.withOpacity(0.08)
-            : (isDark ? AppColors.surfaceDark : AppColors.surface),
-        borderRadius: AppRadius.allMd,
+            ? AppColors.primary.withValues(alpha: 0.08)
+            : (isDark ? AppColors.surfaceDark : AppColors.surfaceLight),
+        borderRadius: AppRadius.roundedMd,
         child: InkWell(
           onTap: onTap,
-          borderRadius: AppRadius.allMd,
+          borderRadius: AppRadius.roundedMd,
           child: Container(
             padding: EdgeInsets.all(AppSpacing.md),
             decoration: BoxDecoration(
-              borderRadius: AppRadius.allMd,
+              borderRadius: AppRadius.roundedMd,
               border: Border.all(
                 color: isSelected
                     ? AppColors.primary
-                    : (isDark ? AppColors.outlineDark : AppColors.outline),
+                    : (isDark ? AppColors.borderDark : AppColors.borderLight),
                 width: isSelected ? 2 : 1,
               ),
             ),
@@ -431,19 +431,19 @@ class _UseCaseOption extends StatelessWidget {
                   height: 48,
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? AppColors.primary.withOpacity(0.15)
+                        ? AppColors.primary.withValues(alpha: 0.15)
                         : (isDark
                               ? AppColors.surfaceVariantDark
-                              : AppColors.surfaceVariant),
-                    borderRadius: AppRadius.allSm,
+                              : AppColors.surfaceVariantLight),
+                    borderRadius: AppRadius.roundedSm,
                   ),
                   child: Icon(
                     icon,
                     color: isSelected
                         ? AppColors.primary
                         : (isDark
-                              ? AppColors.onSurfaceVariantDark
-                              : AppColors.onSurfaceVariant),
+                              ? AppColors.textSecondaryDark
+                              : AppColors.textSecondaryLight),
                   ),
                 ),
                 SizedBox(width: AppSpacing.md),
@@ -455,8 +455,8 @@ class _UseCaseOption extends StatelessWidget {
                         title,
                         style: AppTextStyles.titleMedium.copyWith(
                           color: isDark
-                              ? AppColors.onSurfaceDark
-                              : AppColors.onSurface,
+                              ? AppColors.textPrimaryDark
+                              : AppColors.textPrimaryLight,
                           fontWeight: isSelected
                               ? FontWeight.w600
                               : FontWeight.normal,
@@ -466,8 +466,8 @@ class _UseCaseOption extends StatelessWidget {
                         description,
                         style: AppTextStyles.bodySmall.copyWith(
                           color: isDark
-                              ? AppColors.onSurfaceVariantDark
-                              : AppColors.onSurfaceVariant,
+                              ? AppColors.textSecondaryDark
+                              : AppColors.textSecondaryLight,
                         ),
                       ),
                     ],

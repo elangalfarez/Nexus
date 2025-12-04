@@ -43,18 +43,17 @@ class TaskListItem extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final isCompleted = task.isCompleted;
-    final isOverdue = task.isOverdue;
 
     // Text colors
     final titleColor = isCompleted
         ? (isDark
-              ? AppColors.onSurfaceDisabledDark
-              : AppColors.onSurfaceDisabled)
-        : (isDark ? AppColors.onSurfaceDark : AppColors.onSurface);
+              ? AppColors.textDisabledDark
+              : AppColors.textDisabledLight)
+        : (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight);
 
     final subtitleColor = isDark
-        ? AppColors.onSurfaceVariantDark
-        : AppColors.onSurfaceVariant;
+        ? AppColors.textSecondaryDark
+        : AppColors.textSecondaryLight;
 
     return Material(
       color: selected
@@ -80,8 +79,8 @@ class TaskListItem extends StatelessWidget {
                   Icons.drag_indicator,
                   size: 20,
                   color: isDark
-                      ? AppColors.onSurfaceDisabledDark
-                      : AppColors.onSurfaceDisabled,
+                      ? AppColors.textDisabledDark
+                      : AppColors.textDisabledLight,
                 ),
                 SizedBox(width: AppSpacing.xs),
               ],
@@ -216,9 +215,9 @@ class CompactTaskListItem extends StatelessWidget {
 
     final titleColor = isCompleted
         ? (isDark
-              ? AppColors.onSurfaceDisabledDark
-              : AppColors.onSurfaceDisabled)
-        : (isDark ? AppColors.onSurfaceDark : AppColors.onSurface);
+              ? AppColors.textDisabledDark
+              : AppColors.textDisabledLight)
+        : (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight);
 
     return InkWell(
       onTap: onTap,
@@ -267,9 +266,6 @@ class TaskListItemSkeleton extends StatelessWidget {
     final shimmerBase = isDark
         ? AppColors.shimmerBaseDark
         : AppColors.shimmerBase;
-    final shimmerHighlight = isDark
-        ? AppColors.shimmerHighlightDark
-        : AppColors.shimmerHighlight;
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -300,7 +296,7 @@ class TaskListItemSkeleton extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: shimmerBase,
-                    borderRadius: AppRadius.allXs,
+                    borderRadius: AppRadius.roundedXs,
                   ),
                 ),
                 SizedBox(height: AppSpacing.xs),
@@ -310,7 +306,7 @@ class TaskListItemSkeleton extends StatelessWidget {
                   width: 120,
                   decoration: BoxDecoration(
                     color: shimmerBase,
-                    borderRadius: AppRadius.allXs,
+                    borderRadius: AppRadius.roundedXs,
                   ),
                 ),
               ],

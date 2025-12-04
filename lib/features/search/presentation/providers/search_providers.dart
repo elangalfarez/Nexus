@@ -90,21 +90,23 @@ final globalSearchResultsProvider = FutureProvider<List<SearchResult>>((
 });
 
 /// Task-only search results
-final taskOnlySearchResultsProvider = FutureProvider<List<Task>>((ref) async {
+final taskOnlySearchResultsProvider = FutureProvider<List<SearchResult>>((ref) async {
   final query = ref.watch(globalSearchQueryProvider);
   if (query.length < 2) return [];
 
   final taskRepo = TaskRepository();
-  return taskRepo.search(query);
+  final tasks = await taskRepo.search(query);
+  return tasks.map((t) => TaskSearchResult(t)).toList();
 });
 
 /// Note-only search results
-final noteOnlySearchResultsProvider = FutureProvider<List<Note>>((ref) async {
+final noteOnlySearchResultsProvider = FutureProvider<List<SearchResult>>((ref) async {
   final query = ref.watch(globalSearchQueryProvider);
   if (query.length < 2) return [];
 
   final noteRepo = NoteRepository();
-  return noteRepo.search(query);
+  final notes = await noteRepo.search(query);
+  return notes.map((n) => NoteSearchResult(n)).toList();
 });
 
 // ============================================

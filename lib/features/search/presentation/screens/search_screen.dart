@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/theme.dart';
-import '../../../../shared/widgets/inputs/app_text_field.dart';
 import '../../../../shared/widgets/feedback/empty_state.dart';
 import '../providers/search_providers.dart';
 import '../../../tasks/presentation/widgets/task_list_item.dart';
@@ -68,15 +67,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     final recentSearches = ref.watch(recentSearchesProvider);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: AppBar(
         backgroundColor: isDark
             ? AppColors.backgroundDark
-            : AppColors.background,
+            : AppColors.backgroundLight,
         surfaceTintColor: Colors.transparent,
         titleSpacing: 0,
         title: Padding(
-          padding: EdgeInsets.only(right: AppSpacing.md),
+          padding: const EdgeInsets.only(right: AppSpacing.md),
           child: TextField(
             controller: _searchController,
             focusNode: _focusNode,
@@ -86,22 +85,22 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             onSubmitted: (value) {
               if (value.trim().isNotEmpty) {
                 ref
-                    .read(recentSearchesProvider.notifier)
+                    .read(recentSearchesNotifierProvider.notifier)
                     .addSearch(value.trim());
               }
             },
             style: AppTextStyles.bodyLarge.copyWith(
-              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
             ),
             decoration: InputDecoration(
               hintText: 'Search tasks and notes...',
               hintStyle: AppTextStyles.bodyLarge.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceDisabledDark
-                    : AppColors.onSurfaceDisabled,
+                    ? AppColors.textDisabledDark
+                    : AppColors.textDisabledLight,
               ),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+              contentPadding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
               suffixIcon: query.isNotEmpty
                   ? IconButton(
                       onPressed: () {
@@ -111,8 +110,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                       icon: Icon(
                         Icons.close,
                         color: isDark
-                            ? AppColors.onSurfaceVariantDark
-                            : AppColors.onSurfaceVariant,
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight,
                       ),
                     )
                   : null,
@@ -124,8 +123,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                 controller: _tabController,
                 labelColor: AppColors.primary,
                 unselectedLabelColor: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
                 indicatorColor: AppColors.primary,
                 tabs: const [
                   Tab(text: 'All'),
@@ -143,7 +142,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                 ref.read(globalSearchQueryProvider.notifier).state = search;
               },
               onClearAll: () {
-                ref.read(recentSearchesProvider.notifier).clearAll();
+                ref.read(recentSearchesNotifierProvider.notifier).clearAll();
               },
             )
           : TabBarView(
@@ -188,16 +187,16 @@ class _RecentSearches extends StatelessWidget {
               Icons.search,
               size: 64,
               color: isDark
-                  ? AppColors.onSurfaceVariantDark.withOpacity(0.5)
-                  : AppColors.onSurfaceVariant.withOpacity(0.5),
+                  ? AppColors.textSecondaryDark.withOpacity(0.5)
+                  : AppColors.textSecondaryLight.withOpacity(0.5),
             ),
-            SizedBox(height: AppSpacing.md),
+            const SizedBox(height: AppSpacing.md),
             Text(
               'Search tasks and notes',
               style: AppTextStyles.bodyLarge.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ),
           ],
@@ -206,7 +205,7 @@ class _RecentSearches extends StatelessWidget {
     }
 
     return ListView(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       children: [
         // Header
         Row(
@@ -215,8 +214,8 @@ class _RecentSearches extends StatelessWidget {
               'Recent searches',
               style: AppTextStyles.labelLarge.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ),
             const Spacer(),
@@ -231,7 +230,7 @@ class _RecentSearches extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: AppSpacing.sm),
+        const SizedBox(height: AppSpacing.sm),
 
         // Search items
         ...searches.map(
@@ -239,13 +238,13 @@ class _RecentSearches extends StatelessWidget {
             leading: Icon(
               Icons.history,
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
             title: Text(
               search,
               style: AppTextStyles.bodyLarge.copyWith(
-                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
             onTap: () => onSearchTap(search),
@@ -272,7 +271,7 @@ class _SearchResults extends ConsumerWidget {
         }
 
         return ListView.builder(
-          padding: EdgeInsets.only(bottom: AppSpacing.huge),
+          padding: const EdgeInsets.only(bottom: AppSpacing.xxxl),
           itemCount: results.length,
           itemBuilder: (context, index) {
             final result = results[index];
@@ -300,7 +299,7 @@ class _SearchResults extends ConsumerWidget {
         );
       },
       loading: () =>
-          Center(child: CircularProgressIndicator(color: AppColors.primary)),
+          const Center(child: CircularProgressIndicator(color: AppColors.primary)),
       error: (e, _) => ErrorState(message: e.toString()),
     );
   }

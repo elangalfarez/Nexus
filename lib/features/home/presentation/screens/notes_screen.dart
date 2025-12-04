@@ -46,7 +46,7 @@ class NotesScreen extends ConsumerWidget {
         : null;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: CustomScrollView(
         slivers: [
           // App Bar
@@ -54,7 +54,7 @@ class NotesScreen extends ConsumerWidget {
             floating: true,
             backgroundColor: isDark
                 ? AppColors.backgroundDark
-                : AppColors.background,
+                : AppColors.backgroundLight,
             surfaceTintColor: Colors.transparent,
             leading: currentFolderId != null
                 ? IconButton(
@@ -67,15 +67,15 @@ class NotesScreen extends ConsumerWidget {
                     icon: Icon(
                       Icons.arrow_back,
                       color: isDark
-                          ? AppColors.onSurfaceDark
-                          : AppColors.onSurface,
+                          ? AppColors.textPrimaryDark
+                          : AppColors.textPrimaryLight,
                     ),
                   )
                 : null,
             title: Text(
               currentFolderAsync?.valueOrNull?.name ?? 'Notes',
               style: AppTextStyles.headlineMedium.copyWith(
-                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
             actions: [
@@ -87,8 +87,8 @@ class NotesScreen extends ConsumerWidget {
                 icon: Icon(
                   Icons.search,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
               ),
               // View toggle
@@ -101,8 +101,8 @@ class NotesScreen extends ConsumerWidget {
                 icon: Icon(
                   viewMode == ViewMode.list ? Icons.grid_view : Icons.view_list,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
                 tooltip: viewMode == ViewMode.list ? 'Grid view' : 'List view',
               ),
@@ -118,12 +118,12 @@ class NotesScreen extends ConsumerWidget {
                 icon: Icon(
                   Icons.add,
                   color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight,
                 ),
                 tooltip: 'New note',
               ),
-              SizedBox(width: AppSpacing.xs),
+              const SizedBox(width: AppSpacing.xs),
             ],
           ),
 
@@ -159,12 +159,9 @@ class _NotesContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     // Loading state
     if (notesAsync.isLoading) {
-      return SliverFillRemaining(
+      return const SliverFillRemaining(
         child: Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
@@ -245,14 +242,11 @@ class _NotesList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return SliverList(
       delegate: SliverChildListDelegate([
         // Pinned section
         if (pinnedNotes.isNotEmpty) ...[
-          _SectionHeader(title: 'Pinned', icon: Icons.push_pin),
+          const _SectionHeader(title: 'Pinned', icon: Icons.push_pin),
           ...pinnedNotes.map(
             (note) => NoteListCard(
               note: note,
@@ -264,20 +258,20 @@ class _NotesList extends ConsumerWidget {
               },
             ),
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
         ],
 
         // Folders
         if (folders.isNotEmpty) ...[
-          _SectionHeader(title: 'Folders', icon: Icons.folder_outlined),
+          const _SectionHeader(title: 'Folders', icon: Icons.folder_outlined),
           ...folders.map((folder) => _FolderListItem(folder: folder)),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
         ],
 
         // Notes
         if (notes.isNotEmpty) ...[
           if (pinnedNotes.isNotEmpty || folders.isNotEmpty)
-            _SectionHeader(title: 'Notes'),
+            const _SectionHeader(title: 'Notes'),
           ...notes.map(
             (note) => NoteListCard(
               note: note,
@@ -292,7 +286,7 @@ class _NotesList extends ConsumerWidget {
         ],
 
         // Bottom padding
-        SizedBox(height: AppSpacing.huge),
+        const SizedBox(height: AppSpacing.xxxl),
       ]),
     );
   }
@@ -313,9 +307,9 @@ class _NotesGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SliverPadding(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       sliver: SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: AppSpacing.md,
           crossAxisSpacing: AppSpacing.md,
@@ -365,7 +359,7 @@ class _SectionHeader extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(
+      padding: const EdgeInsets.fromLTRB(
         AppSpacing.md,
         AppSpacing.md,
         AppSpacing.md,
@@ -378,17 +372,17 @@ class _SectionHeader extends StatelessWidget {
               icon,
               size: 16,
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
-            SizedBox(width: AppSpacing.xs),
+            const SizedBox(width: AppSpacing.xs),
           ],
           Text(
             title,
             style: AppTextStyles.labelLarge.copyWith(
               color: isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant,
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight,
             ),
           ),
         ],
@@ -417,7 +411,7 @@ class _FolderListItem extends ConsumerWidget {
           ref.read(currentFolderIdProvider.notifier).state = folder.id;
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
           ),
@@ -427,19 +421,19 @@ class _FolderListItem extends ConsumerWidget {
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
-                  color: folderColor.withOpacity(0.15),
-                  borderRadius: AppRadius.allSm,
+                  color: folderColor.withValues(alpha: 0.15),
+                  borderRadius: AppRadius.roundedSm,
                 ),
                 child: Icon(Icons.folder, size: 20, color: folderColor),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: Text(
                   folder.name,
                   style: AppTextStyles.bodyLarge.copyWith(
                     color: isDark
-                        ? AppColors.onSurfaceDark
-                        : AppColors.onSurface,
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimaryLight,
                   ),
                 ),
               ),
@@ -447,8 +441,8 @@ class _FolderListItem extends ConsumerWidget {
                 Icons.chevron_right,
                 size: 20,
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ],
           ),
@@ -472,19 +466,19 @@ class _FolderGridItem extends ConsumerWidget {
     final folderColor = AppColors.getProjectColor(folder.colorIndex);
 
     return Material(
-      color: isDark ? AppColors.surfaceDark : AppColors.surface,
-      borderRadius: AppRadius.cardRadius,
+      color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+      borderRadius: AppRadius.roundedMd,
       child: InkWell(
         onTap: () {
           ref.read(currentFolderIdProvider.notifier).state = folder.id;
         },
-        borderRadius: AppRadius.cardRadius,
+        borderRadius: AppRadius.roundedMd,
         child: Container(
-          padding: AppSpacing.card,
+          padding: AppSpacing.cardPadding,
           decoration: BoxDecoration(
-            borderRadius: AppRadius.cardRadius,
+            borderRadius: AppRadius.roundedMd,
             border: Border.all(
-              color: isDark ? AppColors.outlineDark : AppColors.outline,
+              color: isDark ? AppColors.borderDark : AppColors.borderLight,
             ),
           ),
           child: Column(
@@ -494,8 +488,8 @@ class _FolderGridItem extends ConsumerWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: folderColor.withOpacity(0.15),
-                  borderRadius: AppRadius.allSm,
+                  color: folderColor.withValues(alpha: 0.15),
+                  borderRadius: AppRadius.roundedSm,
                 ),
                 child: Icon(Icons.folder, size: 24, color: folderColor),
               ),
@@ -503,7 +497,7 @@ class _FolderGridItem extends ConsumerWidget {
               Text(
                 folder.name,
                 style: AppTextStyles.titleSmall.copyWith(
-                  color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

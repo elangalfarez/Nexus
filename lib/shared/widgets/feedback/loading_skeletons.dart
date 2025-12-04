@@ -30,8 +30,8 @@ class SkeletonBox extends StatelessWidget {
         decoration: BoxDecoration(
           color: isDark
               ? AppColors.surfaceVariantDark
-              : AppColors.surfaceVariant,
-          borderRadius: borderRadius ?? AppRadius.allSm,
+              : AppColors.surfaceVariantLight,
+          borderRadius: borderRadius ?? AppRadius.roundedSm,
         ),
       ),
     );
@@ -56,7 +56,7 @@ class SkeletonCircle extends StatelessWidget {
         decoration: BoxDecoration(
           color: isDark
               ? AppColors.surfaceVariantDark
-              : AppColors.surfaceVariant,
+              : AppColors.surfaceVariantLight,
           shape: BoxShape.circle,
         ),
       ),
@@ -80,7 +80,7 @@ class SkeletonLine extends StatelessWidget {
     return SkeletonBox(
       width: width,
       height: height,
-      borderRadius: AppRadius.allXs,
+      borderRadius: AppRadius.roundedXs,
     );
   }
 }
@@ -91,7 +91,7 @@ class TaskItemSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.symmetric(
         horizontal: AppSpacing.md,
         vertical: AppSpacing.sm,
@@ -156,15 +156,15 @@ class NoteCardSkeleton extends StatelessWidget {
     if (isGrid) {
       return Container(
         decoration: BoxDecoration(
-          color: isDark ? AppColors.surfaceDark : AppColors.surface,
-          borderRadius: AppRadius.allMd,
+          color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+          borderRadius: AppRadius.roundedMd,
           border: Border.all(
-            color: isDark ? AppColors.outlineDark : AppColors.outline,
+            color: isDark ? AppColors.borderDark : AppColors.borderLight,
             width: 0.5,
           ),
         ),
-        padding: EdgeInsets.all(AppSpacing.md),
-        child: Column(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SkeletonLine(width: 120, height: 16),
@@ -174,11 +174,11 @@ class NoteCardSkeleton extends StatelessWidget {
             SkeletonLine.full(height: 10),
             SizedBox(height: AppSpacing.xxs),
             SkeletonLine(width: 80, height: 10),
-            const Spacer(),
+            Spacer(),
             Row(
               children: [
                 SkeletonBox(width: 50, height: 16),
-                const Spacer(),
+                Spacer(),
                 SkeletonCircle(size: 16),
               ],
             ),
@@ -187,7 +187,7 @@ class NoteCardSkeleton extends StatelessWidget {
       );
     }
 
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.symmetric(
         horizontal: AppSpacing.md,
         vertical: AppSpacing.sm,
@@ -233,8 +233,8 @@ class NoteListSkeleton extends StatelessWidget {
       return GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(AppSpacing.md),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: AppSpacing.sm,
           mainAxisSpacing: AppSpacing.sm,
@@ -260,7 +260,7 @@ class ProjectItemSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.symmetric(
         horizontal: AppSpacing.md,
         vertical: AppSpacing.sm,
@@ -364,12 +364,12 @@ class StatsCardSkeleton extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
-        borderRadius: AppRadius.allMd,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: AppRadius.roundedMd,
         border: Border.all(
-          color: isDark ? AppColors.outlineDark : AppColors.outline,
+          color: isDark ? AppColors.borderDark : AppColors.borderLight,
           width: 0.5,
         ),
       ),
@@ -377,12 +377,12 @@ class StatsCardSkeleton extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(3, (index) => _StatItemSkeleton()),
+            children: List.generate(3, (index) => const _StatItemSkeleton()),
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(3, (index) => _StatItemSkeleton()),
+            children: List.generate(3, (index) => const _StatItemSkeleton()),
           ),
         ],
       ),
@@ -391,9 +391,11 @@ class StatsCardSkeleton extends StatelessWidget {
 }
 
 class _StatItemSkeleton extends StatelessWidget {
+  const _StatItemSkeleton();
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         SkeletonCircle(size: 20),
         SizedBox(height: AppSpacing.xs),
@@ -414,8 +416,8 @@ class SettingsSkeleton extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.all(AppSpacing.md),
-      children: [
+      padding: const EdgeInsets.all(AppSpacing.md),
+      children: const [
         // Section header
         SkeletonLine(width: 80, height: 12),
         SizedBox(height: AppSpacing.sm),
@@ -448,17 +450,17 @@ class _SettingsCardSkeleton extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
-        borderRadius: AppRadius.allMd,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: AppRadius.roundedMd,
         border: Border.all(
-          color: isDark ? AppColors.outlineDark : AppColors.outline,
+          color: isDark ? AppColors.borderDark : AppColors.borderLight,
           width: 0.5,
         ),
       ),
       child: Column(
         children: List.generate(
           itemCount,
-          (index) => Padding(
+          (index) => const Padding(
             padding: EdgeInsets.all(AppSpacing.md),
             child: Row(
               children: [
@@ -477,7 +479,7 @@ class _SettingsCardSkeleton extends StatelessWidget {
                 SkeletonBox(
                   width: 48,
                   height: 28,
-                  borderRadius: AppRadius.allFull,
+                  borderRadius: AppRadius.roundedFull,
                 ),
               ],
             ),

@@ -237,6 +237,15 @@ abstract final class AppTextStyles {
     letterSpacing: 0,
     decoration: TextDecoration.underline,
   );
+
+  /// Stat/metric style for numbers
+  static const TextStyle stat = TextStyle(
+    fontFamily: fontFamilyPrimary,
+    fontSize: 20,
+    fontWeight: bold,
+    height: 1.2,
+    letterSpacing: -0.5,
+  );
 }
 
 extension TextStyleColorExtension on TextStyle {

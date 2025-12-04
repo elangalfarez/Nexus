@@ -223,6 +223,76 @@ abstract final class AppColors {
   ];
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // ALIASES FOR CONVENIENCE
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /// Alias for backgroundLight
+  static const Color background = backgroundLight;
+
+  /// Alias for surfaceLight
+  static const Color surface = surfaceLight;
+
+  /// Alias for surfaceVariantLight
+  static const Color surfaceVariant = surfaceVariantLight;
+
+  /// Alias for textPrimaryLight
+  static const Color onSurface = textPrimaryLight;
+
+  /// Alias for textPrimaryDark
+  static const Color onSurfaceDark = textPrimaryDark;
+
+  /// Alias for textSecondaryLight
+  static const Color onSurfaceVariant = textSecondaryLight;
+
+  /// Alias for textSecondaryDark
+  static const Color onSurfaceVariantDark = textSecondaryDark;
+
+  /// Alias for textDisabledLight
+  static const Color onSurfaceDisabled = textDisabledLight;
+
+  /// Alias for textDisabledDark
+  static const Color onSurfaceDisabledDark = textDisabledDark;
+
+  /// Alias for borderLight
+  static const Color outline = borderLight;
+
+  /// Alias for borderDark
+  static const Color outlineDark = borderDark;
+
+  /// Alias for priorityP1
+  static const Color priorityUrgent = priorityP1;
+
+  /// Alias for priorityP2
+  static const Color priorityHigh = priorityP2;
+
+  /// Alias for priorityP3
+  static const Color priorityMedium = priorityP3;
+
+  /// Alias for priorityP4
+  static const Color priorityLow = priorityP4;
+
+  /// Alias for surfaceElevatedLight
+  static const Color surfaceElevated = surfaceElevatedLight;
+
+  /// Alias for surfaceVariantLight (for input backgrounds)
+  static const Color surfaceInput = surfaceVariantLight;
+
+  /// Alias for surfaceVariantDark (for input backgrounds)
+  static const Color surfaceInputDark = surfaceVariantDark;
+
+  /// Shimmer base color for light mode
+  static const Color shimmerBase = surfaceVariantLight;
+
+  /// Shimmer base color for dark mode
+  static const Color shimmerBaseDark = surfaceVariantDark;
+
+  /// Shimmer highlight color for light mode
+  static const Color shimmerHighlight = surfaceLight;
+
+  /// Shimmer highlight color for dark mode
+  static const Color shimmerHighlightDark = surfaceElevatedDark;
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // HELPER METHODS
   // ═══════════════════════════════════════════════════════════════════════════
 

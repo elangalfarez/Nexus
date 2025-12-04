@@ -238,6 +238,7 @@ class Task {
     int? projectId,
     int? sectionId,
     int? parentTaskId,
+    String? recurrenceRule,
     String? tagIds,
     String? linkedNoteIds,
     bool clearDueDate = false,
@@ -267,7 +268,7 @@ class Task {
       ..projectId = projectId ?? this.projectId
       ..sectionId = sectionId ?? this.sectionId
       ..parentTaskId = parentTaskId ?? this.parentTaskId
-      ..recurrenceRule = recurrenceRule
+      ..recurrenceRule = recurrenceRule ?? this.recurrenceRule
       ..tagIds = tagIds ?? this.tagIds
       ..linkedNoteIds = linkedNoteIds ?? this.linkedNoteIds;
   }

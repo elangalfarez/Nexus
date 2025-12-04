@@ -54,7 +54,6 @@ class _RecurrencePickerSheetState extends State<RecurrencePickerSheet> {
   late RecurrenceType _selectedType;
   int _interval = 1;
   Set<int> _selectedWeekdays = {};
-  int _monthDay = 1;
 
   @override
   void initState() {

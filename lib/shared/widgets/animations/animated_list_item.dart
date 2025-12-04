@@ -131,8 +131,6 @@ class AnimatedReorderableList<T> extends StatefulWidget {
 
 class _AnimatedReorderableListState<T>
     extends State<AnimatedReorderableList<T>> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-
   @override
   Widget build(BuildContext context) {
     return ReorderableListView.builder(
@@ -248,8 +246,6 @@ class AnimatedDismissible extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Dismissible(
       key: UniqueKey(),
       direction: direction,

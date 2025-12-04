@@ -4,8 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/theme/theme.dart';
-import '../../../../shared/widgets/layout/app_card.dart';
 import '../providers/settings_providers.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -17,16 +17,16 @@ class SettingsScreen extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: AppBar(
         backgroundColor: isDark
             ? AppColors.backgroundDark
-            : AppColors.background,
+            : AppColors.backgroundLight,
         surfaceTintColor: Colors.transparent,
         title: Text(
           'Settings',
           style: AppTextStyles.titleLarge.copyWith(
-            color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+            color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
           ),
         ),
       ),
@@ -189,7 +189,7 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.huge),
+          SizedBox(height: AppSpacing.xxxl),
         ],
       ),
     );
@@ -298,8 +298,8 @@ class _SectionHeader extends StatelessWidget {
         title,
         style: AppTextStyles.labelLarge.copyWith(
           color: isDark
-              ? AppColors.onSurfaceVariantDark
-              : AppColors.onSurfaceVariant,
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
         ),
       ),
     );
@@ -319,10 +319,10 @@ class _SettingsCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
-        borderRadius: AppRadius.allMd,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: AppRadius.roundedMd,
         border: Border.all(
-          color: isDark ? AppColors.outlineDark : AppColors.outline,
+          color: isDark ? AppColors.borderDark : AppColors.borderLight,
           width: 0.5,
         ),
       ),
@@ -342,7 +342,7 @@ class _SettingsDivider extends StatelessWidget {
       height: 1,
       thickness: 0.5,
       indent: AppSpacing.md + 24 + AppSpacing.sm,
-      color: isDark ? AppColors.outlineDark : AppColors.outline,
+      color: isDark ? AppColors.borderDark : AppColors.borderLight,
     );
   }
 }
@@ -359,43 +359,43 @@ class _ThemeSelector extends ConsumerWidget {
       leading: Icon(
         Icons.palette_outlined,
         color: isDark
-            ? AppColors.onSurfaceVariantDark
-            : AppColors.onSurfaceVariant,
+            ? AppColors.textSecondaryDark
+            : AppColors.textSecondaryLight,
       ),
       title: Text(
         'Theme',
         style: AppTextStyles.bodyLarge.copyWith(
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       subtitle: Text(
         _getThemeLabel(themeMode),
         style: AppTextStyles.bodySmall.copyWith(
           color: isDark
-              ? AppColors.onSurfaceVariantDark
-              : AppColors.onSurfaceVariant,
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
         ),
       ),
       trailing: Icon(
         Icons.chevron_right,
         color: isDark
-            ? AppColors.onSurfaceDisabledDark
-            : AppColors.onSurfaceDisabled,
+            ? AppColors.textDisabledDark
+            : AppColors.textDisabledLight,
       ),
       onTap: () => _showThemePicker(context, ref, themeMode),
     );
   }
 
-  String _getThemeLabel(ThemeMode mode) => switch (mode) {
-    ThemeMode.system => 'System default',
-    ThemeMode.light => 'Light',
-    ThemeMode.dark => 'Dark',
+  String _getThemeLabel(AppThemeMode mode) => switch (mode) {
+    AppThemeMode.system => 'System default',
+    AppThemeMode.light => 'Light',
+    AppThemeMode.dark => 'Dark',
   };
 
   void _showThemePicker(
     BuildContext context,
     WidgetRef ref,
-    ThemeMode current,
+    AppThemeMode current,
   ) {
     showModalBottomSheet(
       context: context,
@@ -403,7 +403,7 @@ class _ThemeSelector extends ConsumerWidget {
       builder: (context) => _ThemePickerSheet(
         currentMode: current,
         onModeSelected: (mode) {
-          ref.read(themeModeProvider.notifier).state = mode;
+          ref.read(themeModeProvider.notifier).setThemeMode(mode);
           Navigator.pop(context);
         },
       ),
@@ -413,8 +413,8 @@ class _ThemeSelector extends ConsumerWidget {
 
 /// Theme picker bottom sheet
 class _ThemePickerSheet extends StatelessWidget {
-  final ThemeMode currentMode;
-  final ValueChanged<ThemeMode> onModeSelected;
+  final AppThemeMode currentMode;
+  final ValueChanged<AppThemeMode> onModeSelected;
 
   const _ThemePickerSheet({
     required this.currentMode,
@@ -428,8 +428,8 @@ class _ThemePickerSheet extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : AppColors.surface,
-        borderRadius: AppRadius.bottomSheetRadius,
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: AppRadius.bottomSheet,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -442,9 +442,9 @@ class _ThemePickerSheet extends StatelessWidget {
               height: 4,
               decoration: BoxDecoration(
                 color: isDark
-                    ? AppColors.onSurfaceDisabledDark
-                    : AppColors.onSurfaceDisabled,
-                borderRadius: AppRadius.allFull,
+                    ? AppColors.textDisabledDark
+                    : AppColors.textDisabledLight,
+                borderRadius: AppRadius.roundedFull,
               ),
             ),
           ),
@@ -454,7 +454,7 @@ class _ThemePickerSheet extends StatelessWidget {
             child: Text(
               'Theme',
               style: AppTextStyles.titleLarge.copyWith(
-                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
           ),
@@ -462,20 +462,20 @@ class _ThemePickerSheet extends StatelessWidget {
           _ThemeOption(
             icon: Icons.brightness_auto,
             label: 'System default',
-            isSelected: currentMode == ThemeMode.system,
-            onTap: () => onModeSelected(ThemeMode.system),
+            isSelected: currentMode == AppThemeMode.system,
+            onTap: () => onModeSelected(AppThemeMode.system),
           ),
           _ThemeOption(
             icon: Icons.light_mode,
             label: 'Light',
-            isSelected: currentMode == ThemeMode.light,
-            onTap: () => onModeSelected(ThemeMode.light),
+            isSelected: currentMode == AppThemeMode.light,
+            onTap: () => onModeSelected(AppThemeMode.light),
           ),
           _ThemeOption(
             icon: Icons.dark_mode,
             label: 'Dark',
-            isSelected: currentMode == ThemeMode.dark,
-            onTap: () => onModeSelected(ThemeMode.dark),
+            isSelected: currentMode == AppThemeMode.dark,
+            onTap: () => onModeSelected(AppThemeMode.dark),
           ),
 
           SizedBox(height: AppSpacing.md),
@@ -511,13 +511,13 @@ class _ThemeOption extends StatelessWidget {
         color: isSelected
             ? AppColors.primary
             : (isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant),
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight),
       ),
       title: Text(
         label,
         style: AppTextStyles.bodyLarge.copyWith(
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
           fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
         ),
       ),
@@ -542,13 +542,13 @@ class _AccentColorSelector extends ConsumerWidget {
       leading: Icon(
         Icons.color_lens_outlined,
         color: isDark
-            ? AppColors.onSurfaceVariantDark
-            : AppColors.onSurfaceVariant,
+            ? AppColors.textSecondaryDark
+            : AppColors.textSecondaryLight,
       ),
       title: Text(
         'Accent color',
         style: AppTextStyles.bodyLarge.copyWith(
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       trailing: Row(
@@ -566,8 +566,8 @@ class _AccentColorSelector extends ConsumerWidget {
           Icon(
             Icons.chevron_right,
             color: isDark
-                ? AppColors.onSurfaceDisabledDark
-                : AppColors.onSurfaceDisabled,
+                ? AppColors.textDisabledDark
+                : AppColors.textDisabledLight,
           ),
         ],
       ),
@@ -585,8 +585,8 @@ class _AccentColorSelector extends ConsumerWidget {
 
         return Container(
           decoration: BoxDecoration(
-            color: isDark ? AppColors.surfaceDark : AppColors.surface,
-            borderRadius: AppRadius.bottomSheetRadius,
+            color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+            borderRadius: AppRadius.bottomSheet,
           ),
           padding: EdgeInsets.all(AppSpacing.md),
           child: Column(
@@ -595,7 +595,7 @@ class _AccentColorSelector extends ConsumerWidget {
               Text(
                 'Accent color',
                 style: AppTextStyles.titleLarge.copyWith(
-                  color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                 ),
               ),
               SizedBox(height: AppSpacing.md),
@@ -624,7 +624,7 @@ class _AccentColorSelector extends ConsumerWidget {
                         boxShadow: isSelected
                             ? [
                                 BoxShadow(
-                                  color: color.withOpacity(0.5),
+                                  color: color.withValues(alpha: 0.5),
                                   blurRadius: 8,
                                   spreadRadius: 2,
                                 ),
@@ -672,13 +672,13 @@ class _SwitchTile extends ConsumerWidget {
       leading: Icon(
         icon,
         color: isDark
-            ? AppColors.onSurfaceVariantDark
-            : AppColors.onSurfaceVariant,
+            ? AppColors.textSecondaryDark
+            : AppColors.textSecondaryLight,
       ),
       title: Text(
         title,
         style: AppTextStyles.bodyLarge.copyWith(
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       subtitle: subtitle != null
@@ -686,8 +686,8 @@ class _SwitchTile extends ConsumerWidget {
               subtitle!,
               style: AppTextStyles.bodySmall.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             )
           : null,
@@ -697,7 +697,7 @@ class _SwitchTile extends ConsumerWidget {
           HapticFeedback.lightImpact();
           ref.read(provider.notifier).state = newValue;
         },
-        activeColor: AppColors.primary,
+        activeTrackColor: AppColors.primary,
       ),
     );
   }
@@ -730,15 +730,15 @@ class _NavigationTile extends StatelessWidget {
         color: destructive
             ? AppColors.error
             : (isDark
-                  ? AppColors.onSurfaceVariantDark
-                  : AppColors.onSurfaceVariant),
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondaryLight),
       ),
       title: Text(
         title,
         style: AppTextStyles.bodyLarge.copyWith(
           color: destructive
               ? AppColors.error
-              : (isDark ? AppColors.onSurfaceDark : AppColors.onSurface),
+              : (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight),
         ),
       ),
       subtitle: subtitle != null
@@ -746,16 +746,16 @@ class _NavigationTile extends StatelessWidget {
               subtitle!,
               style: AppTextStyles.bodySmall.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             )
           : null,
       trailing: Icon(
         Icons.chevron_right,
         color: isDark
-            ? AppColors.onSurfaceDisabledDark
-            : AppColors.onSurfaceDisabled,
+            ? AppColors.textDisabledDark
+            : AppColors.textDisabledLight,
       ),
       onTap: onTap,
     );
@@ -773,28 +773,28 @@ class _DefaultProjectTile extends ConsumerWidget {
       leading: Icon(
         Icons.folder_outlined,
         color: isDark
-            ? AppColors.onSurfaceVariantDark
-            : AppColors.onSurfaceVariant,
+            ? AppColors.textSecondaryDark
+            : AppColors.textSecondaryLight,
       ),
       title: Text(
         'Default project',
         style: AppTextStyles.bodyLarge.copyWith(
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       subtitle: Text(
         'Inbox',
         style: AppTextStyles.bodySmall.copyWith(
           color: isDark
-              ? AppColors.onSurfaceVariantDark
-              : AppColors.onSurfaceVariant,
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
         ),
       ),
       trailing: Icon(
         Icons.chevron_right,
         color: isDark
-            ? AppColors.onSurfaceDisabledDark
-            : AppColors.onSurfaceDisabled,
+            ? AppColors.textDisabledDark
+            : AppColors.textDisabledLight,
       ),
       onTap: () {
         // TODO: Show project picker
@@ -815,28 +815,28 @@ class _ReminderTimeTile extends ConsumerWidget {
       leading: Icon(
         Icons.access_time,
         color: isDark
-            ? AppColors.onSurfaceVariantDark
-            : AppColors.onSurfaceVariant,
+            ? AppColors.textSecondaryDark
+            : AppColors.textSecondaryLight,
       ),
       title: Text(
         'Default reminder time',
         style: AppTextStyles.bodyLarge.copyWith(
-          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
         ),
       ),
       subtitle: Text(
         time.format(context),
         style: AppTextStyles.bodySmall.copyWith(
           color: isDark
-              ? AppColors.onSurfaceVariantDark
-              : AppColors.onSurfaceVariant,
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
         ),
       ),
       trailing: Icon(
         Icons.chevron_right,
         color: isDark
-            ? AppColors.onSurfaceDisabledDark
-            : AppColors.onSurfaceDisabled,
+            ? AppColors.textDisabledDark
+            : AppColors.textDisabledLight,
       ),
       onTap: () async {
         final picked = await showTimePicker(
@@ -861,16 +861,16 @@ class AboutScreen extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.background,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: AppBar(
         backgroundColor: isDark
             ? AppColors.backgroundDark
-            : AppColors.background,
+            : AppColors.backgroundLight,
         surfaceTintColor: Colors.transparent,
         title: Text(
           'About',
           style: AppTextStyles.titleLarge.copyWith(
-            color: isDark ? AppColors.onSurfaceDark : AppColors.onSurface,
+            color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
           ),
         ),
       ),
@@ -887,7 +887,7 @@ class AboutScreen extends StatelessWidget {
                   height: 80,
                   decoration: BoxDecoration(
                     color: AppColors.primary,
-                    borderRadius: AppRadius.allLg,
+                    borderRadius: AppRadius.roundedLg,
                   ),
                   child: const Icon(Icons.hub, size: 48, color: Colors.white),
                 ),
@@ -896,8 +896,8 @@ class AboutScreen extends StatelessWidget {
                   'Nexus',
                   style: AppTextStyles.headlineMedium.copyWith(
                     color: isDark
-                        ? AppColors.onSurfaceDark
-                        : AppColors.onSurface,
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimaryLight,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -905,8 +905,8 @@ class AboutScreen extends StatelessWidget {
                   'Tasks & Second Brain',
                   style: AppTextStyles.bodyLarge.copyWith(
                     color: isDark
-                        ? AppColors.onSurfaceVariantDark
-                        : AppColors.onSurfaceVariant,
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondaryLight,
                   ),
                 ),
                 SizedBox(height: AppSpacing.xs),
@@ -914,8 +914,8 @@ class AboutScreen extends StatelessWidget {
                   'Version 1.0.0 (Build 1)',
                   style: AppTextStyles.bodySmall.copyWith(
                     color: isDark
-                        ? AppColors.onSurfaceDisabledDark
-                        : AppColors.onSurfaceDisabled,
+                        ? AppColors.textDisabledDark
+                        : AppColors.textDisabledLight,
                   ),
                 ),
                 SizedBox(height: AppSpacing.lg),
@@ -957,7 +957,7 @@ class AboutScreen extends StatelessWidget {
                         height: 48,
                         decoration: BoxDecoration(
                           color: AppColors.primary,
-                          borderRadius: AppRadius.allSm,
+                          borderRadius: AppRadius.roundedSm,
                         ),
                         child: const Icon(Icons.hub, color: Colors.white),
                       ),
@@ -976,13 +976,13 @@ class AboutScreen extends StatelessWidget {
               'Made with ❤️ by Elang',
               style: AppTextStyles.bodySmall.copyWith(
                 color: isDark
-                    ? AppColors.onSurfaceVariantDark
-                    : AppColors.onSurfaceVariant,
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondaryLight,
               ),
             ),
           ),
 
-          SizedBox(height: AppSpacing.huge),
+          SizedBox(height: AppSpacing.xxxl),
         ],
       ),
     );

@@ -162,6 +162,49 @@ abstract final class AppRadius {
   static const BorderRadius toast = roundedMd;
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // ALIASES FOR CONVENIENCE
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /// Alias for roundedXxs
+  static const BorderRadius allXxs = roundedXxs;
+
+  /// Alias for roundedXs
+  static const BorderRadius allXs = roundedXs;
+
+  /// Alias for roundedSm
+  static const BorderRadius allSm = roundedSm;
+
+  /// Alias for roundedMd
+  static const BorderRadius allMd = roundedMd;
+
+  /// Alias for roundedLg
+  static const BorderRadius allLg = roundedLg;
+
+  /// Alias for roundedXl
+  static const BorderRadius allXl = roundedXl;
+
+  /// Alias for roundedXxl
+  static const BorderRadius allXxl = roundedXxl;
+
+  /// Alias for roundedFull
+  static const BorderRadius allFull = roundedFull;
+
+  /// Alias for bottomSheet
+  static const BorderRadius bottomSheetRadius = bottomSheet;
+
+  /// Alias for card
+  static const BorderRadius cardRadius = card;
+
+  /// Alias for button
+  static const BorderRadius buttonRadius = button;
+
+  /// Alias for chip
+  static const BorderRadius chipRadius = chip;
+
+  /// Alias for input
+  static const BorderRadius inputRadius = input;
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // HELPER - Get Radius object
   // ═══════════════════════════════════════════════════════════════════════════
 

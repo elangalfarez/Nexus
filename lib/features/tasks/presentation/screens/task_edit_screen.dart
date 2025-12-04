@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/theme.dart';
-import '../../../../shared/widgets/inputs/app_text_field.dart';
-import '../../../../shared/widgets/buttons/app_button.dart';
-import '../../data/models/task_model.dart';
 import '../providers/task_providers.dart';
 import '../providers/project_providers.dart';
 import '../widgets/date_picker_sheet.dart';
@@ -77,7 +74,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
         setState(() {
           _titleController.text = task.title;
           _descriptionController.text = task.description ?? '';
-          _projectId = task.projectId;
+          _projectId = task.projectId ?? 0;
           _dueDate = task.dueDate;
           _priority = task.priority;
           _recurrenceRule = task.recurrenceRule;
@@ -268,50 +265,60 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
     );
   }
 
-  String _buildDateValue() {
-    if (_dueDate == null) return 'No date';
+  Widget _buildDateValue() {
+    String text;
+    if (_dueDate == null) {
+      text = 'No date';
+    } else {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final tomorrow = today.add(const Duration(days: 1));
+      final date = DateTime(_dueDate!.year, _dueDate!.month, _dueDate!.day);
 
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final tomorrow = today.add(const Duration(days: 1));
-    final date = DateTime(_dueDate!.year, _dueDate!.month, _dueDate!.day);
-
-    if (date == today) return 'Today';
-    if (date == tomorrow) return 'Tomorrow';
-
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return '${months[date.month - 1]} ${date.day}';
+      if (date == today) {
+        text = 'Today';
+      } else if (date == tomorrow) {
+        text = 'Tomorrow';
+      } else {
+        const months = [
+          'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+        ];
+        text = '${months[date.month - 1]} ${date.day}';
+      }
+    }
+    return Text(text, style: AppTextStyles.bodyMedium);
   }
 
-  String _buildPriorityValue() => switch (_priority) {
-    1 => 'Urgent',
-    2 => 'High',
-    3 => 'Medium',
-    4 => 'Low',
-    _ => 'None',
-  };
+  Widget _buildPriorityValue() {
+    final text = switch (_priority) {
+      1 => 'Urgent',
+      2 => 'High',
+      3 => 'Medium',
+      4 => 'Low',
+      _ => 'None',
+    };
+    return Text(text, style: AppTextStyles.bodyMedium);
+  }
 
-  String _buildRecurrenceValue() {
-    if (_recurrenceRule == null) return 'No repeat';
-    if (_recurrenceRule!.contains('DAILY')) return 'Daily';
-    if (_recurrenceRule!.contains('MO,TU,WE,TH,FR')) return 'Weekdays';
-    if (_recurrenceRule!.contains('WEEKLY')) return 'Weekly';
-    if (_recurrenceRule!.contains('MONTHLY')) return 'Monthly';
-    if (_recurrenceRule!.contains('YEARLY')) return 'Yearly';
-    return 'Custom';
+  Widget _buildRecurrenceValue() {
+    String text;
+    if (_recurrenceRule == null) {
+      text = 'No repeat';
+    } else if (_recurrenceRule!.contains('DAILY')) {
+      text = 'Daily';
+    } else if (_recurrenceRule!.contains('MO,TU,WE,TH,FR')) {
+      text = 'Weekdays';
+    } else if (_recurrenceRule!.contains('WEEKLY')) {
+      text = 'Weekly';
+    } else if (_recurrenceRule!.contains('MONTHLY')) {
+      text = 'Monthly';
+    } else if (_recurrenceRule!.contains('YEARLY')) {
+      text = 'Yearly';
+    } else {
+      text = 'Custom';
+    }
+    return Text(text, style: AppTextStyles.bodyMedium);
   }
 
   bool _isOverdue() {
@@ -380,7 +387,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               projectId: _projectId > 0 ? _projectId : null,
               dueDate: _dueDate,
               priority: _priority,
-              recurrenceRule: _recurrenceRule,
+              // TODO: Add recurrenceRule support to createTask
             );
       } else {
         await ref
@@ -394,7 +401,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               projectId: _projectId,
               dueDate: _dueDate,
               priority: _priority,
-              recurrenceRule: _recurrenceRule,
+              // TODO: Add recurrenceRule support to updateTask
             );
       }
 
