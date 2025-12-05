@@ -352,3 +352,25 @@ final selectedTaskProvider = FutureProvider<Task?>((ref) {
   final repo = ref.watch(taskRepositoryProvider);
   return repo.getById(taskId);
 });
+
+// ============================================
+// DATE-BASED TASK PROVIDERS (for Today screen)
+// ============================================
+
+/// Tasks for a specific date (includes both completed and incomplete)
+final tasksByDateProvider = StreamProvider.family<List<Task>, DateTime>((
+  ref,
+  date,
+) {
+  final repo = ref.watch(taskRepositoryProvider);
+  return repo.watchByDate(date);
+});
+
+/// Overdue tasks relative to a specific date
+final overdueTasksRelativeProvider = StreamProvider.family<List<Task>, DateTime>((
+  ref,
+  date,
+) {
+  final repo = ref.watch(taskRepositoryProvider);
+  return repo.watchOverdueRelativeTo(date);
+});

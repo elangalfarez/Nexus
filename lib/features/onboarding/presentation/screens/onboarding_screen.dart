@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/theme/theme.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../../../shared/widgets/buttons/app_button.dart';
@@ -82,7 +83,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Future<void> _completeOnboarding() async {
     await StorageService.completeOnboarding();
     if (mounted) {
-      Navigator.of(context).pushReplacementNamed('/');
+      context.go('/');
     }
   }
 
@@ -291,7 +292,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
           icon: Icon(
             Icons.arrow_back,
             color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
@@ -349,7 +350,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
                 onPressed: _selectedUseCase != null
                     ? () {
                         // TODO: Save preference and navigate
-                        Navigator.of(context).pushReplacementNamed('/');
+                        context.go('/');
                       }
                     : null,
               ),
@@ -360,7 +361,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/');
+                    context.go('/');
                   },
                   child: Text(
                     'Skip for now',

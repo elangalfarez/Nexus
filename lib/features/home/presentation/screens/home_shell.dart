@@ -78,7 +78,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
   }
 }
 
-/// Bottom navigation bar
+/// Bottom navigation bar - Premium design
 class _BottomNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
@@ -87,52 +87,58 @@ class _BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final bgColor = isDark ? AppColors.surfaceDark : AppColors.surfaceLight;
-    final borderColor = isDark ? AppColors.borderDark : AppColors.borderLight;
+    final bgColor = isDark
+        ? AppColors.surfaceDark
+        : AppColors.surfaceLight;
 
     return Container(
       decoration: BoxDecoration(
         color: bgColor,
-        border: Border(
-          top: BorderSide(color: borderColor.withValues(alpha: 0.5), width: 0.5),
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.08),
+            blurRadius: 20,
+            offset: const Offset(0, -4),
+          ),
+        ],
       ),
       child: SafeArea(
-        child: Padding(
+        top: false,
+        child: Container(
+          height: 72,
           padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.sm,
-            vertical: AppSpacing.xs,
+            horizontal: AppSpacing.md,
+            vertical: AppSpacing.sm,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _NavItem(
-                icon: Icons.today_outlined,
-                activeIcon: Icons.today,
+                icon: Icons.wb_sunny_outlined,
+                activeIcon: Icons.wb_sunny_rounded,
                 label: 'Today',
                 isSelected: currentIndex == 0,
                 onTap: () => onTap(0),
               ),
               _NavItem(
                 icon: Icons.inbox_outlined,
-                activeIcon: Icons.inbox,
+                activeIcon: Icons.inbox_rounded,
                 label: 'Inbox',
                 isSelected: currentIndex == 1,
                 onTap: () => onTap(1),
               ),
               _NavItem(
-                icon: Icons.folder_outlined,
-                activeIcon: Icons.folder,
+                icon: Icons.folder_copy_outlined,
+                activeIcon: Icons.folder_copy_rounded,
                 label: 'Projects',
                 isSelected: currentIndex == 2,
                 onTap: () => onTap(2),
               ),
               _NavItem(
-                icon: Icons.note_outlined,
-                activeIcon: Icons.note,
+                icon: Icons.sticky_note_2_outlined,
+                activeIcon: Icons.sticky_note_2_rounded,
                 label: 'Notes',
                 isSelected: currentIndex == 3,
                 onTap: () => onTap(3),
@@ -145,7 +151,7 @@ class _BottomNavBar extends StatelessWidget {
   }
 }
 
-/// Navigation item
+/// Navigation item with pill background
 class _NavItem extends StatelessWidget {
   final IconData icon;
   final IconData activeIcon;
@@ -163,56 +169,60 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     const selectedColor = AppColors.primary;
     final unselectedColor = isDark
-        ? AppColors.textSecondaryDark
-        : AppColors.textSecondaryLight;
+        ? AppColors.textTertiaryDark
+        : AppColors.textTertiaryLight;
 
     return Expanded(
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: AppRadius.roundedMd,
-          child: AnimatedContainer(
-            duration: AppConstants.animMicro,
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Indicator
-                AnimatedContainer(
-                  duration: AppConstants.animMicro,
-                  height: 3,
-                  width: isSelected ? 24 : 0,
-                  margin: const EdgeInsets.only(bottom: AppSpacing.xs),
-                  decoration: const BoxDecoration(
-                    color: selectedColor,
-                    borderRadius: AppRadius.roundedFull,
-                  ),
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Icon with animated pill background
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOutCubic,
+                padding: EdgeInsets.symmetric(
+                  horizontal: isSelected ? 20 : 12,
+                  vertical: 6,
                 ),
-                // Icon
-                Icon(
-                  isSelected ? activeIcon : icon,
-                  size: 24,
-                  color: isSelected ? selectedColor : unselectedColor,
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? selectedColor.withValues(alpha: 0.12)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                const SizedBox(height: AppSpacing.xxs),
-                // Label
-                Text(
-                  label,
-                  style: AppTextStyles.labelSmall.copyWith(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  child: Icon(
+                    isSelected ? activeIcon : icon,
+                    key: ValueKey(isSelected),
+                    size: 24,
                     color: isSelected ? selectedColor : unselectedColor,
-                    fontWeight: isSelected
-                        ? FontWeight.w600
-                        : FontWeight.normal,
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 4),
+              // Label
+              AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                style: AppTextStyles.labelMedium.copyWith(
+                  color: isSelected ? selectedColor : unselectedColor,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  letterSpacing: isSelected ? 0.2 : 0.4,
+                ),
+                child: Text(label),
+              ),
+            ],
           ),
         ),
       ),

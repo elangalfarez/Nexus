@@ -236,6 +236,49 @@ class TaskRepository {
         .watch(fireImmediately: true);
   }
 
+  /// Get tasks for a specific date (includes both completed and incomplete)
+  Future<List<Task>> getByDate(DateTime date) {
+    final startOfDay = DateTime(date.year, date.month, date.day);
+    final endOfDay = startOfDay.add(const Duration(days: 1));
+
+    // Use includeUpper: false to exclude tasks from the next day
+    return _db.tasks
+        .filter()
+        .dueDateGreaterThan(startOfDay, include: true)
+        .dueDateLessThan(endOfDay, include: false)
+        .isDeletedEqualTo(false)
+        .sortByPriority()
+        .findAll();
+  }
+
+  /// Watch tasks for a specific date (includes both completed and incomplete)
+  Stream<List<Task>> watchByDate(DateTime date) {
+    final startOfDay = DateTime(date.year, date.month, date.day);
+    final endOfDay = startOfDay.add(const Duration(days: 1));
+
+    // Use include: false on upper bound to exclude tasks from the next day
+    return _db.tasks
+        .filter()
+        .dueDateGreaterThan(startOfDay, include: true)
+        .dueDateLessThan(endOfDay, include: false)
+        .isDeletedEqualTo(false)
+        .sortByPriority()
+        .watch(fireImmediately: true);
+  }
+
+  /// Watch overdue tasks relative to a specific date
+  Stream<List<Task>> watchOverdueRelativeTo(DateTime date) {
+    final startOfDay = DateTime(date.year, date.month, date.day);
+
+    return _db.tasks
+        .filter()
+        .dueDateLessThan(startOfDay)
+        .isDeletedEqualTo(false)
+        .isCompletedEqualTo(false)
+        .sortByDueDate()
+        .watch(fireImmediately: true);
+  }
+
   // ============================================
   // QUERIES - UPCOMING
   // ============================================
