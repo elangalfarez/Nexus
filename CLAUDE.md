@@ -124,13 +124,17 @@ What you should NOT include:
 
 ## PROJECT SPECIFICATION
 
-### App Name: Nexus – Tasks & Second Brain
+### App Name: 
+Nexus – Tasks & Second Brain
 
-### App Concept: A unified productivity workspace combining powerful task management (Todoist-level) with networked note-taking (Obsidian-style) — link tasks to notes, build a second brain around your projects, and never lose context.
+### App Concept: 
+A unified productivity workspace combining powerful task management (Todoist-level) with networked note-taking (Obsidian-style) — link tasks to notes, build a second brain around your projects, and never lose context.
 
-### Target Users: Knowledge workers, entrepreneurs, students, researchers, and power users who manage complex projects and want to connect their tasks with deep context, ideas, and notes.
+### Target Users: 
+Knowledge workers, entrepreneurs, students, researchers, and power users who manage complex projects and want to connect their tasks with deep context, ideas, and notes.
 
-### Core Value Proposition: One app for both execution and thinking — manage tasks with clarity, capture ideas instantly, and link everything together into a living knowledge system.
+### Core Value Proposition: 
+One app for both execution and thinking — manage tasks with clarity, capture ideas instantly, and link everything together into a living knowledge system.
 
 ### Key Features (Must-Have):
 • Task Management Core: Create/edit/delete tasks, subtasks, projects, sections; set due dates, priorities, labels/tags

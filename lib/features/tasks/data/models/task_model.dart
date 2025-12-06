@@ -157,12 +157,16 @@ class Task {
     List<int>? tagIds,
   }) {
     final now = DateTime.now();
+    // Normalize dueDate to midnight for consistent date comparisons
+    final normalizedDueDate = dueDate != null
+        ? DateTime(dueDate.year, dueDate.month, dueDate.day)
+        : null;
     return Task()
       ..uid = _generateUid()
       ..title = title
       ..description = description
       ..priority = priority
-      ..dueDate = dueDate
+      ..dueDate = normalizedDueDate
       ..dueTimeMinutes = dueTimeMinutes
       ..projectId = projectId
       ..sectionId = sectionId
@@ -245,6 +249,14 @@ class Task {
     bool clearDueTime = false,
     bool clearDescription = false,
   }) {
+    // Normalize new dueDate to midnight if provided
+    final normalizedDueDate = dueDate != null
+        ? DateTime(dueDate.year, dueDate.month, dueDate.day)
+        : null;
+    final effectiveDueDate = clearDueDate
+        ? null
+        : (normalizedDueDate ?? this.dueDate);
+
     return Task()
       ..id = id
       ..uid = uid
@@ -253,7 +265,7 @@ class Task {
           ? null
           : (description ?? this.description)
       ..priority = priority ?? this.priority
-      ..dueDate = clearDueDate ? null : (dueDate ?? this.dueDate)
+      ..dueDate = effectiveDueDate
       ..dueTimeMinutes = clearDueTime
           ? null
           : (dueTimeMinutes ?? this.dueTimeMinutes)

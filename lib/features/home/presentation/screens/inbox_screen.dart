@@ -8,6 +8,7 @@ import '../../../../shared/widgets/feedback/empty_state.dart';
 import '../../../tasks/presentation/providers/task_providers.dart';
 import '../../../tasks/presentation/widgets/task_list_item.dart';
 import '../widgets/quick_capture_sheet.dart';
+import '../widgets/task_detail_sheet.dart';
 
 class InboxScreen extends ConsumerWidget {
   const InboxScreen({super.key});
@@ -113,9 +114,7 @@ class InboxScreen extends ConsumerWidget {
                   ...incompleteTasks.map(
                     (task) => TaskListItem(
                       task: task,
-                      onTap: () {
-                        // TODO: Navigate to task detail
-                      },
+                      onTap: () => TaskDetailSheet.show(context, task),
                       onCompleteChanged: (completed) {
                         ref
                             .read(taskActionsProvider.notifier)
@@ -131,9 +130,7 @@ class InboxScreen extends ConsumerWidget {
                     ...completedTasks.map(
                       (task) => TaskListItem(
                         task: task,
-                        onTap: () {
-                          // TODO: Navigate to task detail
-                        },
+                        onTap: () => TaskDetailSheet.show(context, task),
                         onCompleteChanged: (completed) {
                           ref
                               .read(taskActionsProvider.notifier)

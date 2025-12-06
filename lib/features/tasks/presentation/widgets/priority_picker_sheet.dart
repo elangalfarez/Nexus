@@ -120,20 +120,11 @@ class PriorityPickerSheet extends StatelessWidget {
                   description: 'When you have time',
                   color: AppColors.priorityLow,
                   icon: Icons.keyboard_arrow_down,
-                  isSelected: selectedPriority == 4,
+                  isSelected: selectedPriority == 4 || selectedPriority >= 5,
                   onTap: () => _selectPriority(context, 4),
                 ),
-                _PriorityOption(
-                  priority: 5,
-                  label: 'None',
-                  description: 'No priority',
-                  color: isDark
-                      ? AppColors.onSurfaceVariantDark
-                      : AppColors.onSurfaceVariant,
-                  icon: Icons.block,
-                  isSelected: selectedPriority == 5,
-                  onTap: () => _selectPriority(context, 5),
-                ),
+                // Note: Removed "None" (priority 5) to align with quick capture
+                // 4 priorities is more ADHD-friendly (Hick's Law - fewer choices)
               ],
             ),
           ),

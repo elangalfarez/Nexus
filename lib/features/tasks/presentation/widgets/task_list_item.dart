@@ -8,7 +8,12 @@ import '../../../../shared/widgets/inputs/app_checkbox.dart';
 import '../../../../shared/widgets/inputs/app_chip.dart';
 import '../../data/models/task_model.dart';
 
-/// Task list item widget
+/// Task list item widget with ADHD-friendly project visualization
+///
+/// Design principles for ADHD users:
+/// - Project color chip provides immediate context
+/// - Consistent colors across the app for muscle memory
+/// - Subtle indicator that doesn't overwhelm but is always visible
 class TaskListItem extends StatelessWidget {
   final Task task;
   final VoidCallback? onTap;
@@ -57,7 +62,7 @@ class TaskListItem extends StatelessWidget {
 
     return Material(
       color: selected
-          ? AppColors.primary.withOpacity(0.08)
+          ? AppColors.primary.withValues(alpha: 0.08)
           : Colors.transparent,
       child: InkWell(
         onTap: onTap,
@@ -66,7 +71,7 @@ class TaskListItem extends StatelessWidget {
           onLongPress?.call();
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
           ),
@@ -82,12 +87,12 @@ class TaskListItem extends StatelessWidget {
                       ? AppColors.textDisabledDark
                       : AppColors.textDisabledLight,
                 ),
-                SizedBox(width: AppSpacing.xs),
+                const SizedBox(width: AppSpacing.xs),
               ],
 
               // Checkbox
               Padding(
-                padding: EdgeInsets.only(top: 2),
+                padding: const EdgeInsets.only(top: 2),
                 child: TaskCheckbox(
                   isCompleted: isCompleted,
                   priority: task.priority,
@@ -95,7 +100,7 @@ class TaskListItem extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
 
               // Content
               Expanded(
@@ -120,7 +125,7 @@ class TaskListItem extends StatelessWidget {
                     if (task.description != null &&
                         task.description!.isNotEmpty &&
                         !isCompleted) ...[
-                      SizedBox(height: AppSpacing.xxs),
+                      const SizedBox(height: AppSpacing.xxs),
                       Text(
                         task.description!,
                         style: AppTextStyles.bodySmall.copyWith(
@@ -133,7 +138,7 @@ class TaskListItem extends StatelessWidget {
 
                     // Metadata row
                     if (_hasMetadata) ...[
-                      SizedBox(height: AppSpacing.sm),
+                      const SizedBox(height: AppSpacing.sm),
                       _buildMetadataRow(context, isDark),
                     ],
                   ],
@@ -143,7 +148,7 @@ class TaskListItem extends StatelessWidget {
               // Subtask indicator
               if (task.parentTaskId == null &&
                   task.linkedNoteIds.isNotEmpty) ...[
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 Icon(Icons.link, size: 16, color: subtitleColor),
               ],
             ],

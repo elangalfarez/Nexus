@@ -28,6 +28,12 @@ class TaskRepository {
     return _db.tasks.get(id);
   }
 
+  /// Watch task by ID (for live updates)
+  Stream<Task?> watchById(int id) {
+    return _db.tasks
+        .watchObject(id, fireImmediately: true);
+  }
+
   /// Get task by UID
   Future<Task?> getByUid(String uid) {
     return _db.tasks.filter().uidEqualTo(uid).findFirst();
@@ -154,21 +160,23 @@ class TaskRepository {
   // QUERIES - INBOX
   // ============================================
 
-  /// Get inbox tasks (no project)
+  /// Get inbox tasks (no project, root tasks only)
   Future<List<Task>> getInbox() {
     return _db.tasks
         .filter()
         .projectIdIsNull()
+        .parentTaskIdIsNull() // Exclude subtasks from inbox
         .isDeletedEqualTo(false)
         .sortByCreatedAtDesc()
         .findAll();
   }
 
-  /// Watch inbox tasks
+  /// Watch inbox tasks (root tasks only, excludes subtasks)
   Stream<List<Task>> watchInbox() {
     return _db.tasks
         .filter()
         .projectIdIsNull()
+        .parentTaskIdIsNull() // Exclude subtasks from inbox
         .isDeletedEqualTo(false)
         .sortByCreatedAtDesc()
         .watch(fireImmediately: true);
@@ -178,7 +186,7 @@ class TaskRepository {
   // QUERIES - TODAY
   // ============================================
 
-  /// Get tasks due today
+  /// Get tasks due today (excludes subtasks)
   Future<List<Task>> getDueToday() {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
@@ -187,13 +195,14 @@ class TaskRepository {
     return _db.tasks
         .filter()
         .dueDateBetween(startOfDay, endOfDay)
+        .parentTaskIdIsNull() // Exclude subtasks
         .isDeletedEqualTo(false)
         .isCompletedEqualTo(false)
         .sortByPriority()
         .findAll();
   }
 
-  /// Watch tasks due today
+  /// Watch tasks due today (excludes subtasks)
   Stream<List<Task>> watchDueToday() {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
@@ -202,13 +211,14 @@ class TaskRepository {
     return _db.tasks
         .filter()
         .dueDateBetween(startOfDay, endOfDay)
+        .parentTaskIdIsNull() // Exclude subtasks
         .isDeletedEqualTo(false)
         .isCompletedEqualTo(false)
         .sortByPriority()
         .watch(fireImmediately: true);
   }
 
-  /// Get overdue tasks
+  /// Get overdue tasks (excludes subtasks)
   Future<List<Task>> getOverdue() {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
@@ -216,13 +226,14 @@ class TaskRepository {
     return _db.tasks
         .filter()
         .dueDateLessThan(startOfDay)
+        .parentTaskIdIsNull() // Exclude subtasks
         .isDeletedEqualTo(false)
         .isCompletedEqualTo(false)
         .sortByDueDate()
         .findAll();
   }
 
-  /// Watch overdue tasks
+  /// Watch overdue tasks (excludes subtasks)
   Stream<List<Task>> watchOverdue() {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
@@ -230,6 +241,7 @@ class TaskRepository {
     return _db.tasks
         .filter()
         .dueDateLessThan(startOfDay)
+        .parentTaskIdIsNull() // Exclude subtasks
         .isDeletedEqualTo(false)
         .isCompletedEqualTo(false)
         .sortByDueDate()
@@ -241,38 +253,43 @@ class TaskRepository {
     final startOfDay = DateTime(date.year, date.month, date.day);
     final endOfDay = startOfDay.add(const Duration(days: 1));
 
-    // Use includeUpper: false to exclude tasks from the next day
+    // Use dueDateBetween with includeUpper: false for reliable date range query
     return _db.tasks
         .filter()
-        .dueDateGreaterThan(startOfDay, include: true)
-        .dueDateLessThan(endOfDay, include: false)
+        .dueDateIsNotNull()
+        .dueDateBetween(startOfDay, endOfDay, includeLower: true, includeUpper: false)
         .isDeletedEqualTo(false)
         .sortByPriority()
         .findAll();
   }
 
-  /// Watch tasks for a specific date (includes both completed and incomplete)
+  /// Watch tasks for a specific date (includes BOTH completed and incomplete)
+  /// Excludes subtasks - they should only appear under their parent
   Stream<List<Task>> watchByDate(DateTime date) {
     final startOfDay = DateTime(date.year, date.month, date.day);
     final endOfDay = startOfDay.add(const Duration(days: 1));
 
-    // Use include: false on upper bound to exclude tasks from the next day
+    // Use dueDateBetween with includeUpper: false for reliable date range query
+    // Returns ALL tasks for this date - filtering by completion status happens in UI
     return _db.tasks
         .filter()
-        .dueDateGreaterThan(startOfDay, include: true)
-        .dueDateLessThan(endOfDay, include: false)
+        .dueDateIsNotNull()
+        .dueDateBetween(startOfDay, endOfDay, includeLower: true, includeUpper: false)
+        .parentTaskIdIsNull() // Exclude subtasks - they show under parent
         .isDeletedEqualTo(false)
         .sortByPriority()
         .watch(fireImmediately: true);
   }
 
   /// Watch overdue tasks relative to a specific date
+  /// Excludes subtasks - they should only appear under their parent
   Stream<List<Task>> watchOverdueRelativeTo(DateTime date) {
     final startOfDay = DateTime(date.year, date.month, date.day);
 
     return _db.tasks
         .filter()
         .dueDateLessThan(startOfDay)
+        .parentTaskIdIsNull() // Exclude subtasks - they show under parent
         .isDeletedEqualTo(false)
         .isCompletedEqualTo(false)
         .sortByDueDate()
@@ -320,6 +337,48 @@ class TaskRepository {
         .isDeletedEqualTo(false)
         .sortBySortOrder()
         .watch(fireImmediately: true);
+  }
+
+  /// Complete all subtasks of a parent task (cascade completion)
+  Future<void> completeSubtasksOfTask(int parentId) async {
+    await _db.writeTxn(() async {
+      final subtasks = await _db.tasks
+          .filter()
+          .parentTaskIdEqualTo(parentId)
+          .isDeletedEqualTo(false)
+          .isCompletedEqualTo(false)
+          .findAll();
+
+      for (final subtask in subtasks) {
+        await _db.tasks.put(subtask.complete());
+      }
+    });
+  }
+
+  /// Count incomplete subtasks of a parent
+  Future<int> countIncompleteSubtasks(int parentId) {
+    return _db.tasks
+        .filter()
+        .parentTaskIdEqualTo(parentId)
+        .isDeletedEqualTo(false)
+        .isCompletedEqualTo(false)
+        .count();
+  }
+
+  /// Check if all subtasks of a parent are complete
+  Future<bool> allSubtasksComplete(int parentId) async {
+    final incompleteCount = await countIncompleteSubtasks(parentId);
+    return incompleteCount == 0;
+  }
+
+  /// Check if task has any subtasks
+  Future<bool> hasSubtasks(int taskId) async {
+    final count = await _db.tasks
+        .filter()
+        .parentTaskIdEqualTo(taskId)
+        .isDeletedEqualTo(false)
+        .count();
+    return count > 0;
   }
 
   /// Get root tasks only (no parent)

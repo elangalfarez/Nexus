@@ -30,12 +30,12 @@ class NotesScreen extends ConsumerWidget {
     final viewMode = ref.watch(notesViewModeProvider);
     final currentFolderId = ref.watch(currentFolderIdProvider);
 
-    // Watch notes based on current folder
+    // Watch notes based on current folder (using StreamProviders for real-time updates)
     final notesAsync = currentFolderId == null
-        ? ref.watch(rootNotesProvider)
-        : ref.watch(notesByFolderProvider(currentFolderId));
+        ? ref.watch(watchRootNotesProvider)
+        : ref.watch(watchNotesByFolderProvider(currentFolderId));
 
-    final pinnedAsync = ref.watch(pinnedNotesProvider);
+    final pinnedAsync = ref.watch(watchPinnedNotesProvider);
     final foldersAsync = currentFolderId == null
         ? ref.watch(rootFoldersProvider)
         : ref.watch(childFoldersProvider(currentFolderId));
@@ -175,9 +175,9 @@ class _NotesContent extends ConsumerWidget {
           message: notesAsync.error.toString(),
           onRetry: () {
             if (currentFolderId == null) {
-              ref.invalidate(rootNotesProvider);
+              ref.invalidate(watchRootNotesProvider);
             } else {
-              ref.invalidate(notesByFolderProvider(currentFolderId!));
+              ref.invalidate(watchNotesByFolderProvider(currentFolderId!));
             }
           },
         ),

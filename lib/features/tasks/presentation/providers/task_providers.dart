@@ -73,8 +73,14 @@ final subtasksProvider = StreamProvider.family<List<Task>, int>((
 // SINGLE TASK PROVIDERS
 // ============================================
 
-/// Single task by ID
-final taskByIdProvider = FutureProvider.family<Task?, int>((ref, id) {
+/// Single task by ID (stream for live updates in detail sheets)
+final taskByIdProvider = StreamProvider.family<Task?, int>((ref, id) {
+  final repo = ref.watch(taskRepositoryProvider);
+  return repo.watchById(id);
+});
+
+/// Single task by ID (one-time fetch for non-reactive contexts)
+final taskByIdFutureProvider = FutureProvider.family<Task?, int>((ref, id) {
   final repo = ref.watch(taskRepositoryProvider);
   return repo.getById(id);
 });
@@ -118,6 +124,8 @@ class TaskActionsNotifier extends StateNotifier<AsyncValue<void>> {
     : super(const AsyncValue.data(null));
 
   /// Create a new task
+  /// If parentTaskId is provided and parent is already completed,
+  /// the new subtask will be automatically marked as complete
   Future<Task?> createTask({
     required String title,
     String? description,
@@ -131,7 +139,16 @@ class TaskActionsNotifier extends StateNotifier<AsyncValue<void>> {
   }) async {
     state = const AsyncValue.loading();
     try {
-      final task = Task.create(
+      // Check if parent task is already completed
+      bool shouldAutoComplete = false;
+      if (parentTaskId != null) {
+        final parent = await _repo.getById(parentTaskId);
+        if (parent != null && parent.isCompleted) {
+          shouldAutoComplete = true;
+        }
+      }
+
+      var task = Task.create(
         title: title,
         description: description,
         priority: priority,
@@ -142,6 +159,11 @@ class TaskActionsNotifier extends StateNotifier<AsyncValue<void>> {
         parentTaskId: parentTaskId,
         tagIds: tagIds,
       );
+
+      // Auto-complete if parent is already completed
+      if (shouldAutoComplete) {
+        task = task.complete();
+      }
 
       final created = await _repo.create(task);
       state = const AsyncValue.data(null);
@@ -210,14 +232,41 @@ class TaskActionsNotifier extends StateNotifier<AsyncValue<void>> {
     }
   }
 
-  /// Complete a task
+  /// Complete a task with cascade logic
+  /// - If parent task is completed → auto-complete all subtasks
+  /// - If subtask is completed and all siblings are done → auto-complete parent
   Future<void> completeTask(int taskId) async {
     state = const AsyncValue.loading();
     try {
       final task = await _repo.getById(taskId);
-      if (task != null) {
-        await _repo.update(task.complete());
+      if (task == null) {
+        state = const AsyncValue.data(null);
+        return;
       }
+
+      // Complete the task
+      await _repo.update(task.complete());
+
+      // CASCADE DOWN: If this task has subtasks, complete them all
+      if (!task.isSubtask) {
+        // Only root tasks can have subtasks (no nested subtasks allowed)
+        final hasChildren = await _repo.hasSubtasks(taskId);
+        if (hasChildren) {
+          await _repo.completeSubtasksOfTask(taskId);
+        }
+      }
+
+      // CASCADE UP: If this is a subtask and all siblings are now complete, complete parent
+      if (task.parentTaskId != null) {
+        final allSiblingsDone = await _repo.allSubtasksComplete(task.parentTaskId!);
+        if (allSiblingsDone) {
+          final parent = await _repo.getById(task.parentTaskId!);
+          if (parent != null && !parent.isCompleted) {
+            await _repo.update(parent.complete());
+          }
+        }
+      }
+
       state = const AsyncValue.data(null);
       _invalidateProviders();
     } catch (e, stack) {

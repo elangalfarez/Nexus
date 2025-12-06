@@ -7,10 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/theme.dart';
 import '../../../../shared/widgets/feedback/empty_state.dart';
+import '../../../tasks/data/models/project_model.dart';
 import '../../../tasks/data/models/task_model.dart';
+import '../../../tasks/presentation/providers/project_providers.dart';
 import '../../../tasks/presentation/providers/task_providers.dart';
 import '../../../tasks/presentation/widgets/task_list_item.dart';
 import '../widgets/quick_capture_sheet.dart';
+import '../widgets/task_detail_sheet.dart';
 
 /// Task filter for Today screen
 enum TodayFilter { all, pending, completed }
@@ -508,10 +511,13 @@ class _TaskSections extends ConsumerWidget {
         final hasNoFilteredTasks = filteredDateTasks.isEmpty && filteredOverdue.isEmpty;
 
         if (hasNoTasks) {
+          final emptyStateContent = _getDateAwareEmptyState(selectedDate, now);
           return Padding(
             padding: const EdgeInsets.only(top: AppSpacing.xl),
             child: EmptyState(
               type: EmptyStateType.today,
+              title: emptyStateContent.title,
+              subtitle: emptyStateContent.subtitle,
               actionLabel: 'Add task',
               onAction: () => QuickCaptureSheet.show(
                 context,
@@ -581,9 +587,70 @@ class _TaskSections extends ConsumerWidget {
       TodayFilter.completed => tasks.where((t) => t.isCompleted).toList(),
     };
   }
+
+  /// Get ADHD-friendly empty state copy based on selected date
+  /// - Clear and specific about which date
+  /// - Not emotionally heavy or guilt-inducing
+  /// - Encouraging without being patronizing
+  _DateEmptyState _getDateAwareEmptyState(DateTime selectedDate, DateTime now) {
+    final today = DateTime(now.year, now.month, now.day);
+    final selected = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+    final difference = selected.difference(today).inDays;
+
+    // Today
+    if (difference == 0) {
+      return const _DateEmptyState(
+        title: 'All clear for today',
+        subtitle: 'Your day is open. Add a task or enjoy the space.',
+      );
+    }
+
+    // Yesterday
+    if (difference == -1) {
+      return const _DateEmptyState(
+        title: 'Nothing was due',
+        subtitle: 'Yesterday was clear. No worries here.',
+      );
+    }
+
+    // Past (2+ days ago)
+    if (difference < -1) {
+      return const _DateEmptyState(
+        title: 'Nothing was scheduled',
+        subtitle: 'This day was free. All good.',
+      );
+    }
+
+    // Tomorrow
+    if (difference == 1) {
+      return const _DateEmptyState(
+        title: "Tomorrow's open",
+        subtitle: 'Nothing planned yet. Add tasks or keep it flexible.',
+      );
+    }
+
+    // Future (2+ days ahead)
+    return const _DateEmptyState(
+      title: 'Day is open',
+      subtitle: "Schedule ahead when you're ready.",
+    );
+  }
 }
 
-/// Reusable task section
+/// Helper class for date-aware empty state content
+class _DateEmptyState {
+  final String title;
+  final String subtitle;
+
+  const _DateEmptyState({
+    required this.title,
+    required this.subtitle,
+  });
+}
+
+/// Reusable task section with ADHD-friendly project indicators
+/// - Shows project color accent + name for instant visual grouping
+/// - Color-coded left bar for quick project recognition at a glance
 class _TaskSection extends ConsumerWidget {
   final String title;
   final List<Task> tasks;
@@ -601,6 +668,11 @@ class _TaskSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+
+    // Watch all active projects to build a lookup map
+    // This enables instant project info lookup for each task
+    final projectsAsync = ref.watch(activeProjectsProvider);
+    final projectMap = _buildProjectMap(projectsAsync);
 
     return Container(
       margin: const EdgeInsets.fromLTRB(
@@ -660,24 +732,40 @@ class _TaskSection extends ConsumerWidget {
             ),
           ),
 
-          // Task list
-          ...tasks.map(
-            (task) => TaskListItem(
+          // Task list with project info
+          ...tasks.map((task) {
+            // Look up project info for this task
+            final project = task.projectId != null
+                ? projectMap[task.projectId]
+                : null;
+
+            return TaskListItem(
               task: task,
-              onTap: () {
-                // Navigate to task detail
-              },
+              onTap: () => TaskDetailSheet.show(context, task),
               onCompleteChanged: (completed) {
                 ref.read(taskActionsProvider.notifier).toggleComplete(task.id);
               },
               showProject: true,
               showDueDate: title == 'Overdue',
-            ),
-          ),
+              // Pass project info for visual indicator
+              projectName: project?.name,
+              projectColorIndex: project?.colorIndex,
+            );
+          }),
 
           const SizedBox(height: AppSpacing.xs),
         ],
       ),
+    );
+  }
+
+  /// Build a lookup map from project ID to Project
+  /// Returns empty map if projects are still loading
+  Map<int, Project> _buildProjectMap(AsyncValue<List<Project>> projectsAsync) {
+    return projectsAsync.when(
+      data: (projects) => {for (var p in projects) p.id: p},
+      loading: () => <int, Project>{},
+      error: (_, __) => <int, Project>{},
     );
   }
 }

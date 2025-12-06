@@ -10,6 +10,8 @@ import '../../../tasks/data/models/project_model.dart';
 import '../../../tasks/presentation/providers/project_providers.dart';
 import '../../../tasks/presentation/providers/task_providers.dart';
 import '../../../tasks/presentation/widgets/project_list_item.dart';
+import '../widgets/create_project_sheet.dart';
+import '../widgets/project_detail_sheet.dart';
 
 /// View mode for projects
 final projectsViewModeProvider = StateProvider<ViewMode>(
@@ -62,9 +64,7 @@ class ProjectsScreen extends ConsumerWidget {
               ),
               // Add project
               IconButton(
-                onPressed: () {
-                  // TODO: Navigate to create project
-                },
+                onPressed: () => CreateProjectSheet.show(context),
                 icon: Icon(
                   Icons.add,
                   color: isDark
@@ -85,9 +85,7 @@ class ProjectsScreen extends ConsumerWidget {
                   child: EmptyState(
                     type: EmptyStateType.projects,
                     actionLabel: 'Create project',
-                    onAction: () {
-                      // TODO: Navigate to create project
-                    },
+                    onAction: () => CreateProjectSheet.show(context),
                   ),
                 );
               }
@@ -247,8 +245,10 @@ class _ProjectListItemWithStats extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Watch tasks for this project to get counts
-    final tasksAsync = ref.watch(tasksByProjectProvider(project.id));
+    // Watch tasks - use inboxTasksProvider for Inbox (tasks have projectId = null)
+    final tasksAsync = project.isInbox
+        ? ref.watch(inboxTasksProvider)
+        : ref.watch(tasksByProjectProvider(project.id));
 
     final taskCount = tasksAsync.valueOrNull?.length ?? 0;
     final completedCount =
@@ -258,12 +258,8 @@ class _ProjectListItemWithStats extends ConsumerWidget {
       project: project,
       taskCount: taskCount,
       completedCount: completedCount,
-      onTap: () {
-        // TODO: Navigate to project detail
-      },
-      onLongPress: () {
-        // TODO: Show project options
-      },
+      onTap: () => ProjectDetailSheet.show(context, project),
+      onLongPress: () => ProjectDetailSheet.show(context, project),
     );
   }
 }
@@ -276,7 +272,10 @@ class _ProjectGridItemWithStats extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasksAsync = ref.watch(tasksByProjectProvider(project.id));
+    // Watch tasks - use inboxTasksProvider for Inbox (tasks have projectId = null)
+    final tasksAsync = project.isInbox
+        ? ref.watch(inboxTasksProvider)
+        : ref.watch(tasksByProjectProvider(project.id));
 
     final taskCount = tasksAsync.valueOrNull?.length ?? 0;
     final completedCount =
@@ -286,12 +285,8 @@ class _ProjectGridItemWithStats extends ConsumerWidget {
       project: project,
       taskCount: taskCount,
       completedCount: completedCount,
-      onTap: () {
-        // TODO: Navigate to project detail
-      },
-      onLongPress: () {
-        // TODO: Show project options
-      },
+      onTap: () => ProjectDetailSheet.show(context, project),
+      onLongPress: () => ProjectDetailSheet.show(context, project),
     );
   }
 }

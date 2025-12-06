@@ -68,7 +68,7 @@ class ProjectListItem extends StatelessWidget {
                   borderRadius: AppRadius.allSm,
                 ),
                 child: Icon(
-                  _getIcon(project.iconName),
+                  getProjectIcon(project.iconName),
                   size: 20,
                   color: projectColor,
                 ),
@@ -108,13 +108,13 @@ class ProjectListItem extends StatelessWidget {
 
                     SizedBox(height: AppSpacing.xxs),
 
-                    // Task count
+                    // Task count - ADHD-friendly progress format
                     Text(
-                      pendingCount == 0
-                          ? 'No pending tasks'
-                          : '$pendingCount task${pendingCount != 1 ? 's' : ''}',
+                      _getProgressText(taskCount, completedCount, pendingCount),
                       style: AppTextStyles.bodySmall.copyWith(
-                        color: subtitleColor,
+                        color: pendingCount == 0 && completedCount > 0
+                            ? AppColors.success
+                            : subtitleColor,
                       ),
                     ),
 
@@ -144,24 +144,6 @@ class ProjectListItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  IconData _getIcon(String iconName) {
-    return switch (iconName) {
-      'inbox' => Icons.inbox,
-      'folder' => Icons.folder_outlined,
-      'work' => Icons.work_outlined,
-      'home' => Icons.home_outlined,
-      'star' => Icons.star_outline,
-      'heart' => Icons.favorite_outline,
-      'school' => Icons.school_outlined,
-      'fitness' => Icons.fitness_center_outlined,
-      'shopping' => Icons.shopping_cart_outlined,
-      'travel' => Icons.flight_outlined,
-      'finance' => Icons.account_balance_outlined,
-      'health' => Icons.local_hospital_outlined,
-      _ => Icons.folder_outlined,
-    };
   }
 }
 
@@ -232,7 +214,7 @@ class ProjectGridCard extends StatelessWidget {
                       borderRadius: AppRadius.allSm,
                     ),
                     child: Icon(
-                      _getIcon(project.iconName),
+                      getProjectIcon(project.iconName),
                       size: 18,
                       color: projectColor,
                     ),
@@ -255,24 +237,13 @@ class ProjectGridCard extends StatelessWidget {
 
               const Spacer(),
 
-              // Footer
-              Row(
-                children: [
-                  Text(
-                    '$pendingCount',
-                    style: AppTextStyles.titleLarge.copyWith(
-                      color: titleColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(width: AppSpacing.xxs),
-                  Text(
-                    'tasks',
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: subtitleColor,
-                    ),
-                  ),
-                ],
+              // Footer - ADHD-friendly progress format
+              _buildGridProgressFooter(
+                taskCount,
+                completedCount,
+                pendingCount,
+                titleColor,
+                subtitleColor,
               ),
 
               SizedBox(height: AppSpacing.sm),
@@ -294,24 +265,6 @@ class ProjectGridCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  IconData _getIcon(String iconName) {
-    return switch (iconName) {
-      'inbox' => Icons.inbox,
-      'folder' => Icons.folder_outlined,
-      'work' => Icons.work_outlined,
-      'home' => Icons.home_outlined,
-      'star' => Icons.star_outline,
-      'heart' => Icons.favorite_outline,
-      'school' => Icons.school_outlined,
-      'fitness' => Icons.fitness_center_outlined,
-      'shopping' => Icons.shopping_cart_outlined,
-      'travel' => Icons.flight_outlined,
-      'finance' => Icons.account_balance_outlined,
-      'health' => Icons.local_hospital_outlined,
-      _ => Icons.folder_outlined,
-    };
   }
 }
 
@@ -394,4 +347,92 @@ class SectionHeader extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Global icon mapper for projects - used across the app
+/// Maps icon name strings to IconData for consistent display
+IconData getProjectIcon(String iconName) {
+  return switch (iconName) {
+    'inbox' => Icons.inbox_rounded,
+    'folder' => Icons.folder_rounded,
+    'work' => Icons.work_rounded,
+    'home' => Icons.home_rounded,
+    'star' => Icons.star_rounded,
+    'heart' => Icons.favorite_rounded,
+    'school' => Icons.school_rounded,
+    'fitness' => Icons.fitness_center_rounded,
+    'shopping' => Icons.shopping_bag_rounded,
+    'travel' => Icons.flight_rounded,
+    'finance' => Icons.account_balance_rounded,
+    'health' => Icons.local_hospital_rounded,
+    'code' => Icons.code_rounded,
+    'art' => Icons.brush_rounded,
+    'music' => Icons.music_note_rounded,
+    'food' => Icons.restaurant_rounded,
+    _ => Icons.folder_rounded,
+  };
+}
+
+/// ADHD-friendly progress text formatter
+/// Uses goal gradient & endowed progress psychology for motivation
+String _getProgressText(int taskCount, int completedCount, int pendingCount) {
+  if (taskCount == 0) {
+    return 'No tasks yet';
+  }
+  if (pendingCount == 0 && completedCount > 0) {
+    return 'All done!';
+  }
+  if (completedCount > 0 && pendingCount > 0) {
+    return '$completedCount done · $pendingCount to go';
+  }
+  // No progress yet - action-oriented
+  return '$pendingCount to do';
+}
+
+/// ADHD-friendly grid card progress footer
+/// Compact format showing progress fraction or status
+Widget _buildGridProgressFooter(
+  int taskCount,
+  int completedCount,
+  int pendingCount,
+  Color titleColor,
+  Color subtitleColor,
+) {
+  if (taskCount == 0) {
+    return Text(
+      'No tasks yet',
+      style: AppTextStyles.bodySmall.copyWith(color: subtitleColor),
+    );
+  }
+
+  if (pendingCount == 0 && completedCount > 0) {
+    return Row(
+      children: [
+        const Icon(Icons.check_circle_rounded, size: 18, color: AppColors.success),
+        const SizedBox(width: AppSpacing.xxs),
+        Text(
+          'All done!',
+          style: AppTextStyles.labelMedium.copyWith(color: AppColors.success),
+        ),
+      ],
+    );
+  }
+
+  // Show progress fraction: "3/8 done"
+  return Row(
+    children: [
+      Text(
+        '$completedCount/$taskCount',
+        style: AppTextStyles.titleLarge.copyWith(
+          color: titleColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      const SizedBox(width: AppSpacing.xxs),
+      Text(
+        'done',
+        style: AppTextStyles.bodySmall.copyWith(color: subtitleColor),
+      ),
+    ],
+  );
 }
