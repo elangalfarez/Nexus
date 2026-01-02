@@ -2,7 +2,6 @@
 // Micro-interaction widgets for delightful UI
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../../core/theme/theme.dart';
 import '../../../core/utils/haptics.dart';
 
@@ -585,7 +584,7 @@ class ToastNotification extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         ),
@@ -602,7 +601,7 @@ class ToastNotification extends StatelessWidget {
           children: [
             if (icon != null) ...[
               Icon(icon, size: 20, color: Colors.white),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
             ],
             Flexible(
               child: Text(

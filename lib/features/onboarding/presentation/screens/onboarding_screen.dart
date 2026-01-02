@@ -99,7 +99,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           children: [
             // Skip button
             Padding(
-              padding: EdgeInsets.all(AppSpacing.md),
+              padding: const EdgeInsets.all(AppSpacing.md),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -135,14 +135,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
             // Page indicators
             Padding(
-              padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(_pages.length, (index) {
                   final isActive = index == _currentPage;
                   return AnimatedContainer(
                     duration: AppConstants.animFast,
-                    margin: EdgeInsets.symmetric(horizontal: AppSpacing.xxs),
+                    margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xxs),
                     width: isActive ? 24 : 8,
                     height: 8,
                     decoration: BoxDecoration(
@@ -160,7 +160,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
             // Action button
             Padding(
-              padding: EdgeInsets.fromLTRB(
+              padding: const EdgeInsets.fromLTRB(
                 AppSpacing.lg,
                 0,
                 AppSpacing.lg,
@@ -208,7 +208,7 @@ class _OnboardingPage extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -223,7 +223,7 @@ class _OnboardingPage extends StatelessWidget {
             child: Icon(data.icon, size: 64, color: data.color),
           ),
 
-          SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.xl),
 
           // Title
           Text(
@@ -235,7 +235,7 @@ class _OnboardingPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
 
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
 
           // Subtitle
           Text(
@@ -301,7 +301,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(AppSpacing.lg),
+          padding: const EdgeInsets.all(AppSpacing.lg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -313,7 +313,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
                 ),
               ),
 
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
 
               Text(
                 'We\'ll customize your experience based on your needs.',
@@ -324,7 +324,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
                 ),
               ),
 
-              SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.xl),
 
               // Use case options
               ...(_useCases.map(
@@ -355,7 +355,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
                     : null,
               ),
 
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
 
               // Skip button
               Center(
@@ -405,7 +405,7 @@ class _UseCaseOption extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.only(bottom: AppSpacing.sm),
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Material(
         color: isSelected
             ? AppColors.primary.withValues(alpha: 0.08)
@@ -415,7 +415,7 @@ class _UseCaseOption extends StatelessWidget {
           onTap: onTap,
           borderRadius: AppRadius.roundedMd,
           child: Container(
-            padding: EdgeInsets.all(AppSpacing.md),
+            padding: const EdgeInsets.all(AppSpacing.md),
             decoration: BoxDecoration(
               borderRadius: AppRadius.roundedMd,
               border: Border.all(
@@ -447,7 +447,7 @@ class _UseCaseOption extends StatelessWidget {
                               : AppColors.textSecondaryLight),
                   ),
                 ),
-                SizedBox(width: AppSpacing.md),
+                const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,7 +475,7 @@ class _UseCaseOption extends StatelessWidget {
                   ),
                 ),
                 if (isSelected)
-                  Icon(Icons.check_circle, color: AppColors.primary),
+                  const Icon(Icons.check_circle, color: AppColors.primary),
               ],
             ),
           ),

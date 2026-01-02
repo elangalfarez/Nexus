@@ -48,7 +48,7 @@ class NoteListCard extends StatelessWidget {
           onLongPress?.call();
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
           ),
@@ -57,7 +57,7 @@ class NoteListCard extends StatelessWidget {
             children: [
               // Pin indicator
               if (note.isPinned) ...[
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 2),
                   child: Icon(
                     Icons.push_pin,
@@ -65,7 +65,7 @@ class NoteListCard extends StatelessWidget {
                     color: AppColors.primary,
                   ),
                 ),
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
               ],
 
               // Content
@@ -88,7 +88,7 @@ class NoteListCard extends StatelessWidget {
 
                     // Preview
                     if (note.preview.isNotEmpty) ...[
-                      SizedBox(height: AppSpacing.xxs),
+                      const SizedBox(height: AppSpacing.xxs),
                       Text(
                         note.preview,
                         style: AppTextStyles.bodySmall.copyWith(
@@ -100,7 +100,7 @@ class NoteListCard extends StatelessWidget {
                     ],
 
                     // Metadata
-                    SizedBox(height: AppSpacing.sm),
+                    const SizedBox(height: AppSpacing.sm),
                     _buildMetadataRow(context, isDark, subtitleColor),
                   ],
                 ),
@@ -108,7 +108,7 @@ class NoteListCard extends StatelessWidget {
 
               // Link indicator
               if (note.outgoingLinks.isNotEmpty) ...[
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 Icon(Icons.link, size: 16, color: subtitleColor),
               ],
             ],
@@ -140,7 +140,7 @@ class NoteListCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.notes, size: 12, color: subtitleColor),
-            SizedBox(width: 2),
+            const SizedBox(width: 2),
             Text(
               '${note.wordCount} words',
               style: AppTextStyles.labelSmall.copyWith(color: subtitleColor),
@@ -157,7 +157,7 @@ class NoteListCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.folder_outlined, size: 12, color: subtitleColor),
-            SizedBox(width: 2),
+            const SizedBox(width: 2),
             Text(
               folderName!,
               style: AppTextStyles.labelSmall.copyWith(color: subtitleColor),
@@ -241,8 +241,8 @@ class NoteGridCard extends StatelessWidget {
               Row(
                 children: [
                   if (note.isPinned) ...[
-                    Icon(Icons.push_pin, size: 14, color: AppColors.primary),
-                    SizedBox(width: AppSpacing.xs),
+                    const Icon(Icons.push_pin, size: 14, color: AppColors.primary),
+                    const SizedBox(width: AppSpacing.xs),
                   ],
                   Expanded(
                     child: Text(
@@ -258,13 +258,13 @@ class NoteGridCard extends StatelessWidget {
                     ),
                   ),
                   if (note.isFavorite)
-                    Icon(Icons.star, size: 14, color: AppColors.tertiary),
+                    const Icon(Icons.star, size: 14, color: AppColors.tertiary),
                 ],
               ),
 
               // Preview
               if (note.preview.isNotEmpty) ...[
-                SizedBox(height: AppSpacing.sm),
+                const SizedBox(height: AppSpacing.sm),
                 Expanded(
                   child: Text(
                     note.preview,
@@ -279,7 +279,7 @@ class NoteGridCard extends StatelessWidget {
                 const Spacer(),
 
               // Footer
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
               Row(
                 children: [
                   Text(
@@ -296,7 +296,7 @@ class NoteGridCard extends StatelessWidget {
 
               // Tags
               if (tagNames != null && tagNames!.isNotEmpty) ...[
-                SizedBox(height: AppSpacing.sm),
+                const SizedBox(height: AppSpacing.sm),
                 Wrap(
                   spacing: AppSpacing.xs,
                   runSpacing: AppSpacing.xs,
@@ -362,7 +362,7 @@ class NoteCardSkeleton extends StatelessWidget {
                 borderRadius: AppRadius.roundedXs,
               ),
             ),
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
             Container(
               height: 12,
               width: double.infinity,
@@ -371,7 +371,7 @@ class NoteCardSkeleton extends StatelessWidget {
                 borderRadius: AppRadius.roundedXs,
               ),
             ),
-            SizedBox(height: AppSpacing.xs),
+            const SizedBox(height: AppSpacing.xs),
             Container(
               height: 12,
               width: 100,
@@ -386,7 +386,7 @@ class NoteCardSkeleton extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.md,
         vertical: AppSpacing.sm,
       ),
@@ -401,7 +401,7 @@ class NoteCardSkeleton extends StatelessWidget {
               borderRadius: AppRadius.roundedXs,
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Container(
             height: 12,
             width: double.infinity,
@@ -410,7 +410,7 @@ class NoteCardSkeleton extends StatelessWidget {
               borderRadius: AppRadius.roundedXs,
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Container(
             height: 12,
             width: 150,

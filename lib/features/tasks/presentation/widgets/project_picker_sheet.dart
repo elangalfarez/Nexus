@@ -72,7 +72,7 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
         children: [
           // Drag handle
           Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Container(
               width: 32,
               height: 4,
@@ -87,7 +87,7 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
 
           // Header
           Padding(
-            padding: EdgeInsets.fromLTRB(
+            padding: const EdgeInsets.fromLTRB(
               AppSpacing.md,
               0,
               AppSpacing.md,
@@ -109,8 +109,8 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
                     Navigator.of(context).pop();
                     // TODO: Navigate to create project
                   },
-                  icon: Icon(Icons.add, size: 18),
-                  label: Text('New'),
+                  icon: const Icon(Icons.add, size: 18),
+                  label: const Text('New'),
                 ),
               ],
             ),
@@ -118,7 +118,7 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
 
           // Search field
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: AppSearchField(
               controller: _searchController,
               hint: 'Search projects...',
@@ -128,7 +128,7 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
             ),
           ),
 
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
 
           // Project list
           Expanded(
@@ -166,7 +166,7 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
                     .toList();
 
                 return ListView(
-                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                   children: [
                     // Inbox
                     if (inbox.isNotEmpty)
@@ -180,7 +180,7 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
 
                     // Favorites
                     if (favorites.isNotEmpty) ...[
-                      _SectionLabel(label: 'Favorites'),
+                      const _SectionLabel(label: 'Favorites'),
                       ...favorites.map(
                         (p) => _ProjectOption(
                           project: p,
@@ -192,7 +192,7 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
 
                     // Regular projects
                     if (regular.isNotEmpty) ...[
-                      _SectionLabel(label: 'Projects'),
+                      const _SectionLabel(label: 'Projects'),
                       ...regular.map(
                         (p) => _ProjectOption(
                           project: p,
@@ -202,11 +202,11 @@ class _ProjectPickerSheetState extends ConsumerState<ProjectPickerSheet> {
                       ),
                     ],
 
-                    SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.md),
                   ],
                 );
               },
-              loading: () => Center(
+              loading: () => const Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
               ),
               error: (e, _) => Center(
@@ -243,7 +243,7 @@ class _SectionLabel extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.only(top: AppSpacing.md, bottom: AppSpacing.xs),
+      padding: const EdgeInsets.only(top: AppSpacing.md, bottom: AppSpacing.xs),
       child: Row(
         children: [
           Text(
@@ -285,7 +285,7 @@ class _ProjectOption extends StatelessWidget {
         onTap: onTap,
         borderRadius: AppRadius.allSm,
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
             vertical: AppSpacing.md,
           ),
@@ -305,7 +305,7 @@ class _ProjectOption extends StatelessWidget {
                   color: projectColor,
                 ),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
 
               // Name
               Expanded(
@@ -324,8 +324,8 @@ class _ProjectOption extends StatelessWidget {
 
               // Favorite indicator
               if (project.isFavorite) ...[
-                Icon(Icons.star, size: 16, color: AppColors.tertiary),
-                SizedBox(width: AppSpacing.sm),
+                const Icon(Icons.star, size: 16, color: AppColors.tertiary),
+                const SizedBox(width: AppSpacing.sm),
               ],
 
               // Selected indicator

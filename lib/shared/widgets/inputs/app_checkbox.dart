@@ -155,7 +155,7 @@ class AppSwitch extends StatelessWidget {
               onChanged?.call(newValue);
             }
           : null,
-      activeColor: effectiveActiveColor,
+      activeThumbColor: effectiveActiveColor,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
@@ -192,7 +192,7 @@ class AppCheckboxTile extends StatelessWidget {
           : null,
       borderRadius: AppRadius.allSm,
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: AppSpacing.sm,
           horizontal: AppSpacing.xs,
         ),
@@ -203,7 +203,7 @@ class AppCheckboxTile extends StatelessWidget {
               onChanged: enabled ? onChanged : null,
               hapticFeedback: false,
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +221,7 @@ class AppCheckboxTile extends StatelessWidget {
                     ),
                   ),
                   if (subtitle != null) ...[
-                    SizedBox(height: AppSpacing.xxs),
+                    const SizedBox(height: AppSpacing.xxs),
                     Text(
                       subtitle!,
                       style: AppTextStyles.bodySmall.copyWith(
@@ -272,7 +272,7 @@ class AppSwitchTile extends StatelessWidget {
           : null,
       borderRadius: AppRadius.allSm,
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: AppSpacing.sm,
           horizontal: AppSpacing.xs,
         ),
@@ -295,7 +295,7 @@ class AppSwitchTile extends StatelessWidget {
                     ),
                   ),
                   if (subtitle != null) ...[
-                    SizedBox(height: AppSpacing.xxs),
+                    const SizedBox(height: AppSpacing.xxs),
                     Text(
                       subtitle!,
                       style: AppTextStyles.bodySmall.copyWith(

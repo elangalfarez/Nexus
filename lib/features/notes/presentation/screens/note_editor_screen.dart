@@ -80,7 +80,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
       if (mounted) {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Failed to load note'),
             backgroundColor: AppColors.error,
           ),
@@ -97,7 +97,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
     // Debounce auto-save
     _autoSaveTimer?.cancel();
     _autoSaveTimer = Timer(
-      Duration(milliseconds: AppConstants.autoSaveDebounceMs),
+      const Duration(milliseconds: AppConstants.autoSaveDebounceMs),
       _autoSave,
     );
   }
@@ -175,12 +175,12 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
           onSave: _autoSave,
         ),
         body: _isLoading
-            ? Center(child: CircularProgressIndicator(color: AppColors.primary))
+            ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
             : Column(
                 children: [
                   // Title field
                   Padding(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: const EdgeInsets.fromLTRB(
                       AppSpacing.md,
                       AppSpacing.sm,
                       AppSpacing.md,
@@ -214,7 +214,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
                   // Content field
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                       child: TextField(
                         controller: _contentController,
                         focusNode: _contentFocusNode,
@@ -232,7 +232,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
                                 : AppColors.textTertiaryLight,
                           ),
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(
+                          contentPadding: const EdgeInsets.only(
                             top: AppSpacing.sm,
                             bottom: AppSpacing.xl,
                           ),
@@ -327,7 +327,7 @@ class _EditorAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 : AppColors.textSecondaryLight,
           ),
         ),
-        SizedBox(width: AppSpacing.xs),
+        const SizedBox(width: AppSpacing.xs),
       ],
     );
   }
@@ -362,7 +362,7 @@ class _FormattingToolbar extends StatelessWidget {
         top: false,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
             vertical: AppSpacing.xs,
           ),
@@ -510,7 +510,7 @@ class _ToolbarButton extends StatelessWidget {
           onTap: onTap,
           borderRadius: AppRadius.roundedSm,
           child: Padding(
-            padding: EdgeInsets.all(AppSpacing.sm),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             child: Icon(
               icon,
               size: 20,
@@ -535,7 +535,7 @@ class _ToolbarDivider extends StatelessWidget {
     return Container(
       width: 1,
       height: 20,
-      margin: EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
       color: isDark ? AppColors.borderDark : AppColors.borderLight,
     );
   }

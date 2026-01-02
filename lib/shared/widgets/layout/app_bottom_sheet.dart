@@ -79,7 +79,7 @@ class _DragHandle extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       child: Container(
         width: 32,
         height: 4,
@@ -113,7 +113,7 @@ class BottomSheetHeader extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(
+      padding: const EdgeInsets.fromLTRB(
         AppSpacing.md,
         0,
         AppSpacing.sm,
@@ -177,14 +177,14 @@ class ActionSheetItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.md,
         ),
         child: Row(
           children: [
             Icon(icon, size: 24, color: effectiveColor),
-            SizedBox(width: AppSpacing.md),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Text(
                 label,
@@ -212,11 +212,11 @@ Future<T?> showActionSheet<T>({
       children: [
         if (title != null) ...[
           BottomSheetHeader(title: title),
-          Divider(height: 1),
+          const Divider(height: 1),
         ],
         ...actions,
         if (showCancel) ...[
-          Divider(height: 1),
+          const Divider(height: 1),
           ActionSheetItem(
             icon: Icons.close,
             label: 'Cancel',

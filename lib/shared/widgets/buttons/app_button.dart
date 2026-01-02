@@ -70,14 +70,14 @@ class AppButton extends StatelessWidget {
               valueColor: AlwaysStoppedAnimation(fgColor),
             ),
           ),
-          SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.sm),
         ] else if (leadingIcon != null) ...[
           Icon(leadingIcon, size: 18, color: fgColor),
-          SizedBox(width: AppSpacing.xs),
+          const SizedBox(width: AppSpacing.xs),
         ],
         Text(label, style: textStyle.copyWith(color: fgColor)),
         if (trailingIcon != null && !isLoading) ...[
-          SizedBox(width: AppSpacing.xs),
+          const SizedBox(width: AppSpacing.xs),
           Icon(trailingIcon, size: 18, color: fgColor),
         ],
       ],
@@ -95,7 +95,7 @@ class AppButton extends StatelessWidget {
             foregroundColor: fgColor,
             minimumSize: Size(isFullWidth ? double.infinity : 0, height),
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            shape: RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
+            shape: const RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
           ),
           child: content,
         );
@@ -108,7 +108,7 @@ class AppButton extends StatelessWidget {
             minimumSize: Size(isFullWidth ? double.infinity : 0, height),
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
             side: BorderSide(color: borderColor, width: 1.5),
-            shape: RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
+            shape: const RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
           ),
           child: content,
         );
@@ -120,7 +120,7 @@ class AppButton extends StatelessWidget {
             foregroundColor: fgColor,
             minimumSize: Size(isFullWidth ? double.infinity : 0, height),
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            shape: RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
+            shape: const RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
           ),
           child: content,
         );
@@ -133,7 +133,7 @@ class AppButton extends StatelessWidget {
             foregroundColor: fgColor,
             minimumSize: Size(isFullWidth ? double.infinity : 0, height),
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            shape: RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
+            shape: const RoundedRectangleBorder(borderRadius: AppRadius.buttonRadius),
           ),
           child: content,
         );
@@ -222,7 +222,7 @@ class AppIconButton extends StatelessWidget {
       icon: Icon(icon, size: size, color: effectiveColor),
       style: IconButton.styleFrom(
         backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(borderRadius: AppRadius.allSm),
+        shape: const RoundedRectangleBorder(borderRadius: AppRadius.allSm),
       ),
     );
 

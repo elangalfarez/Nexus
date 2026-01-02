@@ -42,27 +42,27 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(AppSpacing.md),
+        padding: const EdgeInsets.all(AppSpacing.md),
         children: [
           // Data statistics
-          _SectionHeader(title: 'Your Data'),
+          const _SectionHeader(title: 'Your Data'),
           statsAsync.when(
             data: (stats) => _StatsCard(stats: stats),
             loading: () => _LoadingCard(),
             error: (e, _) => _ErrorCard(message: e.toString()),
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Export section
-          _SectionHeader(title: 'Export'),
+          const _SectionHeader(title: 'Export'),
           _DataCard(
             icon: Icons.cloud_download_outlined,
             title: 'Export all data',
             description:
                 'Download a JSON backup of all your tasks, notes, projects, and settings.',
             trailing: _isExporting
-                ? SizedBox(
+                ? const SizedBox(
                     width: 24,
                     height: 24,
                     child: CircularProgressIndicator(
@@ -70,12 +70,12 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
                       color: AppColors.primary,
                     ),
                   )
-                : Icon(Icons.download, color: AppColors.primary),
+                : const Icon(Icons.download, color: AppColors.primary),
             onTap: _isExporting ? null : _exportData,
           ),
 
           if (_lastExport != null) ...[
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
             _DataCard(
               icon: Icons.check_circle,
               title: 'Last export ready',
@@ -85,17 +85,17 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
             ),
           ],
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Import section
-          _SectionHeader(title: 'Import'),
+          const _SectionHeader(title: 'Import'),
           _DataCard(
             icon: Icons.cloud_upload_outlined,
             title: 'Import from backup',
             description:
                 'Restore data from a previously exported JSON backup. This will merge with existing data.',
             trailing: _isImporting
-                ? SizedBox(
+                ? const SizedBox(
                     width: 24,
                     height: 24,
                     child: CircularProgressIndicator(
@@ -103,21 +103,21 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
                       color: AppColors.primary,
                     ),
                   )
-                : Icon(Icons.upload, color: AppColors.primary),
+                : const Icon(Icons.upload, color: AppColors.primary),
             onTap: _isImporting ? null : _importData,
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Cloud sync section
-          _SectionHeader(title: 'Cloud Sync'),
+          const _SectionHeader(title: 'Cloud Sync'),
           _DataCard(
             icon: Icons.cloud_sync_outlined,
             title: 'Enable cloud backup',
             description:
                 'Automatically sync your data across devices. Coming soon in Pro.',
             trailing: Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.xxs,
               ),
@@ -136,10 +136,10 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
             onTap: () => _showProDialog(),
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Danger zone
-          _SectionHeader(title: 'Danger Zone'),
+          const _SectionHeader(title: 'Danger Zone'),
           _DataCard(
             icon: Icons.delete_forever,
             title: 'Delete all data',
@@ -149,7 +149,7 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
             onTap: _confirmDeleteAll,
           ),
 
-          SizedBox(height: AppSpacing.xxxl),
+          const SizedBox(height: AppSpacing.xxxl),
         ],
       ),
     );
@@ -171,7 +171,7 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Export complete! Tap to copy.'),
+              content: const Text('Export complete! Tap to copy.'),
               action: SnackBarAction(
                 label: 'Copy',
                 onPressed: () => _copyToClipboard(json),
@@ -211,15 +211,15 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            const Text(
               'Paste your JSON backup data below:',
               style: AppTextStyles.bodyMedium,
             ),
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
             TextField(
               controller: controller,
               maxLines: 5,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: '{"tasks": [...], "notes": [...]}',
                 border: OutlineInputBorder(borderRadius: AppRadius.roundedSm),
               ),
@@ -263,7 +263,7 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
       setState(() => _isImporting = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Invalid JSON format'),
             backgroundColor: AppColors.error,
           ),
@@ -277,7 +277,7 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Upgrade to Pro'),
-        content: Text(
+        content: const Text(
           'Cloud sync, unlimited projects, and more advanced features are coming soon in Nexus Pro.',
         ),
         actions: [
@@ -299,17 +299,17 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'This will permanently delete:',
               style: AppTextStyles.bodyMedium,
             ),
-            SizedBox(height: AppSpacing.sm),
-            _BulletPoint('All tasks and subtasks'),
-            _BulletPoint('All notes and folders'),
-            _BulletPoint('All projects and sections'),
-            _BulletPoint('All tags and links'),
-            _BulletPoint('All settings'),
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
+            const _BulletPoint('All tasks and subtasks'),
+            const _BulletPoint('All notes and folders'),
+            const _BulletPoint('All projects and sections'),
+            const _BulletPoint('All tags and links'),
+            const _BulletPoint('All settings'),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               'This action cannot be undone.',
               style: AppTextStyles.bodyMedium.copyWith(
@@ -363,7 +363,7 @@ class _SectionHeader extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.only(left: AppSpacing.xs, bottom: AppSpacing.sm),
+      padding: const EdgeInsets.only(left: AppSpacing.xs, bottom: AppSpacing.sm),
       child: Text(
         title,
         style: AppTextStyles.labelLarge.copyWith(
@@ -405,7 +405,7 @@ class _DataCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: AppRadius.roundedMd,
         child: Container(
-          padding: EdgeInsets.all(AppSpacing.md),
+          padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
             borderRadius: AppRadius.roundedMd,
             border: Border.all(
@@ -424,7 +424,7 @@ class _DataCard extends StatelessWidget {
                 ),
                 child: Icon(icon, color: iconColor ?? AppColors.primary),
               ),
-              SizedBox(width: AppSpacing.md),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -437,7 +437,7 @@ class _DataCard extends StatelessWidget {
                             : AppColors.textPrimaryLight,
                       ),
                     ),
-                    SizedBox(height: AppSpacing.xxs),
+                    const SizedBox(height: AppSpacing.xxs),
                     Text(
                       description,
                       style: AppTextStyles.bodySmall.copyWith(
@@ -450,7 +450,7 @@ class _DataCard extends StatelessWidget {
                 ),
               ),
               if (trailing != null) ...[
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 trailing!,
               ],
             ],
@@ -472,7 +472,7 @@ class _StatsCard extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
         borderRadius: AppRadius.roundedMd,
@@ -502,7 +502,7 @@ class _StatsCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Row(
             children: [
               _StatItem(
@@ -563,7 +563,7 @@ class _StatItem extends StatelessWidget {
                 ? AppColors.textSecondaryDark
                 : AppColors.textSecondaryLight,
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             value,
             style: AppTextStyles.titleMedium.copyWith(
@@ -596,7 +596,7 @@ class _LoadingCard extends StatelessWidget {
             : AppColors.surfaceLight,
         borderRadius: AppRadius.roundedMd,
       ),
-      child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
+      child: const Center(child: CircularProgressIndicator(color: AppColors.primary)),
     );
   }
 }
@@ -609,7 +609,7 @@ class _ErrorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: AppColors.error.withValues(alpha:0.1),
         borderRadius: AppRadius.roundedMd,
@@ -617,8 +617,8 @@ class _ErrorCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.error_outline, color: AppColors.error),
-          SizedBox(width: AppSpacing.sm),
+          const Icon(Icons.error_outline, color: AppColors.error),
+          const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: Text(
               message,
@@ -639,18 +639,18 @@ class _BulletPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: AppSpacing.sm, bottom: AppSpacing.xxs),
+      padding: const EdgeInsets.only(left: AppSpacing.sm, bottom: AppSpacing.xxs),
       child: Row(
         children: [
           Container(
             width: 4,
             height: 4,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.error,
               shape: BoxShape.circle,
             ),
           ),
-          SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.sm),
           Text(text, style: AppTextStyles.bodySmall),
         ],
       ),

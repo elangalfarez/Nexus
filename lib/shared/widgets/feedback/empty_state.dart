@@ -71,7 +71,7 @@ class EmptyState extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(AppSpacing.xl),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -90,7 +90,7 @@ class EmptyState extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),
 
             // Title
             Text(
@@ -99,7 +99,7 @@ class EmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
 
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
 
             // Subtitle
             Text(
@@ -110,7 +110,7 @@ class EmptyState extends StatelessWidget {
 
             // Action button
             if (actionLabel != null && onAction != null) ...[
-              SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.lg),
               AppButton(
                 label: actionLabel!,
                 onPressed: onAction,
@@ -133,18 +133,18 @@ class EmptyState extends StatelessWidget {
     Color subtitleColor,
   ) {
     return Padding(
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 32, color: iconColor),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           Text(
             title,
             style: AppTextStyles.titleSmall.copyWith(color: titleColor),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             subtitle,
             style: AppTextStyles.bodySmall.copyWith(color: subtitleColor),
@@ -157,47 +157,47 @@ class EmptyState extends StatelessWidget {
 
   _EmptyStateConfig _getConfig(EmptyStateType type) {
     return switch (type) {
-      EmptyStateType.inbox => _EmptyStateConfig(
+      EmptyStateType.inbox => const _EmptyStateConfig(
         title: 'Inbox Zero!',
         subtitle: 'All caught up. Add a new task or enjoy the moment.',
         icon: Icons.inbox_outlined,
       ),
-      EmptyStateType.today => _EmptyStateConfig(
+      EmptyStateType.today => const _EmptyStateConfig(
         title: 'Nothing due today',
         subtitle: 'Your schedule is clear. Plan ahead or take a break.',
         icon: Icons.today_outlined,
       ),
-      EmptyStateType.tasks => _EmptyStateConfig(
+      EmptyStateType.tasks => const _EmptyStateConfig(
         title: 'No tasks yet',
         subtitle: 'Create your first task to get started.',
         icon: Icons.task_outlined,
       ),
-      EmptyStateType.notes => _EmptyStateConfig(
+      EmptyStateType.notes => const _EmptyStateConfig(
         title: 'No notes yet',
         subtitle: 'Start capturing your thoughts and ideas.',
         icon: Icons.note_outlined,
       ),
-      EmptyStateType.projects => _EmptyStateConfig(
+      EmptyStateType.projects => const _EmptyStateConfig(
         title: 'No projects',
         subtitle: 'Create a project to organize your tasks.',
         icon: Icons.folder_outlined,
       ),
-      EmptyStateType.search => _EmptyStateConfig(
+      EmptyStateType.search => const _EmptyStateConfig(
         title: 'No results found',
         subtitle: 'Try a different search term or create something new.',
         icon: Icons.search_off_outlined,
       ),
-      EmptyStateType.folder => _EmptyStateConfig(
+      EmptyStateType.folder => const _EmptyStateConfig(
         title: 'Folder is empty',
         subtitle: 'Add notes to this folder or create new ones.',
         icon: Icons.folder_open_outlined,
       ),
-      EmptyStateType.tags => _EmptyStateConfig(
+      EmptyStateType.tags => const _EmptyStateConfig(
         title: 'No tags yet',
         subtitle: 'Tags help you organize and find items quickly.',
         icon: Icons.label_outline,
       ),
-      EmptyStateType.generic => _EmptyStateConfig(
+      EmptyStateType.generic => const _EmptyStateConfig(
         title: 'Nothing here',
         subtitle: 'This space is waiting for your content.',
         icon: Icons.inbox_outlined,
@@ -251,9 +251,9 @@ class LoadingState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CircularProgressIndicator(color: AppColors.primary),
+          const CircularProgressIndicator(color: AppColors.primary),
           if (message != null) ...[
-            SizedBox(height: AppSpacing.md),
+            const SizedBox(height: AppSpacing.md),
             Text(
               message!,
               style: AppTextStyles.bodyMedium.copyWith(
@@ -283,24 +283,24 @@ class ErrorState extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(AppSpacing.xl),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 80,
               height: 80,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.errorContainer,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.error_outline,
                 size: 40,
                 color: AppColors.error,
               ),
             ),
-            SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),
             Text(
               'Something went wrong',
               style: AppTextStyles.headlineSmall.copyWith(
@@ -309,7 +309,7 @@ class ErrorState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (message != null) ...[
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 message!,
                 style: AppTextStyles.bodyMedium.copyWith(
@@ -321,7 +321,7 @@ class ErrorState extends StatelessWidget {
               ),
             ],
             if (onRetry != null) ...[
-              SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.lg),
               AppButton(
                 label: 'Try again',
                 onPressed: onRetry,

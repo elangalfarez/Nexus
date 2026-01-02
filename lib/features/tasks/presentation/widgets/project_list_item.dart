@@ -53,7 +53,7 @@ class ProjectListItem extends StatelessWidget {
           onLongPress?.call();
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
           ),
@@ -74,7 +74,7 @@ class ProjectListItem extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
 
               // Content
               Expanded(
@@ -95,7 +95,7 @@ class ProjectListItem extends StatelessWidget {
                           ),
                         ),
                         if (project.isFavorite)
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(left: AppSpacing.xs),
                             child: Icon(
                               Icons.star,
@@ -106,7 +106,7 @@ class ProjectListItem extends StatelessWidget {
                       ],
                     ),
 
-                    SizedBox(height: AppSpacing.xxs),
+                    const SizedBox(height: AppSpacing.xxs),
 
                     // Task count - ADHD-friendly progress format
                     Text(
@@ -120,7 +120,7 @@ class ProjectListItem extends StatelessWidget {
 
                     // Progress bar
                     if (showProgress && taskCount > 0) ...[
-                      SizedBox(height: AppSpacing.sm),
+                      const SizedBox(height: AppSpacing.sm),
                       ClipRRect(
                         borderRadius: AppRadius.allFull,
                         child: LinearProgressIndicator(
@@ -221,11 +221,11 @@ class ProjectGridCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   if (project.isFavorite)
-                    Icon(Icons.star, size: 16, color: AppColors.tertiary),
+                    const Icon(Icons.star, size: 16, color: AppColors.tertiary),
                 ],
               ),
 
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
 
               // Title
               Text(
@@ -246,7 +246,7 @@ class ProjectGridCard extends StatelessWidget {
                 subtitleColor,
               ),
 
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
 
               // Progress bar
               ClipRRect(
@@ -298,7 +298,7 @@ class SectionHeader extends StatelessWidget {
     return InkWell(
       onTap: onToggle,
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         ),
@@ -315,7 +315,7 @@ class SectionHeader extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: AppSpacing.xs),
+            const SizedBox(width: AppSpacing.xs),
 
             // Title
             Expanded(
@@ -331,7 +331,7 @@ class SectionHeader extends StatelessWidget {
                 '$taskCount',
                 style: AppTextStyles.labelMedium.copyWith(color: subtitleColor),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
             ],
 
             // Add button
@@ -339,7 +339,7 @@ class SectionHeader extends StatelessWidget {
               IconButton(
                 onPressed: onAddTask,
                 icon: Icon(Icons.add, size: 20, color: subtitleColor),
-                constraints: BoxConstraints(minWidth: 32, minHeight: 32),
+                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                 padding: EdgeInsets.zero,
               ),
           ],

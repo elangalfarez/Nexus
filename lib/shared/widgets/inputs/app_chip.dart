@@ -93,14 +93,14 @@ class AppChip extends StatelessWidget {
             children: [
               if (icon != null) ...[
                 Icon(icon, size: 16, color: fgColor),
-                SizedBox(width: AppSpacing.xs),
+                const SizedBox(width: AppSpacing.xs),
               ],
               Text(
                 label,
                 style: AppTextStyles.labelMedium.copyWith(color: fgColor),
               ),
               if (onDelete != null) ...[
-                SizedBox(width: AppSpacing.xs),
+                const SizedBox(width: AppSpacing.xs),
                 GestureDetector(
                   onTap: enabled
                       ? () {

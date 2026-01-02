@@ -204,12 +204,12 @@ class SectionCard extends StatelessWidget {
           // Header
           InkWell(
             onTap: onHeaderTap,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(AppRadius.lg),
               topRight: Radius.circular(AppRadius.lg),
             ),
             child: Padding(
-              padding: EdgeInsets.all(AppSpacing.md),
+              padding: const EdgeInsets.all(AppSpacing.md),
               child: Row(
                 children: [
                   Expanded(
@@ -225,7 +225,7 @@ class SectionCard extends StatelessWidget {
                           ),
                         ),
                         if (subtitle != null) ...[
-                          SizedBox(height: AppSpacing.xxs),
+                          const SizedBox(height: AppSpacing.xxs),
                           Text(
                             subtitle!,
                             style: AppTextStyles.bodySmall.copyWith(
@@ -252,7 +252,7 @@ class SectionCard extends StatelessWidget {
 
           // Content
           Padding(
-            padding: contentPadding ?? EdgeInsets.all(AppSpacing.md),
+            padding: contentPadding ?? const EdgeInsets.all(AppSpacing.md),
             child: child,
           ),
         ],
@@ -296,14 +296,14 @@ class StatCard extends StatelessWidget {
             children: [
               if (icon != null) ...[
                 Container(
-                  padding: EdgeInsets.all(AppSpacing.sm),
+                  padding: const EdgeInsets.all(AppSpacing.sm),
                   decoration: BoxDecoration(
                     color: effectiveColor.withOpacity(0.12),
                     borderRadius: AppRadius.allSm,
                   ),
                   child: Icon(icon, size: 20, color: effectiveColor),
                 ),
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
               ],
               Expanded(
                 child: Text(
@@ -317,7 +317,7 @@ class StatCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           Text(
             value,
             style: AppTextStyles.stat.copyWith(
@@ -325,7 +325,7 @@ class StatCard extends StatelessWidget {
             ),
           ),
           if (subtitle != null) ...[
-            SizedBox(height: AppSpacing.xxs),
+            const SizedBox(height: AppSpacing.xxs),
             Text(
               subtitle!,
               style: AppTextStyles.bodySmall.copyWith(

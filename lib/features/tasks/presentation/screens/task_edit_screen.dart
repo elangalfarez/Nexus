@@ -86,7 +86,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
       if (mounted) {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Failed to load task'),
             backgroundColor: AppColors.error,
           ),
@@ -135,13 +135,13 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               ),
             ),
           ),
-          SizedBox(width: AppSpacing.xs),
+          const SizedBox(width: AppSpacing.xs),
         ],
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator(color: AppColors.primary))
+          ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
           : SingleChildScrollView(
-              padding: EdgeInsets.all(AppSpacing.md),
+              padding: const EdgeInsets.all(AppSpacing.md),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -169,7 +169,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
                     maxLines: null,
                   ),
 
-                  SizedBox(height: AppSpacing.md),
+                  const SizedBox(height: AppSpacing.md),
 
                   // Description
                   TextField(
@@ -195,11 +195,11 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
                     minLines: 3,
                   ),
 
-                  SizedBox(height: AppSpacing.lg),
+                  const SizedBox(height: AppSpacing.lg),
                   Divider(
                     color: isDark ? AppColors.outlineDark : AppColors.outline,
                   ),
-                  SizedBox(height: AppSpacing.md),
+                  const SizedBox(height: AppSpacing.md),
 
                   // Project
                   _PropertyRow(
@@ -238,11 +238,11 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
                     onTap: _showRecurrencePicker,
                   ),
 
-                  SizedBox(height: AppSpacing.md),
+                  const SizedBox(height: AppSpacing.md),
                   Divider(
                     color: isDark ? AppColors.outlineDark : AppColors.outline,
                   ),
-                  SizedBox(height: AppSpacing.md),
+                  const SizedBox(height: AppSpacing.md),
 
                   // Tags
                   _TagsSection(
@@ -250,7 +250,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
                     onTagsChanged: (tags) => setState(() => _tagIds = tags),
                   ),
 
-                  SizedBox(height: AppSpacing.huge),
+                  const SizedBox(height: AppSpacing.huge),
                 ],
               ),
             ),
@@ -418,7 +418,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
       if (mounted) {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Failed to save task'),
             backgroundColor: AppColors.error,
           ),
@@ -455,7 +455,7 @@ class _PropertyRow extends StatelessWidget {
       onTap: onTap,
       borderRadius: AppRadius.allSm,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
         child: Row(
           children: [
             Icon(
@@ -465,7 +465,7 @@ class _PropertyRow extends StatelessWidget {
                   ? AppColors.onSurfaceVariantDark
                   : AppColors.onSurfaceVariant,
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
                 label,
@@ -486,10 +486,10 @@ class _PropertyRow extends StatelessWidget {
                 child: value!,
               ),
             if (trailing != null) ...[
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               trailing!,
             ],
-            SizedBox(width: AppSpacing.xs),
+            const SizedBox(width: AppSpacing.xs),
             Icon(
               Icons.chevron_right,
               size: 20,
@@ -528,7 +528,7 @@ class _TagsSection extends StatelessWidget {
                   ? AppColors.onSurfaceVariantDark
                   : AppColors.onSurfaceVariant,
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               'Tags',
               style: AppTextStyles.bodyLarge.copyWith(
@@ -537,14 +537,14 @@ class _TagsSection extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: AppSpacing.sm),
+        const SizedBox(height: AppSpacing.sm),
         InkWell(
           onTap: () {
             // TODO: Show tag picker
           },
           borderRadius: AppRadius.allSm,
           child: Container(
-            padding: EdgeInsets.all(AppSpacing.sm),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
               border: Border.all(
                 color: isDark ? AppColors.outlineDark : AppColors.outline,
@@ -553,8 +553,8 @@ class _TagsSection extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.add, size: 18, color: AppColors.primary),
-                SizedBox(width: AppSpacing.xs),
+                const Icon(Icons.add, size: 18, color: AppColors.primary),
+                const SizedBox(width: AppSpacing.xs),
                 Text(
                   'Add tags',
                   style: AppTextStyles.bodyMedium.copyWith(

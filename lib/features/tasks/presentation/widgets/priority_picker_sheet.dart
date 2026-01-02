@@ -47,7 +47,7 @@ class PriorityPickerSheet extends StatelessWidget {
         children: [
           // Drag handle
           Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Container(
               width: 32,
               height: 4,
@@ -62,7 +62,7 @@ class PriorityPickerSheet extends StatelessWidget {
 
           // Header
           Padding(
-            padding: EdgeInsets.fromLTRB(
+            padding: const EdgeInsets.fromLTRB(
               AppSpacing.md,
               0,
               AppSpacing.md,
@@ -84,7 +84,7 @@ class PriorityPickerSheet extends StatelessWidget {
 
           // Priority options
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: Column(
               children: [
                 _PriorityOption(
@@ -129,7 +129,7 @@ class PriorityPickerSheet extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
@@ -175,7 +175,7 @@ class _PriorityOption extends StatelessWidget {
         onTap: onTap,
         borderRadius: AppRadius.allSm,
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
             vertical: AppSpacing.md,
           ),
@@ -191,7 +191,7 @@ class _PriorityOption extends StatelessWidget {
                 ),
                 child: Icon(icon, size: 18, color: color),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
 
               // Labels
               Expanded(
@@ -278,7 +278,7 @@ class PriorityBadge extends StatelessWidget {
         children: [
           Icon(icon, size: 14, color: color),
           if (showLabel) ...[
-            SizedBox(width: AppSpacing.xxs),
+            const SizedBox(width: AppSpacing.xxs),
             Text(
               label,
               style: AppTextStyles.labelSmall.copyWith(

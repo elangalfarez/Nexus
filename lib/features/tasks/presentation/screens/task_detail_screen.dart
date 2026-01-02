@@ -48,7 +48,7 @@ class TaskDetailScreen extends ConsumerWidget {
       },
       loading: () => Scaffold(
         appBar: AppBar(),
-        body: Center(
+        body: const Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
       ),
@@ -111,7 +111,7 @@ class _TaskAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 : AppColors.textSecondaryLight,
           ),
         ),
-        SizedBox(width: AppSpacing.xs),
+        const SizedBox(width: AppSpacing.xs),
       ],
     );
   }
@@ -217,7 +217,7 @@ class _TaskDetailBody extends ConsumerWidget {
     final subtasksAsync = ref.watch(subtasksProvider(task.id));
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -226,7 +226,7 @@ class _TaskDetailBody extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.only(top: 4),
                 child: TaskCheckbox(
                   isCompleted: task.isCompleted,
                   priority: task.priority,
@@ -237,7 +237,7 @@ class _TaskDetailBody extends ConsumerWidget {
                   },
                 ),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: Text(
                   task.title,
@@ -258,7 +258,7 @@ class _TaskDetailBody extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Description
           if (task.description != null && task.description!.isNotEmpty) ...[
@@ -274,7 +274,7 @@ class _TaskDetailBody extends ConsumerWidget {
                 ),
               ),
             ),
-            SizedBox(height: AppSpacing.md),
+            const SizedBox(height: AppSpacing.md),
           ],
 
           // Metadata rows
@@ -314,7 +314,7 @@ class _TaskDetailBody extends ConsumerWidget {
               },
             ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Subtasks
           subtasksAsync.when(
@@ -330,12 +330,12 @@ class _TaskDetailBody extends ConsumerWidget {
           // Add subtask button
           _AddSubtaskButton(parentTaskId: task.id),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Linked notes
           if (task.linkedNoteIds.isNotEmpty) ...[
             _LinkedNotesSection(noteIds: task.linkedNoteIdList),
-            SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),
           ],
 
           // Timestamps
@@ -450,7 +450,7 @@ class _DetailSection extends StatelessWidget {
               ? AppColors.textSecondaryDark
               : AppColors.textSecondaryLight,
         ),
-        SizedBox(width: AppSpacing.sm),
+        const SizedBox(width: AppSpacing.sm),
         Expanded(child: child),
       ],
     );
@@ -482,7 +482,7 @@ class _MetadataRow extends StatelessWidget {
       onTap: onTap,
       borderRadius: AppRadius.roundedSm,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
         child: Row(
           children: [
             Icon(
@@ -492,7 +492,7 @@ class _MetadataRow extends StatelessWidget {
                   ? AppColors.textSecondaryDark
                   : AppColors.textSecondaryLight,
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
                 label,
@@ -511,7 +511,7 @@ class _MetadataRow extends StatelessWidget {
                     (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight),
               ),
             ),
-            SizedBox(width: AppSpacing.xs),
+            const SizedBox(width: AppSpacing.xs),
             Icon(
               Icons.chevron_right,
               size: 20,
@@ -552,14 +552,14 @@ class _SubtasksSection extends ConsumerWidget {
                   ? AppColors.textSecondaryDark
                   : AppColors.textSecondaryLight,
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               'Subtasks',
               style: AppTextStyles.titleSmall.copyWith(
                 color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               '$completed/${subtasks.length}',
               style: AppTextStyles.bodySmall.copyWith(
@@ -570,7 +570,7 @@ class _SubtasksSection extends ConsumerWidget {
             ),
           ],
         ),
-        SizedBox(height: AppSpacing.sm),
+        const SizedBox(height: AppSpacing.sm),
         ...subtasks.map(
           (subtask) => CompactTaskListItem(
             task: subtask,
@@ -602,11 +602,11 @@ class _AddSubtaskButton extends ConsumerWidget {
       },
       borderRadius: AppRadius.roundedSm,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
         child: Row(
           children: [
-            Icon(Icons.add, size: 20, color: AppColors.primary),
-            SizedBox(width: AppSpacing.sm),
+            const Icon(Icons.add, size: 20, color: AppColors.primary),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               'Add subtask',
               style: AppTextStyles.bodyMedium.copyWith(
@@ -643,14 +643,14 @@ class _LinkedNotesSection extends StatelessWidget {
                   ? AppColors.textSecondaryDark
                   : AppColors.textSecondaryLight,
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               'Linked notes',
               style: AppTextStyles.titleSmall.copyWith(
                 color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               ),
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               '${noteIds.length}',
               style: AppTextStyles.bodySmall.copyWith(
@@ -661,7 +661,7 @@ class _LinkedNotesSection extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: AppSpacing.sm),
+        const SizedBox(height: AppSpacing.sm),
         // TODO: Show linked note cards
         Text(
           'Note IDs: ${noteIds.join(", ")}',
@@ -691,7 +691,7 @@ class _TimestampsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Divider(color: isDark ? AppColors.borderDark : AppColors.borderLight),
-        SizedBox(height: AppSpacing.sm),
+        const SizedBox(height: AppSpacing.sm),
         Text(
           'Created ${_formatTimestamp(task.createdAt)}',
           style: AppTextStyles.bodySmall.copyWith(
@@ -701,7 +701,7 @@ class _TimestampsSection extends StatelessWidget {
           ),
         ),
         if (task.updatedAt != task.createdAt) ...[
-          SizedBox(height: AppSpacing.xxs),
+          const SizedBox(height: AppSpacing.xxs),
           Text(
             'Updated ${_formatTimestamp(task.updatedAt)}',
             style: AppTextStyles.bodySmall.copyWith(
@@ -712,7 +712,7 @@ class _TimestampsSection extends StatelessWidget {
           ),
         ],
         if (task.completedAt != null) ...[
-          SizedBox(height: AppSpacing.xxs),
+          const SizedBox(height: AppSpacing.xxs),
           Text(
             'Completed ${_formatTimestamp(task.completedAt!)}',
             style: AppTextStyles.bodySmall.copyWith(
@@ -760,7 +760,7 @@ class _TaskBottomBar extends ConsumerWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.md,
             vertical: AppSpacing.sm,
           ),
@@ -793,7 +793,7 @@ class _TaskBottomBar extends ConsumerWidget {
                               ? AppColors.textPrimaryDark
                               : AppColors.textPrimaryLight)
                         : Colors.white,
-                    minimumSize: Size(0, 48),
+                    minimumSize: const Size(0, 48),
                   ),
                 ),
               ),

@@ -156,7 +156,7 @@ class _NavBarItemWidget extends StatelessWidget {
                         horizontal: item.badge! > 9 ? 4 : 6,
                         vertical: 2,
                       ),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: AppColors.error,
                         borderRadius: AppRadius.allFull,
                       ),
@@ -175,7 +175,7 @@ class _NavBarItemWidget extends StatelessWidget {
 
             // Label
             if (showLabel) ...[
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               AnimatedDefaultTextStyle(
                 duration: AppConstants.animFast,
                 style: AppTextStyles.labelSmall.copyWith(
@@ -346,7 +346,7 @@ class _FloatingNavItemState extends State<_FloatingNavItem>
                 curve: Curves.easeOutCubic,
                 child: widget.isSelected
                     ? Padding(
-                        padding: EdgeInsets.only(left: 8),
+                        padding: const EdgeInsets.only(left: 8),
                         child: Text(
                           widget.item.label,
                           style: AppTextStyles.labelMedium.copyWith(

@@ -52,7 +52,7 @@ class RecurrencePickerSheet extends StatefulWidget {
 
 class _RecurrencePickerSheetState extends State<RecurrencePickerSheet> {
   late RecurrenceType _selectedType;
-  int _interval = 1;
+  final int _interval = 1;
   Set<int> _selectedWeekdays = {};
 
   @override
@@ -91,7 +91,7 @@ class _RecurrencePickerSheetState extends State<RecurrencePickerSheet> {
         children: [
           // Drag handle
           Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Container(
               width: 32,
               height: 4,
@@ -106,7 +106,7 @@ class _RecurrencePickerSheetState extends State<RecurrencePickerSheet> {
 
           // Header
           Padding(
-            padding: EdgeInsets.fromLTRB(
+            padding: const EdgeInsets.fromLTRB(
               AppSpacing.md,
               0,
               AppSpacing.sm,
@@ -128,7 +128,7 @@ class _RecurrencePickerSheetState extends State<RecurrencePickerSheet> {
                     onPressed: () {
                       setState(() => _selectedType = RecurrenceType.none);
                     },
-                    child: Text(
+                    child: const Text(
                       'Clear',
                       style: TextStyle(color: AppColors.error),
                     ),
@@ -139,7 +139,7 @@ class _RecurrencePickerSheetState extends State<RecurrencePickerSheet> {
 
           // Options
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: Column(
               children: [
                 _RecurrenceOption(
@@ -208,7 +208,7 @@ class _RecurrencePickerSheetState extends State<RecurrencePickerSheet> {
 
           // Confirm button
           Padding(
-            padding: EdgeInsets.all(AppSpacing.md),
+            padding: const EdgeInsets.all(AppSpacing.md),
             child: AppButton(
               label: 'Done',
               isFullWidth: true,
@@ -304,7 +304,7 @@ class _RecurrenceOption extends StatelessWidget {
         onTap: onTap,
         borderRadius: AppRadius.allSm,
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
             vertical: AppSpacing.md,
           ),
@@ -319,7 +319,7 @@ class _RecurrenceOption extends StatelessWidget {
                           ? AppColors.onSurfaceVariantDark
                           : AppColors.onSurfaceVariant),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -348,7 +348,7 @@ class _RecurrenceOption extends StatelessWidget {
                 ),
               ),
               if (isSelected)
-                Icon(Icons.check, size: 20, color: AppColors.primary),
+                const Icon(Icons.check, size: 20, color: AppColors.primary),
             ],
           ),
         ),
@@ -372,7 +372,7 @@ class _WeekdayPicker extends StatelessWidget {
     const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -384,7 +384,7 @@ class _WeekdayPicker extends StatelessWidget {
                   : AppColors.onSurfaceVariant,
             ),
           ),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(7, (index) {

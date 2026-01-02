@@ -535,7 +535,7 @@ class _LevelUpBadgeState extends State<LevelUpBadge>
         width: widget.size,
         height: widget.size,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [AppColors.primary, AppColors.secondary],

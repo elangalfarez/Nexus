@@ -240,7 +240,7 @@ class CompactTaskListItem extends StatelessWidget {
               priority: task.priority,
               onChanged: onCompleteChanged,
             ),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
                 task.title,
@@ -273,7 +273,7 @@ class TaskListItemSkeleton extends StatelessWidget {
         : AppColors.shimmerBase;
 
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.md,
         vertical: AppSpacing.sm,
       ),
@@ -288,7 +288,7 @@ class TaskListItemSkeleton extends StatelessWidget {
               shape: BoxShape.circle,
             ),
           ),
-          SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.sm),
 
           // Content
           Expanded(
@@ -304,7 +304,7 @@ class TaskListItemSkeleton extends StatelessWidget {
                     borderRadius: AppRadius.roundedXs,
                   ),
                 ),
-                SizedBox(height: AppSpacing.xs),
+                const SizedBox(height: AppSpacing.xs),
                 // Subtitle
                 Container(
                   height: 12,

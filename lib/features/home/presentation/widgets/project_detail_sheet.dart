@@ -285,7 +285,7 @@ class _ProjectHeader extends StatelessWidget {
                       const SizedBox(width: 8),
                       IconButton(
                         onPressed: onSaveName,
-                        icon: Icon(Icons.check_rounded, color: AppColors.success),
+                        icon: const Icon(Icons.check_rounded, color: AppColors.success),
                         tooltip: 'Save',
                       ),
                       IconButton(
@@ -356,7 +356,7 @@ class _ProjectHeader extends StatelessWidget {
                 color: AppColors.tertiary.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.star_rounded,
                 color: AppColors.tertiary,
                 size: 22,
@@ -395,7 +395,7 @@ class _QuickActionsRow extends StatelessWidget {
           // Favorite toggle - disabled for Inbox
           Expanded(
             child: project.isInbox
-                ? _ActionButton(
+                ? const _ActionButton(
                     icon: Icons.star_outline_rounded,
                     label: 'Favorite',
                     onTap: null,
@@ -879,7 +879,7 @@ class _CompletedSectionState extends State<_CompletedSection> {
                 AnimatedRotation(
                   turns: _isExpanded ? 0.25 : 0,
                   duration: const Duration(milliseconds: 200),
-                  child: Icon(
+                  child: const Icon(
                     Icons.chevron_right_rounded,
                     color: AppColors.success,
                     size: 20,
@@ -1144,7 +1144,7 @@ class _DeleteConfirmDialog extends StatelessWidget {
               color: AppColors.error.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
+            child: const Icon(
               Icons.delete_outline_rounded,
               color: AppColors.error,
               size: 24,

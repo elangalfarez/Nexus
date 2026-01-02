@@ -278,7 +278,7 @@ extension DateTimeExtensions on DateTime {
       const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       return days[weekday - 1];
     }
-    return '${month}/${day}/${year}';
+    return '$month/$day/$year';
   }
 }
 

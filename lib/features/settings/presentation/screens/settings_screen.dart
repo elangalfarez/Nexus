@@ -31,10 +31,10 @@ class SettingsScreen extends ConsumerWidget {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(AppSpacing.md),
+        padding: const EdgeInsets.all(AppSpacing.md),
         children: [
           // Appearance section
-          _SectionHeader(title: 'Appearance'),
+          const _SectionHeader(title: 'Appearance'),
           _SettingsCard(
             children: [
               _ThemeSelector(),
@@ -43,10 +43,10 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Tasks section
-          _SectionHeader(title: 'Tasks'),
+          const _SectionHeader(title: 'Tasks'),
           _SettingsCard(
             children: [
               _SwitchTile(
@@ -67,10 +67,10 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Notes section
-          _SectionHeader(title: 'Notes'),
+          const _SectionHeader(title: 'Notes'),
           _SettingsCard(
             children: [
               _SwitchTile(
@@ -89,10 +89,10 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Notifications section
-          _SectionHeader(title: 'Notifications'),
+          const _SectionHeader(title: 'Notifications'),
           _SettingsCard(
             children: [
               _SwitchTile(
@@ -106,10 +106,10 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Data section
-          _SectionHeader(title: 'Data'),
+          const _SectionHeader(title: 'Data'),
           _SettingsCard(
             children: [
               _NavigationTile(
@@ -137,10 +137,10 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // About section
-          _SectionHeader(title: 'About'),
+          const _SectionHeader(title: 'About'),
           _SettingsCard(
             children: [
               _NavigationTile(
@@ -173,10 +173,10 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Danger zone
-          _SectionHeader(title: 'Danger Zone'),
+          const _SectionHeader(title: 'Danger Zone'),
           _SettingsCard(
             children: [
               _NavigationTile(
@@ -189,7 +189,7 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.xxxl),
+          const SizedBox(height: AppSpacing.xxxl),
         ],
       ),
     );
@@ -266,8 +266,8 @@ class SettingsScreen extends ConsumerWidget {
               Navigator.pop(context);
               // TODO: Implement delete all
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('All data deleted'),
+                const SnackBar(
+                  content: Text('All data deleted'),
                   backgroundColor: AppColors.error,
                 ),
               );
@@ -293,7 +293,7 @@ class _SectionHeader extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Padding(
-      padding: EdgeInsets.only(left: AppSpacing.xs, bottom: AppSpacing.sm),
+      padding: const EdgeInsets.only(left: AppSpacing.xs, bottom: AppSpacing.sm),
       child: Text(
         title,
         style: AppTextStyles.labelLarge.copyWith(
@@ -436,7 +436,7 @@ class _ThemePickerSheet extends StatelessWidget {
         children: [
           // Drag handle
           Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Container(
               width: 32,
               height: 4,
@@ -450,7 +450,7 @@ class _ThemePickerSheet extends StatelessWidget {
           ),
 
           Padding(
-            padding: EdgeInsets.all(AppSpacing.md),
+            padding: const EdgeInsets.all(AppSpacing.md),
             child: Text(
               'Theme',
               style: AppTextStyles.titleLarge.copyWith(
@@ -478,7 +478,7 @@ class _ThemePickerSheet extends StatelessWidget {
             onTap: () => onModeSelected(AppThemeMode.dark),
           ),
 
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
@@ -521,7 +521,7 @@ class _ThemeOption extends StatelessWidget {
           fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
         ),
       ),
-      trailing: isSelected ? Icon(Icons.check, color: AppColors.primary) : null,
+      trailing: isSelected ? const Icon(Icons.check, color: AppColors.primary) : null,
       onTap: () {
         HapticFeedback.lightImpact();
         onTap();
@@ -562,7 +562,7 @@ class _AccentColorSelector extends ConsumerWidget {
               shape: BoxShape.circle,
             ),
           ),
-          SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.sm),
           Icon(
             Icons.chevron_right,
             color: isDark
@@ -588,7 +588,7 @@ class _AccentColorSelector extends ConsumerWidget {
             color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
             borderRadius: AppRadius.bottomSheet,
           ),
-          padding: EdgeInsets.all(AppSpacing.md),
+          padding: const EdgeInsets.all(AppSpacing.md),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -598,7 +598,7 @@ class _AccentColorSelector extends ConsumerWidget {
                   color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                 ),
               ),
-              SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.md),
               Wrap(
                 spacing: AppSpacing.sm,
                 runSpacing: AppSpacing.sm,
@@ -638,7 +638,7 @@ class _AccentColorSelector extends ConsumerWidget {
                   );
                 }),
               ),
-              SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.md),
               SizedBox(height: MediaQuery.of(context).padding.bottom),
             ],
           ),
@@ -875,23 +875,23 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(AppSpacing.md),
+        padding: const EdgeInsets.all(AppSpacing.md),
         children: [
           // App icon and name
           Center(
             child: Column(
               children: [
-                SizedBox(height: AppSpacing.lg),
+                const SizedBox(height: AppSpacing.lg),
                 Container(
                   width: 80,
                   height: 80,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AppColors.primary,
                     borderRadius: AppRadius.roundedLg,
                   ),
                   child: const Icon(Icons.hub, size: 48, color: Colors.white),
                 ),
-                SizedBox(height: AppSpacing.md),
+                const SizedBox(height: AppSpacing.md),
                 Text(
                   'Nexus',
                   style: AppTextStyles.headlineMedium.copyWith(
@@ -909,7 +909,7 @@ class AboutScreen extends StatelessWidget {
                         : AppColors.textSecondaryLight,
                   ),
                 ),
-                SizedBox(height: AppSpacing.xs),
+                const SizedBox(height: AppSpacing.xs),
                 Text(
                   'Version 1.0.0 (Build 1)',
                   style: AppTextStyles.bodySmall.copyWith(
@@ -918,7 +918,7 @@ class AboutScreen extends StatelessWidget {
                         : AppColors.textDisabledLight,
                   ),
                 ),
-                SizedBox(height: AppSpacing.lg),
+                const SizedBox(height: AppSpacing.lg),
               ],
             ),
           ),
@@ -951,11 +951,11 @@ class AboutScreen extends StatelessWidget {
                     applicationName: 'Nexus',
                     applicationVersion: '1.0.0',
                     applicationIcon: Padding(
-                      padding: EdgeInsets.all(AppSpacing.md),
+                      padding: const EdgeInsets.all(AppSpacing.md),
                       child: Container(
                         width: 48,
                         height: 48,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: AppRadius.roundedSm,
                         ),
@@ -968,7 +968,7 @@ class AboutScreen extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
 
           // Credits
           Center(
@@ -982,7 +982,7 @@ class AboutScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: AppSpacing.xxxl),
+          const SizedBox(height: AppSpacing.xxxl),
         ],
       ),
     );

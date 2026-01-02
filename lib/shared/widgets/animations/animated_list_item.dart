@@ -200,7 +200,7 @@ class HeroCard extends StatelessWidget {
           onTap: onTap,
           borderRadius: borderRadius ?? AppRadius.allMd,
           child: Padding(
-            padding: padding ?? EdgeInsets.all(AppSpacing.md),
+            padding: padding ?? const EdgeInsets.all(AppSpacing.md),
             child: child,
           ),
         ),
@@ -280,7 +280,7 @@ class AnimatedDismissible extends StatelessWidget {
     return Container(
       color: color,
       alignment: alignment,
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Icon(icon, color: Colors.white),
     );
   }

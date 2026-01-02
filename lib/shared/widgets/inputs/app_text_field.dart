@@ -124,7 +124,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   : (isDark ? AppColors.onSurfaceDark : AppColors.onSurface),
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
         ],
 
         // Text field
@@ -201,11 +201,11 @@ class _AppTextFieldState extends State<AppTextField> {
                 width: 2,
               ),
             ),
-            errorBorder: OutlineInputBorder(
+            errorBorder: const OutlineInputBorder(
               borderRadius: AppRadius.inputRadius,
               borderSide: BorderSide(color: AppColors.error, width: 1),
             ),
-            focusedErrorBorder: OutlineInputBorder(
+            focusedErrorBorder: const OutlineInputBorder(
               borderRadius: AppRadius.inputRadius,
               borderSide: BorderSide(color: AppColors.error, width: 2),
             ),
@@ -222,7 +222,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
         // Helper/Error text
         if (widget.helperText != null || widget.errorText != null) ...[
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             widget.errorText ?? widget.helperText!,
             style: AppTextStyles.bodySmall.copyWith(
@@ -282,7 +282,7 @@ class AppSearchField extends StatelessWidget {
         fillColor: isDark
             ? AppColors.surfaceVariantDark
             : AppColors.surfaceVariant,
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         ),
@@ -308,15 +308,15 @@ class AppSearchField extends StatelessWidget {
                 },
               )
             : null,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: AppRadius.allFull,
           borderSide: BorderSide.none,
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderRadius: AppRadius.allFull,
           borderSide: BorderSide.none,
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderRadius: AppRadius.allFull,
           borderSide: BorderSide(color: AppColors.primary, width: 2),
         ),

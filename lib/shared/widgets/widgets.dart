@@ -2,6 +2,8 @@
 // Barrel file - Single import for all shared widgets
 
 /// Buttons
+library;
+
 export 'buttons/app_button.dart';
 
 /// Inputs

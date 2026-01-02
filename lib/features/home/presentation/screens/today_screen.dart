@@ -41,12 +41,12 @@ class TodayScreen extends ConsumerWidget {
           _TodayAppBar(),
 
           // Content
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.xxxl),
+          const SliverPadding(
+            padding: EdgeInsets.only(bottom: AppSpacing.xxxl),
             sliver: SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   // Week Calendar Strip
                   _WeekCalendarStrip(),
 
@@ -849,7 +849,7 @@ class _AllCaughtUpBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.check_circle_outline,
             size: 24,
             color: AppColors.success,
@@ -890,8 +890,8 @@ class _AllCaughtUpBanner extends StatelessWidget {
 class _LoadingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.xl),
+    return const Padding(
+      padding: EdgeInsets.all(AppSpacing.xl),
       child: Center(
         child: CircularProgressIndicator(
           color: AppColors.primary,
@@ -918,7 +918,7 @@ class _ErrorSection extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Icon(
+            const Icon(
               Icons.error_outline,
               size: 32,
               color: AppColors.error,

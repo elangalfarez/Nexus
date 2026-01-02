@@ -446,7 +446,7 @@ class _ShimmerEffectState extends State<ShimmerEffect>
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [baseColor, highlightColor, baseColor],
-              stops: [0.0, 0.5, 1.0],
+              stops: const [0.0, 0.5, 1.0],
               transform: _SlidingGradientTransform(_animation.value),
             ).createShader(bounds);
           },

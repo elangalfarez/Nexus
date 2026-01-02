@@ -466,25 +466,25 @@ abstract final class AppTheme {
   // CARD THEMES
   // ============================================
 
-  static final CardThemeData _lightCardTheme = CardThemeData(
+  static const CardThemeData _lightCardTheme = CardThemeData(
     elevation: 0,
     color: AppColors.surfaceLight,
     shadowColor: AppColors.shadow,
     shape: RoundedRectangleBorder(
       borderRadius: AppRadius.card,
-      side: const BorderSide(color: AppColors.borderLight, width: 1),
+      side: BorderSide(color: AppColors.borderLight, width: 1),
     ),
     clipBehavior: Clip.antiAlias,
     margin: EdgeInsets.zero,
   );
 
-  static final CardThemeData _darkCardTheme = CardThemeData(
+  static const CardThemeData _darkCardTheme = CardThemeData(
     elevation: 0,
     color: AppColors.surfaceDark,
     shadowColor: AppColors.shadowDark,
     shape: RoundedRectangleBorder(
       borderRadius: AppRadius.card,
-      side: const BorderSide(color: AppColors.borderDark, width: 1),
+      side: BorderSide(color: AppColors.borderDark, width: 1),
     ),
     clipBehavior: Clip.antiAlias,
     margin: EdgeInsets.zero,
@@ -503,7 +503,7 @@ abstract final class AppTheme {
       foregroundColor: AppColors.onPrimary,
       disabledBackgroundColor: AppColors.textDisabledLight,
       disabledForegroundColor: AppColors.surfaceLight,
-      shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.button),
       textStyle: AppTextStyles.labelLarge,
       minimumSize: const Size(64, 48),
     ),
@@ -516,7 +516,7 @@ abstract final class AppTheme {
       foregroundColor: AppColors.onPrimary,
       disabledBackgroundColor: AppColors.textDisabledLight,
       disabledForegroundColor: AppColors.surfaceLight,
-      shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.button),
       textStyle: AppTextStyles.labelLarge,
       minimumSize: const Size(64, 48),
     ),
@@ -528,7 +528,7 @@ abstract final class AppTheme {
       padding: AppSpacing.buttonPadding,
       foregroundColor: AppColors.primary,
       disabledForegroundColor: AppColors.textDisabledLight,
-      shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.button),
       side: const BorderSide(color: AppColors.primary, width: 1.5),
       textStyle: AppTextStyles.labelLarge,
       minimumSize: const Size(64, 48),
@@ -541,7 +541,7 @@ abstract final class AppTheme {
       padding: AppSpacing.buttonPadding,
       foregroundColor: AppColors.primaryLight,
       disabledForegroundColor: AppColors.textDisabledDark,
-      shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.button),
       side: const BorderSide(color: AppColors.primaryLight, width: 1.5),
       textStyle: AppTextStyles.labelLarge,
       minimumSize: const Size(64, 48),
@@ -553,7 +553,7 @@ abstract final class AppTheme {
       padding: AppSpacing.buttonPaddingCompact,
       foregroundColor: AppColors.primary,
       disabledForegroundColor: AppColors.textDisabledLight,
-      shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.button),
       textStyle: AppTextStyles.labelLarge,
       minimumSize: const Size(48, 40),
     ),
@@ -563,7 +563,7 @@ abstract final class AppTheme {
     style: IconButton.styleFrom(
       foregroundColor: AppColors.textSecondaryLight,
       disabledForegroundColor: AppColors.textDisabledLight,
-      shape: RoundedRectangleBorder(borderRadius: AppRadius.roundedMd),
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.roundedMd),
       minimumSize: const Size(48, 48),
     ),
   );
@@ -576,25 +576,25 @@ abstract final class AppTheme {
     filled: true,
     fillColor: AppColors.surfaceVariantLight,
     contentPadding: AppSpacing.inputPadding,
-    border: OutlineInputBorder(
+    border: const OutlineInputBorder(
       borderRadius: AppRadius.input,
       borderSide: BorderSide.none,
     ),
-    enabledBorder: OutlineInputBorder(
+    enabledBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
       borderSide: BorderSide.none,
     ),
-    focusedBorder: OutlineInputBorder(
+    focusedBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
-      borderSide: const BorderSide(color: AppColors.primary, width: 2),
+      borderSide: BorderSide(color: AppColors.primary, width: 2),
     ),
-    errorBorder: OutlineInputBorder(
+    errorBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
-      borderSide: const BorderSide(color: AppColors.error, width: 1),
+      borderSide: BorderSide(color: AppColors.error, width: 1),
     ),
-    focusedErrorBorder: OutlineInputBorder(
+    focusedErrorBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
-      borderSide: const BorderSide(color: AppColors.error, width: 2),
+      borderSide: BorderSide(color: AppColors.error, width: 2),
     ),
     hintStyle:
         AppTextStyles.bodyMedium.copyWith(color: AppColors.textTertiaryLight),
@@ -611,25 +611,25 @@ abstract final class AppTheme {
     filled: true,
     fillColor: AppColors.surfaceVariantDark,
     contentPadding: AppSpacing.inputPadding,
-    border: OutlineInputBorder(
+    border: const OutlineInputBorder(
       borderRadius: AppRadius.input,
       borderSide: BorderSide.none,
     ),
-    enabledBorder: OutlineInputBorder(
+    enabledBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
       borderSide: BorderSide.none,
     ),
-    focusedBorder: OutlineInputBorder(
+    focusedBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
-      borderSide: const BorderSide(color: AppColors.primaryLight, width: 2),
+      borderSide: BorderSide(color: AppColors.primaryLight, width: 2),
     ),
-    errorBorder: OutlineInputBorder(
+    errorBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
-      borderSide: const BorderSide(color: AppColors.error, width: 1),
+      borderSide: BorderSide(color: AppColors.error, width: 1),
     ),
-    focusedErrorBorder: OutlineInputBorder(
+    focusedErrorBorder: const OutlineInputBorder(
       borderRadius: AppRadius.input,
-      borderSide: const BorderSide(color: AppColors.error, width: 2),
+      borderSide: BorderSide(color: AppColors.error, width: 2),
     ),
     hintStyle:
         AppTextStyles.bodyMedium.copyWith(color: AppColors.textTertiaryDark),
@@ -651,7 +651,7 @@ abstract final class AppTheme {
     selectedColor: AppColors.primaryContainer,
     disabledColor: AppColors.surfaceVariantLight,
     padding: AppSpacing.chipPadding,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.chip),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.chip),
     labelStyle:
         AppTextStyles.labelMedium.copyWith(color: AppColors.textPrimaryLight),
     secondaryLabelStyle:
@@ -664,7 +664,7 @@ abstract final class AppTheme {
     selectedColor: AppColors.primaryContainerDark,
     disabledColor: AppColors.surfaceVariantDark,
     padding: AppSpacing.chipPadding,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.chip),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.chip),
     labelStyle:
         AppTextStyles.labelMedium.copyWith(color: AppColors.textPrimaryDark),
     secondaryLabelStyle:
@@ -676,7 +676,7 @@ abstract final class AppTheme {
   // BOTTOM NAVIGATION THEMES
   // ============================================
 
-  static final BottomNavigationBarThemeData _lightBottomNavTheme =
+  static const BottomNavigationBarThemeData _lightBottomNavTheme =
       BottomNavigationBarThemeData(
     backgroundColor: AppColors.surfaceLight,
     selectedItemColor: AppColors.primary,
@@ -687,7 +687,7 @@ abstract final class AppTheme {
     showUnselectedLabels: true,
   );
 
-  static final BottomNavigationBarThemeData _darkBottomNavTheme =
+  static const BottomNavigationBarThemeData _darkBottomNavTheme =
       BottomNavigationBarThemeData(
     backgroundColor: AppColors.surfaceDark,
     selectedItemColor: AppColors.primaryLight,
@@ -744,26 +744,26 @@ abstract final class AppTheme {
   // BOTTOM SHEET THEMES
   // ============================================
 
-  static final BottomSheetThemeData _lightBottomSheetTheme =
+  static const BottomSheetThemeData _lightBottomSheetTheme =
       BottomSheetThemeData(
     backgroundColor: AppColors.surfaceLight,
     modalBackgroundColor: AppColors.surfaceLight,
     elevation: 0,
-    shape: const RoundedRectangleBorder(borderRadius: AppRadius.bottomSheet),
+    shape: RoundedRectangleBorder(borderRadius: AppRadius.bottomSheet),
     clipBehavior: Clip.antiAlias,
     dragHandleColor: AppColors.borderLight,
-    dragHandleSize: const Size(32, 4),
+    dragHandleSize: Size(32, 4),
   );
 
-  static final BottomSheetThemeData _darkBottomSheetTheme =
+  static const BottomSheetThemeData _darkBottomSheetTheme =
       BottomSheetThemeData(
     backgroundColor: AppColors.surfaceElevatedDark,
     modalBackgroundColor: AppColors.surfaceElevatedDark,
     elevation: 0,
-    shape: const RoundedRectangleBorder(borderRadius: AppRadius.bottomSheet),
+    shape: RoundedRectangleBorder(borderRadius: AppRadius.bottomSheet),
     clipBehavior: Clip.antiAlias,
     dragHandleColor: AppColors.borderDark,
-    dragHandleSize: const Size(32, 4),
+    dragHandleSize: Size(32, 4),
   );
 
   // ============================================
@@ -774,7 +774,7 @@ abstract final class AppTheme {
     backgroundColor: AppColors.surfaceLight,
     elevation: 8,
     shadowColor: AppColors.shadow,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.dialog),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.dialog),
     titleTextStyle:
         AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimaryLight),
     contentTextStyle:
@@ -785,7 +785,7 @@ abstract final class AppTheme {
     backgroundColor: AppColors.surfaceElevatedDark,
     elevation: 8,
     shadowColor: AppColors.shadowDark,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.dialog),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.dialog),
     titleTextStyle:
         AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimaryDark),
     contentTextStyle:
@@ -801,7 +801,7 @@ abstract final class AppTheme {
     contentTextStyle: AppTextStyles.bodyMedium
         .copyWith(color: AppColors.onInverseSurfaceLight),
     actionTextColor: AppColors.inversePrimaryLight,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.toast),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.toast),
     behavior: SnackBarBehavior.floating,
     elevation: 0,
     insetPadding: AppSpacing.allMd,
@@ -812,7 +812,7 @@ abstract final class AppTheme {
     contentTextStyle:
         AppTextStyles.bodyMedium.copyWith(color: AppColors.textPrimaryDark),
     actionTextColor: AppColors.primaryLight,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.toast),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.toast),
     behavior: SnackBarBehavior.floating,
     elevation: 0,
     insetPadding: AppSpacing.allMd,
@@ -838,7 +838,7 @@ abstract final class AppTheme {
   // FAB THEME
   // ============================================
 
-  static final FloatingActionButtonThemeData _fabTheme =
+  static const FloatingActionButtonThemeData _fabTheme =
       FloatingActionButtonThemeData(
     backgroundColor: AppColors.primary,
     foregroundColor: AppColors.onPrimary,
@@ -861,7 +861,7 @@ abstract final class AppTheme {
       return Colors.transparent;
     }),
     checkColor: WidgetStateProperty.all(AppColors.onPrimary),
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.roundedXs),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.roundedXs),
     side: const BorderSide(color: AppColors.borderLight, width: 2),
   );
 
@@ -906,7 +906,7 @@ abstract final class AppTheme {
   // ============================================
 
   static final TooltipThemeData _lightTooltipTheme = TooltipThemeData(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: AppColors.inverseSurfaceLight,
       borderRadius: AppRadius.roundedSm,
     ),
@@ -916,7 +916,7 @@ abstract final class AppTheme {
   );
 
   static final TooltipThemeData _darkTooltipTheme = TooltipThemeData(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: AppColors.surfaceElevatedDark,
       borderRadius: AppRadius.roundedSm,
     ),
@@ -932,7 +932,7 @@ abstract final class AppTheme {
   static final ListTileThemeData _lightListTileTheme = ListTileThemeData(
     contentPadding: AppSpacing.listItemPadding,
     minVerticalPadding: AppSpacing.sm,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.roundedMd),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.roundedMd),
     titleTextStyle:
         AppTextStyles.titleMedium.copyWith(color: AppColors.textPrimaryLight),
     subtitleTextStyle:
@@ -945,7 +945,7 @@ abstract final class AppTheme {
   static final ListTileThemeData _darkListTileTheme = ListTileThemeData(
     contentPadding: AppSpacing.listItemPadding,
     minVerticalPadding: AppSpacing.sm,
-    shape: RoundedRectangleBorder(borderRadius: AppRadius.roundedMd),
+    shape: const RoundedRectangleBorder(borderRadius: AppRadius.roundedMd),
     titleTextStyle:
         AppTextStyles.titleMedium.copyWith(color: AppColors.textPrimaryDark),
     subtitleTextStyle:
@@ -959,7 +959,7 @@ abstract final class AppTheme {
   // TAB BAR THEMES
   // ============================================
 
-  static final TabBarThemeData _lightTabBarTheme = TabBarThemeData(
+  static const TabBarThemeData _lightTabBarTheme = TabBarThemeData(
     labelColor: AppColors.primary,
     unselectedLabelColor: AppColors.textSecondaryLight,
     labelStyle: AppTextStyles.labelLarge,
@@ -969,7 +969,7 @@ abstract final class AppTheme {
     dividerColor: Colors.transparent,
   );
 
-  static final TabBarThemeData _darkTabBarTheme = TabBarThemeData(
+  static const TabBarThemeData _darkTabBarTheme = TabBarThemeData(
     labelColor: AppColors.primaryLight,
     unselectedLabelColor: AppColors.textSecondaryDark,
     labelStyle: AppTextStyles.labelLarge,
