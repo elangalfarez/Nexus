@@ -1,7 +1,7 @@
 // lib/core/constants/app_constants.dart
 // App-wide constants and configuration values
 
-/// Nexus App Constants
+/// Algan App Constants
 ///
 /// Centralized configuration for the entire app.
 /// Update values here to change behavior app-wide.
@@ -11,7 +11,7 @@ abstract final class AppConstants {
   // ============================================
 
   /// App name
-  static const String appName = 'Nexus';
+  static const String appName = 'Algan';
 
   /// App tagline
   static const String appTagline = 'Tasks & Second Brain';
@@ -28,45 +28,45 @@ abstract final class AppConstants {
   static const int buildNumber = 1;
 
   /// App bundle ID (Android)
-  static const String androidBundleId = 'com.nexusapp.nexus';
+  static const String androidBundleId = 'com.alganapp.algan';
 
   /// App bundle ID (iOS)
-  static const String iosBundleId = 'com.nexusapp.nexus';
+  static const String iosBundleId = 'com.alganapp.algan';
 
   // ============================================
   // STORAGE KEYS
   // ============================================
 
   /// Key for theme mode preference
-  static const String themeKey = 'nexus_theme_mode';
+  static const String themeKey = 'algan_theme_mode';
 
   /// Key for onboarding completion
-  static const String onboardingKey = 'nexus_onboarding_completed';
+  static const String onboardingKey = 'algan_onboarding_completed';
 
   /// Key for last sync timestamp
-  static const String lastSyncKey = 'nexus_last_sync';
+  static const String lastSyncKey = 'algan_last_sync';
 
   /// Key for default project ID
-  static const String defaultProjectKey = 'nexus_default_project';
+  static const String defaultProjectKey = 'algan_default_project';
 
   /// Key for default folder ID
-  static const String defaultFolderKey = 'nexus_default_folder';
+  static const String defaultFolderKey = 'algan_default_folder';
 
   /// Key for sorting preferences
-  static const String sortPreferenceKey = 'nexus_sort_preference';
+  static const String sortPreferenceKey = 'algan_sort_preference';
 
   /// Key for view mode preferences
-  static const String viewModeKey = 'nexus_view_mode';
+  static const String viewModeKey = 'algan_view_mode';
 
   /// Key for recent searches
-  static const String recentSearchesKey = 'nexus_recent_searches';
+  static const String recentSearchesKey = 'algan_recent_searches';
 
   // ============================================
   // DATABASE
   // ============================================
 
   /// Isar database name
-  static const String databaseName = 'nexus_db';
+  static const String databaseName = 'algan_db';
 
   /// Database schema version
   static const int databaseVersion = 1;
@@ -208,45 +208,45 @@ abstract final class AppConstants {
   // ============================================
 
   /// Widget channel name
-  static const String widgetChannel = 'com.nexusapp.nexus/widget';
+  static const String widgetChannel = 'com.alganapp.algan/widget';
 
   /// Notifications channel name
-  static const String notificationsChannel = 'com.nexusapp.nexus/notifications';
+  static const String notificationsChannel = 'com.alganapp.algan/notifications';
 
   /// Share channel name
-  static const String shareChannel = 'com.nexusapp.nexus/share';
+  static const String shareChannel = 'com.alganapp.algan/share';
 
   // ============================================
   // SUPPORT & LINKS
   // ============================================
 
   /// Support email
-  static const String supportEmail = 'support@nexusapp.com';
+  static const String supportEmail = 'support@algan.id';
 
   /// Privacy policy URL
-  static const String privacyPolicyUrl = 'https://nexusapp.com/privacy';
+  static const String privacyPolicyUrl = 'https://algan.id/privacy';
 
   /// Terms of service URL
-  static const String termsUrl = 'https://nexusapp.com/terms';
+  static const String termsUrl = 'https://algan.id/terms';
 
   /// Website URL
-  static const String websiteUrl = 'https://nexusapp.com';
+  static const String websiteUrl = 'https://algan.id';
 
   /// Twitter/X handle
-  static const String twitterHandle = '@nexusapp';
+  static const String twitterHandle = '@alganapp';
 
   // ============================================
   // MONETIZATION (for future Pro features)
   // ============================================
 
   /// Monthly subscription ID
-  static const String monthlySubId = 'nexus_pro_monthly';
+  static const String monthlySubId = 'algan_pro_monthly';
 
   /// Yearly subscription ID
-  static const String yearlySubId = 'nexus_pro_yearly';
+  static const String yearlySubId = 'algan_pro_yearly';
 
   /// Lifetime purchase ID
-  static const String lifetimeId = 'nexus_pro_lifetime';
+  static const String lifetimeId = 'algan_pro_lifetime';
 
   /// Monthly price
   static const String monthlyPrice = '\$4.99';

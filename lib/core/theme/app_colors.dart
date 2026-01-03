@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-/// Nexus Design System - Color Tokens
+/// Algan Design System - Color Tokens
 ///
 /// CRITICAL RULE: This is the ONLY file where hex values (Color(0xFF...)) are allowed.
 /// All UI code must reference these semantic tokens, never raw hex values.

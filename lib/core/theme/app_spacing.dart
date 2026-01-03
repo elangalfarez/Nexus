@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-/// Nexus Design System - Spacing Scale
+/// Algan Design System - Spacing Scale
 ///
 /// RULE: Never use magic numbers like EdgeInsets.all(16).
 /// Always use AppSpacing.md, AppSpacing.lg, etc.

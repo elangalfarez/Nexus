@@ -57,7 +57,9 @@ class DatabaseService {
         ],
         directory: dir.path,
         name: AppConstants.databaseName,
-        inspector: kDebugMode, // Enable inspector in debug mode
+        // Disable inspector by default - it causes significant startup delay
+        // Set to true only when you need to debug database issues
+        inspector: false,
       );
 
       _isInitialized = true;

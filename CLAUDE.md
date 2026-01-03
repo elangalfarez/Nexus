@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Nexus is a Flutter productivity app (Tasks & Second Brain) targeting iOS, Android, and Web platforms. It's a local-first application using Isar for storage with sync infrastructure prepared for future implementation.
+Algan is a Flutter productivity app (Tasks & Second Brain) targeting iOS, Android, and Web platforms. It's a local-first application using Isar for storage with sync infrastructure prepared for future implementation.
 
 ## Build & Development Commands
 
@@ -124,8 +124,8 @@ What you should NOT include:
 
 ## PROJECT SPECIFICATION
 
-### App Name: 
-Nexus – Tasks & Second Brain
+### App Name:
+Algan – Tasks & Second Brain
 
 ### App Concept: 
 A unified productivity workspace combining powerful task management (Todoist-level) with networked note-taking (Obsidian-style) — link tasks to notes, build a second brain around your projects, and never lose context.

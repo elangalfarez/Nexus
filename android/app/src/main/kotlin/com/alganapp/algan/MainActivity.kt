@@ -1,4 +1,4 @@
-package com.example.nexus
+package com.alganapp.algan
 
 import io.flutter.embedding.android.FlutterActivity
 

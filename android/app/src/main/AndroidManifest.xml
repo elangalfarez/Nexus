@@ -17,7 +17,7 @@
         android:maxSdkVersion="29"/>
     
     <application
-        android:label="Nexus"
+        android:label="Algan"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">
@@ -47,7 +47,7 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="nexus"/>
+                <data android:scheme="algan"/>
             </intent-filter>
         </activity>
         

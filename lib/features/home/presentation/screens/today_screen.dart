@@ -13,6 +13,8 @@ import '../../../tasks/data/models/project_model.dart';
 import '../../../tasks/data/models/task_model.dart';
 import '../../../tasks/presentation/providers/project_providers.dart';
 import '../../../tasks/presentation/providers/task_providers.dart';
+import '../providers/next_task_provider.dart';
+import '../widgets/do_this_next_card.dart';
 import '../widgets/quick_capture_sheet.dart';
 import '../widgets/task_detail_sheet.dart';
 
@@ -52,6 +54,15 @@ final todayCompletedExpandedProvider = StateProvider<bool>((ref) => true);
 
 /// Sort option (null = no sorting, default order)
 final todaySortOptionProvider = StateProvider<TodaySortOption?>((ref) => null);
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// HELPER FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/// Check if two dates are the same day
+bool _isSameDayGlobal(DateTime a, DateTime b) {
+  return a.year == b.year && a.month == b.month && a.day == b.day;
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // MAIN SCREEN
@@ -229,6 +240,10 @@ class _TodayScreenState extends ConsumerState<TodayScreen>
                     const _TodayProgressCard(),
 
                     const SizedBox(height: AppSpacing.md),
+
+                    // "Do This Next" Card - Only show when viewing today
+                    if (_isSameDayGlobal(selectedDate, DateTime.now()))
+                      const _DoThisNextSection(),
 
                     // Filter Tabs
                     const _FilterTabs(),
@@ -971,6 +986,31 @@ class _AnimatedStatBadge extends StatelessWidget {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// DO THIS NEXT SECTION - ADHD-friendly focus feature
+// ═══════════════════════════════════════════════════════════════════════════════
+
+class _DoThisNextSection extends ConsumerWidget {
+  const _DoThisNextSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hasNextTask = ref.watch(hasNextTaskProvider);
+
+    // Only show if there are tasks in the queue
+    if (!hasNextTask) {
+      return const SizedBox.shrink();
+    }
+
+    return const Column(
+      children: [
+        DoThisNextCard(),
+        SizedBox(height: AppSpacing.md),
+      ],
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // FILTER TABS - Premium segmented control
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -1118,17 +1158,18 @@ class _TaskSections extends ConsumerWidget {
     final completedExpanded = ref.watch(todayCompletedExpandedProvider);
     final sortOption = ref.watch(todaySortOptionProvider);
 
-    // Get tasks for the selected date
+    // Get tasks for the selected date - use select to minimize rebuilds
     final tasksAsync = ref.watch(tasksByDateProvider(selectedDate));
 
-    // Only show overdue when viewing today
+    // Only show overdue when viewing today - skip the watch if not needed
     final overdueAsync = isViewingToday
         ? ref.watch(overdueTasksRelativeProvider(selectedDate))
         : const AsyncValue<List<Task>>.data([]);
 
-    // Get projects for sorting
+    // Get projects ONCE here - pass down to children to avoid multiple watches
     final projectsAsync = ref.watch(activeProjectsProvider);
     final projectMap = _buildProjectMap(projectsAsync);
+    final projectList = projectsAsync.valueOrNull ?? [];
 
     return tasksAsync.when(
       data: (dateTasks) {
@@ -1195,6 +1236,7 @@ class _TaskSections extends ConsumerWidget {
                     ),
                     child: _TaskCard(
                       task: task,
+                      projects: projectList,
                       showDueDate: true,
                       accentColor: AppColors.error,
                       onTap: () => TaskDetailSheet.show(context, task),
@@ -1226,6 +1268,7 @@ class _TaskSections extends ConsumerWidget {
                     ),
                     child: _TaskCard(
                       task: task,
+                      projects: projectList,
                       onTap: () => TaskDetailSheet.show(context, task),
                       onCompleteChanged: (completed) {
                         HapticFeedback.lightImpact();
@@ -1262,6 +1305,7 @@ class _TaskSections extends ConsumerWidget {
                           ),
                           child: _TaskCard(
                             task: task,
+                            projects: projectList,
                             isCompleted: true,
                             onTap: () => TaskDetailSheet.show(context, task),
                             onCompleteChanged: (completed) {
@@ -1579,8 +1623,9 @@ class _CompletedSectionHeader extends StatelessWidget {
 // TASK CARD - Premium card-based task display
 // ═══════════════════════════════════════════════════════════════════════════════
 
-class _TaskCard extends ConsumerWidget {
+class _TaskCard extends StatelessWidget {
   final Task task;
+  final List<Project> projects;
   final VoidCallback? onTap;
   final ValueChanged<bool>? onCompleteChanged;
   final bool isCompleted;
@@ -1589,6 +1634,7 @@ class _TaskCard extends ConsumerWidget {
 
   const _TaskCard({
     required this.task,
+    required this.projects,
     this.onTap,
     this.onCompleteChanged,
     this.isCompleted = false,
@@ -1597,13 +1643,12 @@ class _TaskCard extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final completed = isCompleted || task.isCompleted;
 
-    // Get project info
-    final projectsAsync = ref.watch(activeProjectsProvider);
-    final project = _getProject(projectsAsync, task.projectId);
+    // Get project info from passed-in list (no provider watch!)
+    final project = _getProject(projects, task.projectId);
 
     // Text colors
     final titleColor = completed
@@ -1707,15 +1752,11 @@ class _TaskCard extends ConsumerWidget {
     );
   }
 
-  Project? _getProject(AsyncValue<List<Project>> projectsAsync, int? projectId) {
+  Project? _getProject(List<Project> projects, int? projectId) {
     if (projectId == null) return null;
-    return projectsAsync.when(
-      data: (projects) => projects.cast<Project?>().firstWhere(
-            (p) => p?.id == projectId,
-            orElse: () => null,
-          ),
-      loading: () => null,
-      error: (_, __) => null,
+    return projects.cast<Project?>().firstWhere(
+      (p) => p?.id == projectId,
+      orElse: () => null,
     );
   }
 

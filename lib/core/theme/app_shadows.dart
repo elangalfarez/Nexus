@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
-/// Nexus Design System - Shadow/Elevation Scale
+/// Algan Design System - Shadow/Elevation Scale
 ///
 /// RULE: Never hardcode BoxShadow values in widgets.
 /// Always use AppShadows.sm, AppShadows.lg, etc.

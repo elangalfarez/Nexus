@@ -146,7 +146,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
               // App name
               Text(
-                'Nexus',
+                'Algan',
                 style: AppTextStyles.displaySmall.copyWith(
                   color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   fontWeight: FontWeight.bold,

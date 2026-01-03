@@ -11,8 +11,8 @@
 -keep class * extends dev.isar.** { *; }
 
 # Keep model classes (adjust package name as needed)
--keep class com.nexus.app.models.** { *; }
--keepclassmembers class com.nexus.app.models.** { *; }
+-keep class com.alganapp.algan.models.** { *; }
+-keepclassmembers class com.alganapp.algan.models.** { *; }
 
 # JSON serialization
 -keepattributes *Annotation*

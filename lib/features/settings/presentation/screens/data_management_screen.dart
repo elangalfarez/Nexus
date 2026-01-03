@@ -278,7 +278,7 @@ class _DataManagementScreenState extends ConsumerState<DataManagementScreen> {
       builder: (context) => AlertDialog(
         title: const Text('Upgrade to Pro'),
         content: const Text(
-          'Cloud sync, unlimited projects, and more advanced features are coming soon in Nexus Pro.',
+          'Cloud sync, unlimited projects, and more advanced features are coming soon in Algan Pro.',
         ),
         actions: [
           TextButton(

@@ -1,5 +1,5 @@
-name: nexus_app
-description: "Nexus - Tasks & Second Brain. A unified productivity workspace combining powerful task management with networked note-taking."
+name: algan_app
+description: "Algan - Tasks & Second Brain. A unified productivity workspace combining powerful task management with networked note-taking."
 publish_to: 'none'
 version: 1.0.0+1
 

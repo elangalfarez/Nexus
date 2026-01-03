@@ -145,7 +145,7 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               _NavigationTile(
                 icon: Icons.info_outline,
-                title: 'About Nexus',
+                title: 'About Algan',
                 subtitle: 'Version, licenses, credits',
                 onTap: () {
                   Navigator.of(context).push(
@@ -893,7 +893,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 Text(
-                  'Nexus',
+                  'Algan',
                   style: AppTextStyles.headlineMedium.copyWith(
                     color: isDark
                         ? AppColors.textPrimaryDark
@@ -948,7 +948,7 @@ class AboutScreen extends StatelessWidget {
                 onTap: () {
                   showLicensePage(
                     context: context,
-                    applicationName: 'Nexus',
+                    applicationName: 'Algan',
                     applicationVersion: '1.0.0',
                     applicationIcon: Padding(
                       padding: const EdgeInsets.all(AppSpacing.md),

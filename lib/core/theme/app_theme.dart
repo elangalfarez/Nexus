@@ -8,7 +8,7 @@ import 'app_text_styles.dart';
 import 'app_radius.dart';
 import 'app_spacing.dart';
 
-/// Nexus App Theme System
+/// Algan App Theme System
 ///
 /// This file builds ThemeData using all our semantic tokens.
 /// Light and dark themes are defined here.

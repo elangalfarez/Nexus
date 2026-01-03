@@ -3,7 +3,7 @@
 
 /// Export all theme-related files from a single import
 ///
-/// Usage: import 'package:nexus_app/core/theme/theme.dart';
+/// Usage: import 'package:algan_app/core/theme/theme.dart';
 library;
 
 export 'app_colors.dart';

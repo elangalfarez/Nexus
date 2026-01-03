@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-/// Nexus Design System - Border Radius Scale
+/// Algan Design System - Border Radius Scale
 ///
 /// RULE: Never use magic numbers like BorderRadius.circular(12).
 /// Always use AppRadius.md, AppRadius.lg, etc.

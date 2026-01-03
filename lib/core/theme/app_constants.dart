@@ -1,7 +1,7 @@
 // lib/core/theme/app_constants.dart
 // Animation and timing constants
 
-/// Nexus Design System - Animation & Timing Constants
+/// Algan Design System - Animation & Timing Constants
 ///
 /// RULE: Never use magic Duration values in widgets.
 /// Always use AppConstants.animMicro, AppConstants.animStandard, etc.

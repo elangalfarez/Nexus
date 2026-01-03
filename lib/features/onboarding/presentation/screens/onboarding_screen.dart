@@ -23,7 +23,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _pages = const [
     _OnboardingPageData(
       icon: Icons.hub,
-      title: 'Welcome to Nexus',
+      title: 'Welcome to Algan',
       subtitle: 'Your tasks and notes,\nconnected in one place',
       color: Color(0xFF6366F1),
     ),
@@ -306,7 +306,7 @@ class _QuickSetupScreenState extends ConsumerState<QuickSetupScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'How will you use Nexus?',
+                'How will you use Algan?',
                 style: AppTextStyles.headlineMedium.copyWith(
                   color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   fontWeight: FontWeight.bold,

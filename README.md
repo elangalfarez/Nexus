@@ -1,6 +1,6 @@
-# nexus
+# Algan
 
-A new Flutter project.
+Algan - Tasks & Second Brain. A unified productivity workspace combining powerful task management with networked note-taking.
 
 ## Getting Started
 

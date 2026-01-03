@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-/// Nexus Design System - Typography Scale
+/// Algan Design System - Typography Scale
 ///
 /// RULE: Never hardcode font sizes, weights, or heights in widgets.
 /// Always use AppTextStyles.headlineLarge, AppTextStyles.bodyMedium, etc.
