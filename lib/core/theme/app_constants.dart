@@ -38,3 +38,10 @@ abstract final class AppConstants {
   /// Search debounce - 300ms
   static const int searchDebounceMs = 300;
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SHARED ENUMS
+// ═══════════════════════════════════════════════════════════════════════════
+
+/// View mode for displaying lists (projects, notes, etc.)
+enum ViewMode { list, grid }

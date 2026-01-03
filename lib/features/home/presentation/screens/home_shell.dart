@@ -125,7 +125,8 @@ class _BottomNavBarWithFab extends ConsumerWidget {
               child: SafeArea(
                 top: false,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                  // Use mdl (20px) to align with screen content padding
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.mdl),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
